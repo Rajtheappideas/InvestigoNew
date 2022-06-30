@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import {
   Cities,
   Footer,
@@ -16,6 +17,9 @@ import {
 const Home = () => {
   return (
     <>
+      <Helmet>
+        <title>Investigo - Home</title>
+      </Helmet>
       <Navbar />
       <Herosection />
       <Projects />

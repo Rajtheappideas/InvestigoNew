@@ -7,6 +7,7 @@ import {
 import img1 from "../../assets/images/icons/san.png";
 import img2 from "../../assets/images/icons/francisco.png";
 import img3 from "../../assets/images/icons/weldon.png";
+import '../../assets/vendor/slick/css/slick.css'
 
 const Cities = () => {
   const data = [

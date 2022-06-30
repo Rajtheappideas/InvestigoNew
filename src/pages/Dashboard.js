@@ -1,9 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
+import {
+  DashboardFooter,
+  DashboardNav,
+  DashBoard,
+  Invesment,
+  Orders,
+  Withdraw,
+} from "../components";
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
-  )
-}
+    <>
+      <DashboardNav />
+      <DashBoard />
+      {/* <Invesment /> */}
+      {/* <Orders /> */}
+      {/* <Withdraw /> */}
+      <DashboardFooter />
+    </>
+  );
+};
 
-export default Dashboard
+export default Dashboard;

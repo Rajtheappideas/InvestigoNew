@@ -1,6 +1,15 @@
 /* ==== 
  --------- (4.3) banner styles start ---------
  ==== */
+ @import "../abstracts/mixins";
+ @import "../abstracts/variables";
+ @import "../base/global";
+ @import "../base/reset";
+ @import "../base/typography";
+ @import "../components/buttons";
+ @import "../components/forms";
+ @import "../components/preloader";
+
 .banner {
   padding: 96px 0px 295px;
   background-color: #93abf0;

@@ -1,7 +1,14 @@
 /* ==== 
  --------- (4.2) hero section styles start ---------
  ==== */
-
+ @import "../abstracts/mixins";
+ @import "../abstracts/variables";
+ @import "../base/global";
+ @import "../base/reset";
+ @import "../base/typography";
+ @import "../components/buttons";
+ @import "../components/forms";
+ @import "../components/preloader";
 .hero {
   padding-top: 272px;
   padding-bottom: 270px;

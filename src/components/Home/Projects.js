@@ -177,7 +177,7 @@ const Projects = () => {
                         </div>
                         <div className="invest__cta">
                           <a
-                            href="project-details.html"
+                            href="/projectdetails"
                             className="button button--effect"
                           >
                             Invest Now

@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../../assets/images/hero/hero-two-bg.png";
+import '../../assets/scss/layout/_hero-section.scss'
 
 const Herosection = () => {
   return (

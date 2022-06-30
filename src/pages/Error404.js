@@ -21,7 +21,7 @@ const Error404 = () => {
       </Helmet>
       <Lottie options={defaultOptions} height={500} width={800} />
       <Link to="/">
-        <button className="p-5 inline-block mx-auto hover:bg-blue-800 focus:scale-95 transition-all transform duration-100 ease-in-out text-2xl rounded-xl bg-blue-500 text-white">
+        <button className="button button--secondary button--effect">
           Go back to Home
         </button>
       </Link>

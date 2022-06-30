@@ -18,7 +18,7 @@ const VideoPopup = () => {
               target="_blank"
               title="YouTube video player"
             >
-              <FontAwesomeIcon icon={faPlay} />
+              <FontAwesomeIcon icon={faPlay} color="blue" size="lg" />
             </a>
           </div>
         </div>

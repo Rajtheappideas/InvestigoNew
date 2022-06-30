@@ -1,9 +1,31 @@
-import React from 'react'
+import React from "react";
+import { Helmet } from "react-helmet";
+import {
+  Footer,
+  Gallery,
+  JobSection,
+  MarketSection,
+  Navbar,
+  TeamSection,
+} from "../components";
+import { Banner, Overview } from "../components/index";
 
 const Aboutus = () => {
   return (
-    <div>Aboutus</div>
-  )
-}
+    <>
+      <Helmet>
+        <title>Investigo - About us</title>
+      </Helmet>
+      <Navbar />
+      <Banner />
+      <Overview />
+      <Gallery />
+      <TeamSection />
+      <MarketSection />
+      <JobSection />
+      <Footer />
+    </>
+  );
+};
 
-export default Aboutus
+export default Aboutus;

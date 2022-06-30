@@ -1,7 +1,14 @@
 /* ==== 
  --------- (4.5) footer styles start ---------
  ==== */
-
+ @import "../abstracts/mixins";
+ @import "../abstracts/variables";
+ @import "../base/global";
+ @import "../base/reset";
+ @import "../base/typography";
+ @import "../components/buttons";
+ @import "../components/forms";
+ @import "../components/preloader";
 .footer {
   background-color: #1e263a;
   z-index: 1;

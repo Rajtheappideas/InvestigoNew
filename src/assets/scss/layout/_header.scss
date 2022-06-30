@@ -1,24 +1,31 @@
 /* ==== 
  --------- (4.1) header styles start ---------
  ==== */
-
-header {
+ @import "../abstracts/mixins";
+ @import "../abstracts/variables";
+ @import "../base/global";
+ @import "../base/reset";
+ @import "../base/typography";
+ @import "../components/buttons";
+ @import "../components/forms";
+ @import "../components/preloader";
+ header {
   position: fixed;
   top: 0px;
   left: 0px;
   right: 0px;
   background-color: transparent;
   z-index: 99;
-  transition: $primary-transition;
+  transition: all 0.3s ease-out;
 }
 
 .header__active {
   box-shadow: $primary-shadow;
-  background-color: $white;
+  background-color: #ffffff;
 }
 
 .header--secondary {
-  background-color: $white;
+  background-color: #ffffff;
 }
 
 .navbar {
@@ -200,17 +207,17 @@ header {
         width: 50px;
         height: 100%;
         margin: 0px;
-        border-left: 3px solid $white;
+        border-left: 3px solid #ffffff;
       }
     }
   }
   .show {
     color: $primary-color !important;
-    transition: $primary-transition;
+    transition: all 0.3s ease-out;
     &::after {
       transform: rotate(180deg);
       @include responsive(lg) {
-        border-right: 3px solid $white;
+        border-right: 3px solid #ffffff;
         border-left: 0px;
       }
     }
@@ -224,7 +231,7 @@ header {
   .dropdown-menu {
     margin: 0px;
     padding: 0px;
-    background-color: $white;
+    background-color: #ffffff;
     margin-top: 0px;
     border-top: 4px solid $secondary-color;
     box-shadow: $primary-shadow;
@@ -260,20 +267,20 @@ header {
       padding: 10px 16px;
       color: $primary-color;
       border-bottom: 1px solid #e4e4e4;
-      transition: $primary-transition;
+      transition: all 0.3s ease-out;
       @include responsive(xl) {
         font-size: 14px;
         line-height: 20px;
       }
       &:hover {
         background-color: $secondary-color;
-        color: $white;
+        color: #ffffff;
         padding-left: 20px;
       }
     }
     .dropdown-item-active {
       background-color: $quaternary-color;
-      color: $white;
+      color: #ffffff;
       padding-left: 20px;
     }
     li {
@@ -342,7 +349,7 @@ header {
 
 // dashboard header styles start
 .dashboard-header {
-  background-color: $white;
+  background-color: #ffffff;
   position: fixed;
   top: 0px;
   left: 0px;
@@ -437,7 +444,7 @@ header {
       visibility: hidden;
       opacity: 0;
       box-shadow: $primary-shadow;
-      transition: $primary-transition;
+      transition: all 0.3s ease-out;
       @include responsive(xl) {
         top: calc(100% + 40px);
       }
@@ -457,7 +464,7 @@ header {
         p {
           font-size: 18px;
           font-weight: 600;
-          color: $white;
+          color: #ffffff;
           @include responsive(sm) {
             font-size: 16px;
           }
@@ -483,7 +490,7 @@ header {
           width: 5px;
         }
         &::-webkit-scrollbar-track {
-          background-color: $white;
+          background-color: #ffffff;
           border-radius: 10px;
         }
         &::-webkit-scrollbar-thumb {
@@ -502,13 +509,13 @@ header {
         }
         h6 {
           margin-bottom: 10px;
-          color: $white;
+          color: #ffffff;
           @include responsive(sm) {
             margin-bottom: 5px;
           }
         }
         p {
-          color: $white;
+          color: #ffffff;
           font-size: 14px;
           @include responsive(sm) {
             font-size: 12px;
@@ -546,7 +553,7 @@ header {
             font-size: 14px;
           }
           &:hover {
-            color: $white;
+            color: #ffffff;
           }
         }
       }
@@ -625,7 +632,7 @@ header {
 }
 
 .dashboard-header__active {
-  background-color: $white;
+  background-color: #ffffff;
   box-shadow: $primary-shadow;
 }
 /* ==== 

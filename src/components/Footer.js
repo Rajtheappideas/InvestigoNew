@@ -10,6 +10,7 @@ import {
   faTwitter,
   faLinkedinIn,
 } from "@fortawesome/free-brands-svg-icons";
+import '.././assets/scss/layout/_footer.scss'
 
 const Footer = () => {
   return (
@@ -19,7 +20,9 @@ const Footer = () => {
           <div className="row d-flex align-items-center">
             <div className="col-lg-6">
               <div className="footer__newsletter__content column__space">
-                <h3>Subscribe for updates</h3>
+                <h3>
+                  <span style={{color:"white"}}>Subscribe for updates</span>
+                </h3>
                 <p>
                   Stay on top of the latest blog posts, news and announcements
                 </p>

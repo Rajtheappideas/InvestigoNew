@@ -2,6 +2,7 @@ import React from "react";
 import logo from "../assets/images/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightLong } from "@fortawesome/free-solid-svg-icons";
+import "../assets/scss/layout/_header.scss";
 
 const Navbar = () => {
   return (

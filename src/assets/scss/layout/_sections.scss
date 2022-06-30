@@ -1,7 +1,14 @@
 /* ==== 
  --------- (4.4) all sections styles start ---------
  ==== */
-
+ @import "../abstracts/mixins";
+ @import "../abstracts/variables";
+ @import "../base/global";
+ @import "../base/reset";
+ @import "../base/typography";
+ @import "../components/buttons";
+ @import "../components/forms";
+ @import "../components/preloader";
 // property filter styles start
 .property__filter {
   @include center(1376px);
