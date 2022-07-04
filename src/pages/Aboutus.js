@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy } from "react";
 import { Helmet } from "react-helmet";
 import {
   Footer,
@@ -8,7 +8,8 @@ import {
   Navbar,
   TeamSection,
 } from "../components";
-import { Banner, Overview } from "../components/index";
+import { Banner } from "../components/index";
+const Overview = lazy(() => import("../components/Aboutus/Overview"));
 
 const Aboutus = () => {
   return (

@@ -98,7 +98,7 @@ const JobSection = () => {
           </div>
         </div>
         <div className="cta__btn">
-          <a href="career.html" className="button button--effect">
+          <a href="/career" className="button button--effect">
             See all open roles <FontAwesomeIcon icon={faAngleRight} size="lg" />
           </a>
         </div>

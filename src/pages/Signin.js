@@ -34,6 +34,7 @@ const Signin = () => {
                   <a
                     href="/signup"
                     className="button button--effect d-none d-sm-block"
+                    style={{color:"white"}}
                   >
                     {" "}
                     Join Now <FontAwesomeIcon icon={faArrowRightLong} />{" "}

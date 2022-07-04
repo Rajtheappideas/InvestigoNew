@@ -27,13 +27,18 @@ const Signup = () => {
               </a>
               <div className="navbar__out order-2 order-xl-3">
                 <div className="nav__group__btn">
-                  <a href="/signin" className="log d-none d-sm-block">
+                  <a
+                    href="/signin"
+                    style={{ color: "black", textDecoration: "none" }}
+                    className="log d-none d-sm-block"
+                  >
                     {" "}
                     Log In{" "}
                   </a>
                   <a
                     href="/signup"
                     className="button button--effect d-none d-sm-block"
+                    style={{ color: "white", textDecoration: "none" }}
                   >
                     {" "}
                     Join Now <FontAwesomeIcon icon={faArrowRightLong} />{" "}
@@ -59,13 +64,13 @@ const Signup = () => {
               >
                 <ul className="navbar-nav">
                   <li className="nav-item d-block d-sm-none">
-                    <a href="login.html" className="nav-link">
+                    <a href="/signin" className="nav-link">
                       Log In
                     </a>
                   </li>
                   <li className="nav-item d-block d-sm-none">
                     <a
-                      href="registration.html"
+                      href="/signup"
                       className="button button--effect button--last"
                     >
                       Join Now <FontAwesomeIcon icon={faArrowRightLong} />
@@ -88,9 +93,13 @@ const Signup = () => {
               <form action="#" method="post" name="registration__form">
                 <div className="regi__type">
                   <label htmlFor="typeSelect">You are?</label>
-                  <select className="type__select" id="typeSelect">
-                    <option value="particular">Particular</option>
-                    <option value="individual">Individual</option>
+                  <select
+                    className="type__select nice-select list"
+                    id="typeSelect"
+                    style={{}}
+                  >
+                    <option value="particular option">Particular</option>
+                    <option value="individual option">Individual</option>
                   </select>
                 </div>
                 <div className="row">

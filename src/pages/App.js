@@ -16,9 +16,6 @@ const Dashboard = lazy(() => import("./pages/Dashboard"));
 const HowitsWorks = lazy(() => import("./pages/HowitsWorks"));
 const Benefits = lazy(() => import("./pages/Benefits"));
 const Account = lazy(() => import("./pages/Account"));
-const Invesment = lazy(() => import("./pages/Invesment"));
-const Orders = lazy(() => import("./pages/Orders"));
-const Withdraw = lazy(() => import("./pages/Withdraw"));
 const Blog = lazy(() => import("./pages/Blog"));
 const Career = lazy(() => import("./pages/Career"));
 const LoyaltyProgram = lazy(() => import("./pages/LoyaltyProgram"));
@@ -82,9 +79,6 @@ function App() {
               <Route path="/contactus" element={<Contactus />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/account" element={<Account />} />
-              <Route path="/orders" element={<Orders />} />
-              <Route path="/investment" element={<Invesment />} />
-              <Route path="/withdraw" element={<Withdraw />} />
               <Route path="/howitsworks" element={<HowitsWorks />} />
               <Route path="/benefits" element={<Benefits />} />
               <Route path="/accomplished" element={<Accomplished />} />

@@ -1,6 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import { Footer, Navbar } from "../components";
+import { Footer, Gallery, Navbar } from "../components";
 import bgImg from "../assets/images/banner/banner-bg.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
@@ -51,56 +51,7 @@ const Career = () => {
             on the lookout for kindred spirits.
           </p>
         </div>
-        <div className="image__gallery__area">
-          <div className="gallery__single">
-            <a href={require("../assets/images/one.png")}>
-              <img
-                src={require("../assets/images/one.png")}
-                alt="Proect Image"
-              />
-            </a>
-          </div>
-          <div className="gallery__single">
-            <a href={require("../assets/images/two.png")}>
-              <img
-                src={require("../assets/images/two.png")}
-                alt="Proect Image"
-              />
-            </a>
-          </div>
-          <div className="gallery__single">
-            <a href={require("../assets/images/three.png")}>
-              <img
-                src={require("../assets/images/three.png")}
-                alt="Proect Image"
-              />
-            </a>
-          </div>
-          <div className="gallery__single">
-            <a href={require("../assets/images/one.png")}>
-              <img
-                src={require("../assets/images/one.png")}
-                alt="Proect Image"
-              />
-            </a>
-          </div>
-          <div className="gallery__single">
-            <a href={require("../assets/images/two.png")}>
-              <img
-                src={require("../assets/images/two.png")}
-                alt="Proect Image"
-              />
-            </a>
-          </div>
-          <div className="gallery__single">
-            <a href={require("../assets/images/three.png")}>
-              <img
-                src={require("../assets/images/three.png")}
-                alt="Proect Image"
-              />
-            </a>
-          </div>
-        </div>
+        <Gallery />
       </section>
       {/* open position start */}
       <section className="open__tab__position section__space__bottom">

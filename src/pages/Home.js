@@ -19,6 +19,7 @@ const Home = () => {
     <>
       <Helmet>
         <title>Investigo - Home</title>
+        <script src="../../assets/vendor/slick/js/slick.js"></script>
       </Helmet>
       <Navbar />
       <Herosection />

@@ -170,7 +170,7 @@ const Footer = () => {
               <div className="footer__copyright">
                 <p>
                   Copyright © All right reserved by{" "}
-                  <a href="index.html">Investigo</a>
+                  <a href="/">Investigo</a>
                 </p>
               </div>
             </div>

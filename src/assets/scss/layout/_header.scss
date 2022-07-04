@@ -14,7 +14,7 @@
   top: 0px;
   left: 0px;
   right: 0px;
-  background-color: transparent;
+  background-color: #ffffff;
   z-index: 99;
   transition: all 0.3s ease-out;
 }
@@ -30,7 +30,7 @@
 
 .navbar {
   padding: 23px 0px;
-  background-color: transparent;
+  background-color: #ffffff;
   @include responsive(laptop) {
     padding: 24px 0px;
   }

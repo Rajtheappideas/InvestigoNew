@@ -1,6 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import { Footer, Market, Navbar } from "../components";
+import { Footer, Gallery, Market, Navbar } from "../components";
 import bgImg from "../assets/images/construction.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -17,7 +17,6 @@ import {
   faTwitter,
   faLinkedinIn,
 } from "@fortawesome/free-brands-svg-icons";
-import '../assets/css/style.css'
 
 const Benefits = () => {
   return (
@@ -409,7 +408,6 @@ const Benefits = () => {
           </div>
         </div>
       </section>
-
       {/* gallery */}
       <div className="container">
         <div className="title__with__cta">
@@ -430,59 +428,8 @@ const Benefits = () => {
           </div>
         </div>
       </div>
-      <div className="image__gallery section__space">
-        <div className="image__gallery__area">
-          <div className="gallery__single">
-            <a href={require("../assets/images/one.png")}>
-              <img
-                src={require("../assets/images/one.png")}
-                alt="Project Image"
-              />
-            </a>
-          </div>
-          <div className="gallery__single">
-            <a href={require("../assets/images/two.png")}>
-              <img
-                src={require("../assets/images/two.png")}
-                alt="Project Image"
-              />
-            </a>
-          </div>
-          <div className="gallery__single">
-            <a href={require("../assets/images/three.png")}>
-              <img
-                src={require("../assets/images/three.png")}
-                alt="Project Image"
-              />
-            </a>
-          </div>
-          <div className="gallery__single">
-            <a href={require("../assets/images/four.png")}>
-              <img
-                src={require("../assets/images/four.png")}
-                alt="Project Image"
-              />
-            </a>
-          </div>
-          <div className="gallery__single">
-            <a href={require("../assets/images/five.png")}>
-              <img
-                src={require("../assets/images/five.png")}
-                alt="Project Image"
-              />
-            </a>
-          </div>
-          <div className="gallery__single">
-            <a href={require("../assets/images/six.png")}>
-              <img
-                src={require("../assets/images/six.png")}
-                alt="Project Image"
-              />
-            </a>
-          </div>
-        </div>
-      </div>
-
+      <Gallery />
+      {/* <Gallery /> */}
       {/* properties */}
       <section className="properties__grid section__space wow fadeInUp">
         <div className="container">
@@ -804,7 +751,6 @@ const Benefits = () => {
           </div>
         </div>
       </section>
-
       {/* market */}
       <Market />
       <Footer />
