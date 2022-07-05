@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import img1 from "../../assets/images/property/project01.png";
 import img2 from "../../assets/images/property/project02.png";
 import img3 from "../../assets/images/property/project03.png";
@@ -15,6 +15,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const Properties = () => {
+  const [showGrid, setShowGrid] = useState(false);
   const data = [
     {
       img: img1,
@@ -91,31 +92,56 @@ const Properties = () => {
             Showing <span>6</span> projects
           </h6>
           <div className="grid__wrapper">
-            <select className="grid__select">
+            <select
+              className="grid__select"
+              style={{
+                width: "auto",
+                padding: "10px",
+              }}
+            >
               <option data-display="Sort By">Sort By</option>
               <option value="grid">Date</option>
               <option value="list">Price</option>
             </select>
-            <a
-              href="javascript:void(0)"
-              className="grid__btn grid__view grid__btn__active"
+            <button
+              // href="javascript:void(0)"
+              className={`grid__btn grid__view ${
+                !showGrid && "grid__btn__active"
+              }`}
+              onClick={() => setShowGrid(false)}
             >
-              <FontAwesomeIcon icon={faGrip} />
-            </a>
-            <a href="javascript:void(0)" className="grid__btn grid__list">
-              <FontAwesomeIcon icon={faBars} />
-            </a>
+              <i className="fa-solid fa-grip"></i>
+            </button>
+            <button
+              // href="javascript:void(0)"
+              className={`grid__btn grid__view ${
+                showGrid && "grid__btn__active"
+              }`}
+              onClick={() => setShowGrid(true)}
+            >
+              <i className="fa-solid fa-bars"></i>
+            </button>
           </div>
         </div>
         <div className="row property__grid__area__wrapper">
           {data.map((project, i) => (
             <div
-              className="col-xl-4 col-md-6 property__grid__area__wrapper__inner"
+              className={`property__grid__area__wrapper__inner ${
+                !showGrid && "col-xl-4 col-md-6"
+              }`}
               key={i}
             >
-              <div className="property__list__wrapper property__grid">
+              <div
+                className={`property__list__wrapper ${
+                  !showGrid && "property__grid"
+                }`}
+              >
                 <div className="row d-flex align-items-center">
-                  <div className="property__grid__area__wrapper__inner__two">
+                  <div
+                    className={`property__grid__area__wrapper__inner__two ${
+                      showGrid && "col-xl-5"
+                    }`}
+                  >
                     <div className="property__item__image column__space--secondary">
                       <div className="img__effect">
                         <a href="/">
@@ -124,7 +150,11 @@ const Properties = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="property__grid__area__wrapper__inner__three">
+                  <div
+                    className={`property__grid__area__wrapper__inner__three ${
+                      showGrid && "col-xl-7"
+                    }`}
+                  >
                     <div className="property__item__content">
                       <div className="item__head">
                         <div className="item__head__left">
@@ -210,7 +240,10 @@ const Properties = () => {
                       <div className="item__footer">
                         <div className="item__security">
                           <div className="icon__box">
-                            <img src="assets/images/home.png" alt="Security" />
+                            <img
+                              src={require("../../assets/images/home.png")}
+                              alt="Security"
+                            />
                           </div>
                           <div className="item__security__content">
                             <p className="secondary">Security</p>
@@ -218,10 +251,7 @@ const Properties = () => {
                           </div>
                         </div>
                         <div className="item__cta__group">
-                          <a
-                            href="/signup"
-                            className="button button--effect"
-                          >
+                          <a href="/signup" className="button button--effect">
                             Invest Now
                           </a>
                           <a

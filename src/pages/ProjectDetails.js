@@ -583,20 +583,20 @@ const ProjectDetails = () => {
                     </div>
                     <div className="group birinit">
                       <h6>Share via Social </h6>
-                      <div className="social text-start">
-                        <a href="javascript:void(0)">
-                          <FontAwesomeIcon icon={faFacebookF} />
-                        </a>
-                        <a href="javascript:void(0)">
-                          <FontAwesomeIcon icon={faLinkedinIn} />
-                        </a>
-                        <a href="javascript:void(0)">
-                          <FontAwesomeIcon icon={faInstagram} />
-                        </a>
-                        <a href="javascript:void(0)">
-                          <FontAwesomeIcon icon={faTwitter} />
-                        </a>
-                      </div>
+                      <div class="social text-start">
+                                    <a href="javascript:void(0)">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                    <a href="javascript:void(0)">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                    <a href="javascript:void(0)">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                    <a href="javascript:void(0)">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                </div>
                     </div>
                     <div className="group alt__brin">
                       <h5>

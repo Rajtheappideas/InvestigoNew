@@ -131,7 +131,7 @@ const Cities = () => {
                   Explore By <span>Cities</span>
                 </h2>
               </div>
-              <div className="col-lg-4">
+              {/* <div className="col-lg-4">
                 <div className="custom__slide__btn">
                   <a
                     href="javascript:void(0)"
@@ -147,7 +147,7 @@ const Cities = () => {
                     <FontAwesomeIcon icon={faArrowRightLong} />
                   </a>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
 

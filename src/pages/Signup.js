@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import bgImg from "../assets/images/registration-bg.png";
 import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "../assets/vendor/nice-select/css/nice-select.css";
 
 const Signup = () => {
   return (
@@ -88,7 +89,10 @@ const Signup = () => {
             <div className="registration__area">
               <h4 className="neutral-top">Registration</h4>
               <p>
-                Already Registered? <a href="/sigin">Login</a>
+                Already Registered?{" "}
+                <a href="/sigin" style={{ textDecoration: "none" }}>
+                  Login
+                </a>
               </p>
               <form action="#" method="post" name="registration__form">
                 <div className="regi__type">
@@ -96,9 +100,9 @@ const Signup = () => {
                   <select
                     className="type__select nice-select list"
                     id="typeSelect"
-                    style={{}}
+                  style={{fontSize:"20px"}}
                   >
-                    <option value="particular option">Particular</option>
+                    <option value="particular option ">Particular</option>
                     <option value="individual option">Individual</option>
                   </select>
                 </div>

@@ -44,8 +44,7 @@ const Benefits = () => {
                   </a>
                   <div className="intro">
                     <h3>
-                      How much will FontAwesomeIcon icon if FontAwesomeIcon{" "}
-                      <icon>invest:</icon>
+                      How much will I earn if I <span>invest:</span>
                     </h3>
                   </div>
                   <div className="investment__amount__area">
@@ -108,27 +107,21 @@ const Benefits = () => {
                       </div>
                       <div className="investment__footer">
                         <div>
-                          <p className="secondary">
-                            FontAwesomeIcon icon earn ( 01 Month )
-                          </p>
+                          <p className="secondary">I will earn ( 01 Month )</p>
                           <h4 className="neutral-bottom">
-                            O.72 <FontAwesomeIcon icon={faEuroSign} />
+                            O.72 <i className="fa-solid fa-euro-sign"></i>
                           </h4>
                         </div>
                         <div>
-                          <p className="secondary">
-                            FontAwesomeIcon icon earn ( 12 Month )
-                          </p>
+                          <p className="secondary">I will earn ( 12 Month )</p>
                           <h4 className="neutral-bottom">
-                            11.72 <FontAwesomeIcon icon={faEuroSign} />
+                            11.72 <i className="fa-solid fa-euro-sign"></i>
                           </h4>
                         </div>
                         <div>
-                          <p className="secondary">
-                            FontAwesomeIcon icon earn ( 24 Month )
-                          </p>
+                          <p className="secondary">I will earn ( 24 Month )</p>
                           <h4 className="neutral-bottom">
-                            17.72 <FontAwesomeIcon icon={faEuroSign} />
+                            17.72 <i className="fa-solid fa-euro-sign"></i>
                           </h4>
                         </div>
                       </div>
@@ -340,18 +333,18 @@ const Benefits = () => {
                   </div>
                   <div className="group birinit">
                     <h6>Share via Social </h6>
-                    <div className="social text-start">
+                    <div class="social text-start">
                       <a href="javascript:void(0)">
-                        <FontAwesomeIcon icon={faFacebookF} />
+                        <i className="fab fa-facebook-f"></i>
                       </a>
                       <a href="javascript:void(0)">
-                        <FontAwesomeIcon icon={faTwitter} />
+                        <i className="fab fa-twitter"></i>
                       </a>
                       <a href="javascript:void(0)">
-                        <FontAwesomeIcon icon={faInstagram} />
+                        <i className="fab fa-instagram"></i>
                       </a>
                       <a href="javascript:void(0)">
-                        <FontAwesomeIcon icon={faLinkedinIn} />
+                        <i className="fab fa-linkedin-in"></i>
                       </a>
                     </div>
                   </div>

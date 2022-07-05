@@ -14802,3 +14802,72 @@ header {
   --------- (4.5) footer styles end ---------
   ==== */
 /*# sourceMappingURL=style.css.map */
+
+/* my own style start */
+.checkout-box {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  width: auto;
+  height: auto;
+  gap: 4px;
+  border-radius: 10px;
+  position: relative;
+}
+.checkout-box span {
+  font-size: 20px;
+  position: absolute;
+  top: -14px;
+  left: 25%;
+}
+.checkout-box img {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  margin-top: 10px;
+}
+.checkout-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+@media only screen and (max-width: 767px) {
+  .checkout-box {
+    margin-bottom: 20px;
+    width: 15rem;
+    height: 15rem;
+  }
+  .checkout-wrapper {
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    width: auto;
+  }
+}
+.project-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+}
+.project-box h6 {
+  white-space: nowrap;
+}
+.project-box img {
+  border-radius: 10px;
+  border-left: solid #ffffff 1rem;
+}
+
+.project-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+@media only screen and (max-width: 768px) {
+  .project-box img {
+    border-left: none;
+    border-radius: 10px;
+  }
+}

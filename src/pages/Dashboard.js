@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { Helmet } from "react-helmet";
+import React, { useEffect, useState } from "react";
 import {
   DashboardFooter,
   DashboardNav,
@@ -7,11 +6,8 @@ import {
   Orders,
   Withdraw,
   Invesment,
+  Account
 } from "../components";
-import Account from "../pages/Account";
-// import Withdraw from "../pages/Withdraw";
-// import Invesment from "../pages/Invesment";
-// import Orders from "../pages/Orders";
 
 const Dashboard = () => {
   const [showDashboard, setShowDashboard] = useState(true);
@@ -19,9 +15,17 @@ const Dashboard = () => {
   const [showOrders, setShowOrders] = useState(false);
   const [showInvestment, setShowInvestment] = useState(false);
   const [showWithdraw, setShowWithdraw] = useState(false);
+ 
   return (
     <>
-      <DashboardNav />
+      <DashboardNav
+        setShowDashboard={setShowDashboard}
+        setShowAccount={setShowAccount}
+        setShowOrders={setShowOrders}
+        setShowInvestment={setShowInvestment}
+        setShowWithdraw={setShowWithdraw}
+        showDashboard={showDashboard}
+      />
       {showDashboard && (
         <DashBoard
           setShowDashboard={setShowDashboard}
@@ -29,6 +33,11 @@ const Dashboard = () => {
           setShowOrders={setShowOrders}
           setShowInvestment={setShowInvestment}
           setShowWithdraw={setShowWithdraw}
+          showDashboard={showDashboard}
+          showAccount={showAccount}
+          showOrders={showOrders}
+          showInvestment={showInvestment}
+          showWithdraw={showWithdraw}
         />
       )}
       {showInvestment && (
@@ -38,6 +47,11 @@ const Dashboard = () => {
           setShowOrders={setShowOrders}
           setShowInvestment={setShowInvestment}
           setShowWithdraw={setShowWithdraw}
+          showDashboard={showDashboard}
+          showAccount={showAccount}
+          showOrders={showOrders}
+          showInvestment={showInvestment}
+          showWithdraw={showWithdraw}
         />
       )}
       {showAccount && (
@@ -47,6 +61,11 @@ const Dashboard = () => {
           setShowOrders={setShowOrders}
           setShowInvestment={setShowInvestment}
           setShowWithdraw={setShowWithdraw}
+          showDashboard={showDashboard}
+          showAccount={showAccount}
+          showOrders={showOrders}
+          showInvestment={showInvestment}
+          showWithdraw={showWithdraw}
         />
       )}
       {showOrders && (
@@ -56,6 +75,11 @@ const Dashboard = () => {
           setShowOrders={setShowOrders}
           setShowInvestment={setShowInvestment}
           setShowWithdraw={setShowWithdraw}
+          showDashboard={showDashboard}
+          showAccount={showAccount}
+          showOrders={showOrders}
+          showInvestment={showInvestment}
+          showWithdraw={showWithdraw}
         />
       )}
       {showWithdraw && (
@@ -65,6 +89,11 @@ const Dashboard = () => {
           setShowOrders={setShowOrders}
           setShowInvestment={setShowInvestment}
           setShowWithdraw={setShowWithdraw}
+          showDashboard={showDashboard}
+          showAccount={showAccount}
+          showOrders={showOrders}
+          showInvestment={showInvestment}
+          showWithdraw={showWithdraw}
         />
       )}
       <DashboardFooter />

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { Footer, Navbar } from "../components";
 import bgImg from "../assets/images/support-bg.png";
 import Faq from "../components/Faq";
 
 const Support = () => {
+  const [activeButton, setActiveButton] = useState("start");
   return (
     <>
       <Helmet>
@@ -31,20 +32,47 @@ const Support = () => {
               <div className="faq__tab">
                 <a
                   href="#start"
-                  className="faq__tab__btn faq__tab__btn__active"
+                  onClick={() => setActiveButton("start")}
+                  className={`faq__tab__btn ${
+                    activeButton == "start" && "faq__tab__btn__active"
+                  }`}
                 >
                   Getting Started
                 </a>
-                <a href="#funds" className="faq__tab__btn">
+                <a
+                  href="#funds"
+                  onClick={() => setActiveButton("funds")}
+                  className={`faq__tab__btn ${
+                    activeButton == "funds" && "faq__tab__btn__active"
+                  }`}
+                >
                   Adding Funds
                 </a>
-                <a href="#investing" className="faq__tab__btn">
+                <a
+                  href="#investing"
+                  onClick={() => setActiveButton("investing")}
+                  className={`faq__tab__btn ${
+                    activeButton == "investing" && "faq__tab__btn__active"
+                  }`}
+                >
                   Investing
                 </a>
-                <a href="#security" className="faq__tab__btn">
+                <a
+                  href="#security"
+                  onClick={() => setActiveButton("security")}
+                  className={`faq__tab__btn ${
+                    activeButton == "security" && "faq__tab__btn__active"
+                  }`}
+                >
                   Security
                 </a>
-                <a href="#taxes" className="faq__tab__btn">
+                <a
+                  href="#taxes"
+                  onClick={() => setActiveButton("taxes")}
+                  className={`faq__tab__btn ${
+                    activeButton == "taxes" && "faq__tab__btn__active"
+                  }`}
+                >
                   Taxes
                 </a>
               </div>

@@ -8,7 +8,19 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 
-const Account = () => {
+const Account = ({
+  setShowDashboard,
+  setShowAccount,
+  setShowOrders,
+  setShowInvestment,
+  setShowWithdraw,
+  showDashboard,
+  showAccount,
+  showOrders,
+  showInvestment,
+  showWithdraw,
+}) => {
+  const [showSidebar, setShowSidebar] = useState(false);
   const [openGeneral, setOpenGeneral] = useState(true);
   const [openBilling, setOpenBilling] = useState(false);
   const [openSecurity, setOpenSecurity] = useState(false);
@@ -20,97 +32,174 @@ const Account = () => {
         <div className="container">
           <div className="dashboard__area">
             <div className="row">
-              <div className="col-xxl-3">
-                <div className="sidebar">
-                  <a href="javascript:void(0)" className="close__sidebar">
-                    <FontAwesomeIcon icon={faXmark} />
-                  </a>
-                  <div className="sidenav__wrapper">
-                    <ul>
-                      <li>
-                        <a href="/dashboard" className="sidenav__active">
+              {showSidebar && (
+                <div className="col-xxl-3">
+                  <div
+                    className={`sidebar ${
+                      showSidebar ? "sidebar__active" : "close__active"
+                    } `}
+                  >
+                    <a
+                      href="javascript:void(0)"
+                      onClick={() => setShowSidebar(false)}
+                      className="close__sidebar"
+                      style={{ cursor: "pointer" }}
+                    >
+                      <FontAwesomeIcon icon={faXmark} color="black" size="lg" />
+                    </a>
+                    <div className="sidenav__wrapper">
+                      <ul>
+                        <li
+                          onClick={() => {
+                            setShowDashboard(true);
+                            setShowAccount(false);
+                            setShowInvestment(false);
+                            setShowWithdraw(false);
+                            setShowOrders(false);
+                          }}
+                          style={{ cursor: "pointer" }}
+                        >
+                          <a
+                            href="/dashboard"
+                            className={`${showDashboard && "sidenav__active"}`}
+                          >
+                            <img
+                              src={require("../assets/images/icons/dashboard.png")}
+                              alt="Dashboard"
+                            />{" "}
+                            Dashboard
+                          </a>
+                        </li>
+                        <li
+                          onClick={() => {
+                            setShowDashboard(false);
+                            setShowAccount(false);
+                            setShowInvestment(true);
+                            setShowWithdraw(false);
+                            setShowOrders(false);
+                          }}
+                          style={{ cursor: "pointer" }}
+                        >
+                          <a
+                            href="javascript:void(0)"
+                            className={`${showInvestment && "sidenav__active"}`}
+                          >
+                            <img
+                              src={require("../assets/images/icons/investments.png")}
+                              alt="Investments"
+                            />
+                            Investments
+                          </a>
+                        </li>
+                        <li
+                          onClick={() => {
+                            setShowDashboard(false);
+                            setShowAccount(false);
+                            setShowInvestment(false);
+                            setShowWithdraw(false);
+                            setShowOrders(true);
+                          }}
+                          style={{ cursor: "pointer" }}
+                        >
+                          <a
+                            href="javascript:void(0)"
+                            className={`${showOrders && "sidenav__active"}`}
+                          >
+                            <img
+                              src={require("../assets/images/icons/transactions.png")}
+                              alt="Transactions"
+                            />
+                            Orders
+                          </a>
+                        </li>
+                        <li
+                          onClick={() => {
+                            setShowDashboard(false);
+                            setShowAccount(false);
+                            setShowInvestment(false);
+                            setShowWithdraw(true);
+                            setShowOrders(false);
+                          }}
+                          style={{ cursor: "pointer" }}
+                        >
+                          <a
+                            href="javascript:void(0)"
+                            className={`${showWithdraw && "sidenav__active"}`}
+                          >
+                            <img
+                              src={require("../assets/images/icons/withdraw.png")}
+                              alt="Withdraw"
+                            />{" "}
+                            Withdraw
+                          </a>
+                        </li>
+                        <li
+                          onClick={() => {
+                            setShowDashboard(false);
+                            setShowAccount(true);
+                            setShowInvestment(false);
+                            setShowWithdraw(false);
+                            setShowOrders(false);
+                          }}
+                          style={{ cursor: "pointer" }}
+                        >
+                          <a
+                            href="/account"
+                            className={`${showAccount && "sidenav__active"}`}
+                          >
+                            <img
+                              src={require("../assets/images/icons/account.png")}
+                              alt="Account"
+                            />{" "}
+                            Account
+                          </a>
+                        </li>
+                      </ul>
+                      <hr />
+                      <ul className="logout">
+                        <li>
+                          <a href="/signin">
+                            <img
+                              src={require("../assets/images/icons/logout.png")}
+                              alt="Logout"
+                            />{" "}
+                            Logout
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="sidenav__wrapper sidenav__footer">
+                      <h6>Last Login</h6>
+                      <hr />
+                      <div className="sidenav__time">
+                        <p className="secondary">
                           <img
-                            src={require("../assets/images/icons/dashboard.png")}
-                            alt="Dashboard"
-                          />{" "}
-                          Dashboard
-                        </a>
-                      </li>
-                      <li>
-                        <a href="/investment">
-                          <img
-                            src={require("../assets/images/icons/investments.png")}
-                            alt="Investments"
+                            src={require("../assets/images/icons/calendar.png")}
+                            alt="Calendar"
                           />
-                          Investments
-                        </a>
-                      </li>
-                      <li>
-                        <a href="/transaction">
-                          <img
-                            src={require("../assets/images/icons/transactions.png")}
-                            alt="Transactions"
-                          />
-                          Orders
-                        </a>
-                      </li>
-                      <li>
-                        <a href="/withdraw">
-                          <img
-                            src={require("../assets/images/icons/withdraw.png")}
-                            alt="Withdraw"
-                          />{" "}
-                          Withdraw
-                        </a>
-                      </li>
-                      <li>
-                        <a href="/account">
-                          <img
-                            src={require("../assets/images/icons/account.png")}
-                            alt="Account"
-                          />{" "}
-                          Account
-                        </a>
-                      </li>
-                    </ul>
-                    <hr />
-                    <ul className="logout">
-                      <li>
-                        <a href="/signin">
-                          <img
-                            src={require("../assets/images/icons/logout.png")}
-                            alt="Logout"
-                          />{" "}
-                          Logout
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="sidenav__wrapper sidenav__footer">
-                    <h6>Last Login</h6>
-                    <hr />
-                    <div className="sidenav__time">
-                      <p className="secondary">
-                        <img
-                          src={require("../assets/images/icons/calendar.png")}
-                          alt="Calendar"
-                        />
-                        02.01.2022
-                      </p>
-                      <p className="secondary">15:48:13</p>
+                          02.01.2022
+                        </p>
+                        <p className="secondary">15:48:13</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              )}
               <div className="col-xxl-9">
                 <div className="main__content">
                   <div className="collapse__sidebar">
                     <h4>Dashboard</h4>
                     <a
-                      href="javascript:void(0)"
+                      // href="javascript:void(0)"
+                      onClick={() => setShowSidebar(true)}
                       className="collapse__sidebar__btn"
+                      style={{ cursor: "pointer" }}
                     >
-                      <FontAwesomeIcon icon={faBarsStaggered} />
+                      <FontAwesomeIcon
+                        icon={faBarsStaggered}
+                        color="white "
+                        size="lg"
+                      />
                     </a>
                   </div>
                   <div className="main__content-dashboard">
@@ -499,7 +588,7 @@ const Account = () => {
                                       case you forgot it.
                                     </p>
                                     <a
-                                      href="#"
+                                      href="/forgotpassword"
                                       className="button button--effect"
                                     >
                                       Forgot Password?

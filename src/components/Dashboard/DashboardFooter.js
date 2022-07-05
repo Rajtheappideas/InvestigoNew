@@ -134,16 +134,16 @@ const DashboardFooter = () => {
             <div className="col-md-4">
               <div className="social">
                 <a href="javascript:void(0)">
-                  <FontAwesomeIcon icon={faFacebookF} color="gray" />
+                  <i className="fa-brands fa-facebook-f"></i>
                 </a>
                 <a href="javascript:void(0)">
-                  <FontAwesomeIcon icon={faTwitter} color="gray" />
+                  <i className="fa-brands fa-twitter"></i>
                 </a>
                 <a href="javascript:void(0)">
-                  <FontAwesomeIcon icon={faInstagram} color="gray" />
+                  <i className="fa-brands fa-instagram"></i>
                 </a>
                 <a href="javascript:void(0)">
-                  <FontAwesomeIcon icon={faLinkedinIn} color="gray" />
+                  <i className="fa-brands fa-linkedin-in"></i>
                 </a>
               </div>
             </div>

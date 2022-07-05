@@ -7,7 +7,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Helmet } from "react-helmet";
 
-const Dashboard = () => {
+const Dashboard = ({
+  setShowDashboard,
+  setShowAccount,
+  setShowOrders,
+  setShowInvestment,
+  setShowWithdraw,
+}) => {
   const [showSidebar, setShowSidebar] = useState(false);
   return (
     <>
@@ -35,8 +41,17 @@ const Dashboard = () => {
                     </a>
                     <div className="sidenav__wrapper">
                       <ul>
-                        <li>
-                          <a href="/dashboard" className="sidenav__active">
+                        <li
+                          onClick={() => {
+                            setShowDashboard(true);
+                            setShowAccount(false);
+                            setShowInvestment(false);
+                            setShowWithdraw(false);
+                            setShowOrders(false);
+                          }}
+                          style={{ cursor: "pointer" }}
+                        >
+                          <a href="javascript:void(0)">
                             <img
                               src={require("../../assets/images/icons/dashboard.png")}
                               alt="Dashboard"
@@ -44,8 +59,17 @@ const Dashboard = () => {
                             Dashboard
                           </a>
                         </li>
-                        <li>
-                          <a href="/investment">
+                        <li
+                          onClick={() => {
+                            setShowDashboard(false);
+                            setShowAccount(false);
+                            setShowInvestment(true);
+                            setShowWithdraw(false);
+                            setShowOrders(false);
+                          }}
+                          style={{ cursor: "pointer" }}
+                        >
+                          <a href="javascript:void(0)">
                             <img
                               src={require("../../assets/images/icons/investments.png")}
                               alt="Investments"
@@ -53,8 +77,17 @@ const Dashboard = () => {
                             Investments
                           </a>
                         </li>
-                        <li>
-                          <a href="/transaction">
+                        <li
+                          onClick={() => {
+                            setShowDashboard(false);
+                            setShowAccount(false);
+                            setShowInvestment(false);
+                            setShowWithdraw(false);
+                            setShowOrders(true);
+                          }}
+                          style={{ cursor: "pointer" }}
+                        >
+                          <a href="javascript:void(0)">
                             <img
                               src={require("../../assets/images/icons/transactions.png")}
                               alt="Transactions"
@@ -62,8 +95,17 @@ const Dashboard = () => {
                             Orders
                           </a>
                         </li>
-                        <li>
-                          <a href="/withdraw">
+                        <li
+                          onClick={() => {
+                            setShowDashboard(false);
+                            setShowAccount(false);
+                            setShowInvestment(false);
+                            setShowWithdraw(true);
+                            setShowOrders(false);
+                          }}
+                          style={{ cursor: "pointer" }}
+                        >
+                          <a href="javascript:void(0)">
                             <img
                               src={require("../../assets/images/icons/withdraw.png")}
                               alt="Withdraw"
@@ -71,8 +113,17 @@ const Dashboard = () => {
                             Withdraw
                           </a>
                         </li>
-                        <li>
-                          <a href="/account">
+                        <li
+                          onClick={() => {
+                            setShowDashboard(false);
+                            setShowAccount(true);
+                            setShowInvestment(false);
+                            setShowWithdraw(false);
+                            setShowOrders(false);
+                          }}
+                          style={{ cursor: "pointer" }}
+                        >
+                          <a href="javascript:void(0)">
                             <img
                               src={require("../../assets/images/icons/account.png")}
                               alt="Account"

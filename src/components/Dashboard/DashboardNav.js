@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 
-const DashboardNav = () => {
+const DashboardNav = ({
+  setShowDashboard,
+  setShowAccount,
+  setShowOrders,
+  setShowInvestment,
+  setShowWithdraw,
+}) => {
+  const [optionValue, setOptionValue] = useState("english");
   return (
     <header className="dashboard-header">
       <div className="container">
@@ -15,7 +22,17 @@ const DashboardNav = () => {
             />
           </a>
           <div className="dashboard-header__area-content">
-            <a className="button button--effect" href="/investment">
+            <a
+              className="button button--effect"
+              onClick={() => {
+                setShowDashboard(false);
+                setShowAccount(false);
+                setShowInvestment(true);
+                setShowWithdraw(false);
+                setShowOrders(false);
+              }}
+              style={{ cursor: "pointer" }}
+            >
               <img
                 src={require("../../assets/images/direction.png")}
                 alt="Investment"
@@ -61,14 +78,61 @@ const DashboardNav = () => {
               </div>
             </div>
             <div className="dashboard-language">
-              <select className="select-dashboard-language">
-                <option value="english">En</option>
-                <option value="australia">Aus</option>
-                <option value="germany">GER</option>
-                <option value="argentina">Arg</option>
+              <select
+                onChange={(e) => setOptionValue(e.target.value)}
+                className="select-dashboard-language nice-select list"
+                style={{
+                  fontSize: "1.2rem",
+                  paddingRight: "0",
+                  marginRight: "0",
+                }}
+              >
+                <option
+                  value="english"
+                  
+                  className={`${
+                    optionValue === "english" && "option list selected focus"
+                  }`}
+                >
+                  <h4>En</h4>
+                </option>
+                <option
+                  value="australia"
+                  className={`${
+                    optionValue === "australia" && " option selected focus"
+                  }`}
+                >
+                  Aus
+                </option>
+                <option
+                  value="germany"
+                  className={`${
+                    optionValue === "germany" && "option  selected focus"
+                  }`}
+                >
+                  GER
+                </option>
+                <option
+                  value="argentina"
+                  className={`${
+                    optionValue === "argentina" && "option  selected focus"
+                  }`}
+                >
+                  Arg
+                </option>
               </select>
             </div>
-            <a href="account.html" className="profile">
+            <a
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                setShowDashboard(false);
+                setShowAccount(true);
+                setShowInvestment(false);
+                setShowWithdraw(false);
+                setShowOrders(false);
+              }}
+              className="profile"
+            >
               <img
                 src={require("../../assets/images/profile.png")}
                 alt="Profile"

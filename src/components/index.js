@@ -35,3 +35,4 @@ export { default as DashBoard } from "./Dashboard/Dashboard";
 export { default as Invesment } from "./Dashboard/Invesment";
 export { default as Orders } from "./Dashboard/Orders";
 export { default as Withdraw } from "./Dashboard/Withdraw";
+export { default as Account} from "./Dashboard/Account";

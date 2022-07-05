@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { Footer, Gallery, Navbar } from "../components";
 import bgImg from "../assets/images/banner/banner-bg.png";
@@ -6,6 +6,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 const Career = () => {
+  const [showAll, setShowAll] = useState(true);
+  const [showSales, setShowSales] = useState(false);
+  const [showMarketing, setshowMarketing] = useState(false);
+  const [showEngineering, setShowEngineering] = useState(false);
+  const [showDesign, setShowDesign] = useState(false);
   return (
     <>
       <Helmet>
@@ -59,244 +64,291 @@ const Career = () => {
           <h2 className="neutral-top">Open Positions</h2>
           <div className="d-flex justify-content-center">
             <div className="open__tab">
-              <a
-                href="javascript:void(0)"
+              <button
+                type="button"
+                onClick={() => {
+                  setshowMarketing(false);
+                  setShowAll(true);
+                  setShowDesign(false);
+                  setShowEngineering(false);
+                  setShowSales(false);
+                }}
                 className="button button--effect open__tab__btn"
                 data-target="all"
               >
                 All
-              </a>
-              <a
-                href="javascript:void(0)"
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setshowMarketing(false);
+                  setShowAll(false);
+                  setShowDesign(false);
+                  setShowEngineering(false);
+                  setShowSales(true);
+                }}
                 className="button button--effect open__tab__btn"
                 data-target="sales"
               >
                 Sales
-              </a>
-              <a
-                href="javascript:void(0)"
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setshowMarketing(true);
+                  setShowAll(false);
+                  setShowDesign(false);
+                  setShowEngineering(false);
+                  setShowSales(false);
+                }}
                 className="button button--effect open__tab__btn"
                 data-target="marketing"
               >
                 Marketing
-              </a>
-              <a
-                href="javascript:void(0)"
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setshowMarketing(false);
+                  setShowAll(false);
+                  setShowDesign(false);
+                  setShowEngineering(true);
+                  setShowSales(false);
+                }}
                 className="button button--effect open__tab__btn"
                 data-target="engineering"
               >
                 Engineering
-              </a>
-              <a
-                href="javascript:void(0)"
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setshowMarketing(false);
+                  setShowAll(false);
+                  setShowDesign(true);
+                  setShowEngineering(false);
+                  setShowSales(false);
+                }}
                 className="button button--effect open__tab__btn"
                 data-target="design"
               >
                 Design
-              </a>
+              </button>
             </div>
           </div>
           <div className="open__position__tab__wrapper">
-            <div
-              className="job__single open__job__single"
-              data-groups='["all","sales"]'
-            >
-              <div className="open__job__inner">
-                <img
-                  src={require("../assets/images/icons/sales.png")}
-                  alt="Sales"
-                />
-                <div className="open__job__info">
-                  <h5>
-                    <a href="/careerdetails">Director of Sales</a>
-                  </h5>
-                  <ul>
-                    <li>Sales</li>
-                    <li>Remote</li>
-                    <li>Full Time</li>
-                  </ul>
+            {showAll && (
+              <>
+                <div
+                  className="job__single open__job__single"
+                  data-groups='["all","sales"]'
+                >
+                  <div className="open__job__inner">
+                    <img
+                      src={require("../assets/images/icons/sales.png")}
+                      alt="Sales"
+                    />
+                    <div className="open__job__info">
+                      <h5>
+                        <a href="/careerdetails">Director of Sales</a>
+                      </h5>
+                      <ul>
+                        <li>Sales</li>
+                        <li>Remote</li>
+                        <li>Full Time</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <a href="/careerdetails" className="arrw">
+                    <FontAwesomeIcon icon={faAngleRight} />
+                  </a>
                 </div>
-              </div>
-              <a href="/careerdetails" className="arrw">
-                <FontAwesomeIcon icon={faAngleRight} />
-              </a>
-            </div>
-            <div
-              className="job__single open__job__single"
-              data-groups='["all","engineering"]'
-            >
-              <div className="open__job__inner">
-                <img
-                  src={require("../assets/images/icons/business.png")}
-                  alt="Business Development Representative"
-                />
-                <div className="open__job__info">
-                  <h5>
-                    <a href="/careerdetails">
-                      Business Development Representative
-                    </a>
-                  </h5>
-                  <ul>
-                    <li>Business</li>
-                    <li>Remote</li>
-                    <li>Full Time</li>
-                  </ul>
+                <div
+                  className="job__single open__job__single"
+                  data-groups='["all","engineering"]'
+                >
+                  <div className="open__job__inner">
+                    <img
+                      src={require("../assets/images/icons/business.png")}
+                      alt="Business Development Representative"
+                    />
+                    <div className="open__job__info">
+                      <h5>
+                        <a href="/careerdetails">
+                          Business Development Representative
+                        </a>
+                      </h5>
+                      <ul>
+                        <li>Business</li>
+                        <li>Remote</li>
+                        <li>Full Time</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <a href="/careerdetails" className="arrw">
+                    <FontAwesomeIcon icon={faAngleRight} />
+                  </a>
                 </div>
-              </div>
-              <a href="/careerdetails" className="arrw">
-                <FontAwesomeIcon icon={faAngleRight} />
-              </a>
-            </div>
-            <div
-              className="job__single open__job__single"
-              data-groups='["all","design"]'
-            >
-              <div className="open__job__inner">
-                <img
-                  src={require("../assets/images/icons/development.png")}
-                  alt="Business Development Representative"
-                />
-                <div className="open__job__info">
-                  <h5>
-                    <a href="/careerdetails">
-                      Business Development Representative
-                    </a>
-                  </h5>
-                  <ul>
-                    <li>Business</li>
-                    <li>Remote</li>
-                    <li>Full Time</li>
-                  </ul>
+                <div
+                  className="job__single open__job__single"
+                  data-groups='["all","design"]'
+                >
+                  <div className="open__job__inner">
+                    <img
+                      src={require("../assets/images/icons/development.png")}
+                      alt="Business Development Representative"
+                    />
+                    <div className="open__job__info">
+                      <h5>
+                        <a href="/careerdetails">
+                          Business Development Representative
+                        </a>
+                      </h5>
+                      <ul>
+                        <li>Business</li>
+                        <li>Remote</li>
+                        <li>Full Time</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <a href="/careerdetails" className="arrw">
+                    <FontAwesomeIcon icon={faAngleRight} />
+                  </a>
                 </div>
-              </div>
-              <a href="/careerdetails" className="arrw">
-                <FontAwesomeIcon icon={faAngleRight} />
-              </a>
-            </div>
-            <div
-              className="job__single open__job__single"
-              data-groups='["all","marketing"]'
-            >
-              <div className="open__job__inner">
-                <img
-                  src={require("../assets/images/icons/marketing.png")}
-                  alt="Product Marketing Lead"
-                />
-                <div className="open__job__info">
-                  <h5>
-                    <a href="/careerdetails">Product Marketing Lead</a>
-                  </h5>
-                  <ul>
-                    <li>Marketing</li>
-                    <li>Remote</li>
-                    <li>Full Time</li>
-                  </ul>
+                <div
+                  className="job__single open__job__single"
+                  data-groups='["all","marketing"]'
+                >
+                  <div className="open__job__inner">
+                    <img
+                      src={require("../assets/images/icons/marketing.png")}
+                      alt="Product Marketing Lead"
+                    />
+                    <div className="open__job__info">
+                      <h5>
+                        <a href="/careerdetails">Product Marketing Lead</a>
+                      </h5>
+                      <ul>
+                        <li>Marketing</li>
+                        <li>Remote</li>
+                        <li>Full Time</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <a href="career-details.html" className="arrw">
+                    <FontAwesomeIcon icon={faAngleRight} />
+                  </a>
                 </div>
-              </div>
-              <a href="/careerdetails" className="arrw">
-                <FontAwesomeIcon icon={faAngleRight} />
-              </a>
-            </div>
-            <div
-              className="job__single open__job__single"
-              data-groups='["all","design"]'
-            >
-              <div className="open__job__inner">
-                <img
-                  src={require("../assets/images/icons/development.png")}
-                  alt="Business Development Representative"
-                />
-                <div className="open__job__info">
-                  <h5>
-                    <a href="/careerdetails">
-                      Business Development Representative
-                    </a>
-                  </h5>
-                  <ul>
-                    <li>Business</li>
-                    <li>Remote</li>
-                    <li>Full Time</li>
-                  </ul>
+              </>
+            )}
+            {!showAll && showSales && (
+              <div
+                className="job__single open__job__single"
+                data-groups='["all","sales"]'
+              >
+                <div className="open__job__inner">
+                  <img
+                    src={require("../assets/images/icons/sales.png")}
+                    alt="Sales"
+                  />
+                  <div className="open__job__info">
+                    <h5>
+                      <a href="/careerdetails">Director of Sales</a>
+                    </h5>
+                    <ul>
+                      <li>Sales</li>
+                      <li>Remote</li>
+                      <li>Full Time</li>
+                    </ul>
+                  </div>
                 </div>
+                <a href="/careerdetails" className="arrw">
+                  <FontAwesomeIcon icon={faAngleRight} />
+                </a>
               </div>
-              <a href="/careerdetails" className="arrw">
-                <FontAwesomeIcon icon={faAngleRight} />
-              </a>
-            </div>
-            <div
-              className="job__single open__job__single"
-              data-groups='["all","sales"]'
-            >
-              <div className="open__job__inner">
-                <img
-                  src={require("../assets/images/icons/sales.png")}
-                  alt="Sales"
-                />
-                <div className="open__job__info">
-                  <h5>
-                    <a href="/careerdetails">Director of Sales</a>
-                  </h5>
-                  <ul>
-                    <li>Sales</li>
-                    <li>Remote</li>
-                    <li>Full Time</li>
-                  </ul>
+            )}
+            {!showAll && showEngineering && (
+              <div
+                className="job__single open__job__single"
+                data-groups='["all","engineering"]'
+              >
+                <div className="open__job__inner">
+                  <img
+                    src={require("../assets/images/icons/business.png")}
+                    alt="Business Development Representative"
+                  />
+                  <div className="open__job__info">
+                    <h5>
+                      <a href="/careerdetails">
+                        Business Development Representative
+                      </a>
+                    </h5>
+                    <ul>
+                      <li>Business</li>
+                      <li>Remote</li>
+                      <li>Full Time</li>
+                    </ul>
+                  </div>
                 </div>
+                <a href="/careerdetails" className="arrw">
+                  <FontAwesomeIcon icon={faAngleRight} />
+                </a>
               </div>
-              <a href="/careerdetails" className="arrw">
-                <FontAwesomeIcon icon={faAngleRight} />
-              </a>
-            </div>
-            <div
-              className="job__single open__job__single"
-              data-groups='["all","engineering"]'
-            >
-              <div className="open__job__inner">
-                <img
-                  src={require("../assets/images/icons/business.png")}
-                  alt="Business Development Representative"
-                />
-                <div className="open__job__info">
-                  <h5>
-                    <a href="/careerdetails">
-                      Business Development Representative
-                    </a>
-                  </h5>
-                  <ul>
-                    <li>Business</li>
-                    <li>Remote</li>
-                    <li>Full Time</li>
-                  </ul>
+            )}
+            {!showAll && showDesign && (
+              <div
+                className="job__single open__job__single"
+                data-groups='["all","design"]'
+              >
+                <div className="open__job__inner">
+                  <img
+                    src={require("../assets/images/icons/development.png")}
+                    alt="Business Development Representative"
+                  />
+                  <div className="open__job__info">
+                    <h5>
+                      <a href="/careerdetails">
+                        Business Development Representative
+                      </a>
+                    </h5>
+                    <ul>
+                      <li>Business</li>
+                      <li>Remote</li>
+                      <li>Full Time</li>
+                    </ul>
+                  </div>
                 </div>
+                <a href="/careerdetails" className="arrw">
+                  <FontAwesomeIcon icon={faAngleRight} />
+                </a>
               </div>
-              <a href="/careerdetails" className="arrw">
-                <FontAwesomeIcon icon={faAngleRight} />
-              </a>
-            </div>
-            <div
-              className="job__single open__job__single"
-              data-groups='["all","marketing"]'
-            >
-              <div className="open__job__inner">
-                <img
-                  src={require("../assets/images/icons/marketing.png")}
-                  alt="Product Marketing Lead"
-                />
-                <div className="open__job__info">
-                  <h5>
-                    <a href="/careerdetails">Product Marketing Lead</a>
-                  </h5>
-                  <ul>
-                    <li>Marketing</li>
-                    <li>Remote</li>
-                    <li>Full Time</li>
-                  </ul>
+            )}
+            {!showAll && showMarketing && (
+              <div
+                className="job__single open__job__single"
+                data-groups='["all","marketing"]'
+              >
+                <div className="open__job__inner">
+                  <img
+                    src={require("../assets/images/icons/marketing.png")}
+                    alt="Product Marketing Lead"
+                  />
+                  <div className="open__job__info">
+                    <h5>
+                      <a href="/careerdetails">Product Marketing Lead</a>
+                    </h5>
+                    <ul>
+                      <li>Marketing</li>
+                      <li>Remote</li>
+                      <li>Full Time</li>
+                    </ul>
+                  </div>
                 </div>
+                <a href="career-details.html" className="arrw">
+                  <FontAwesomeIcon icon={faAngleRight} />
+                </a>
               </div>
-              <a href="career-details.html" className="arrw">
-                <FontAwesomeIcon icon={faAngleRight} />
-              </a>
-            </div>
+            )}
           </div>
         </div>
       </section>

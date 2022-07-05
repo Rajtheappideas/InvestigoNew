@@ -18,7 +18,7 @@ const Filter = () => {
                       id="propertySearch"
                       placeholder="Search for properties"
                     />
-                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <i className="fa-solid fa-magnifying-glass"></i>
                   </div>
                   <button type="submit" className="button button--effect">
                     Search
@@ -28,8 +28,15 @@ const Filter = () => {
             </div>
             <div className="col-lg-6 col-xl-3">
               <div className="property__select__wrapper">
-                <select className="location__select">
-                  <option data-display="Location">Select Location</option>
+                <select
+                  className="location__select"
+                  style={{
+                    width: "100%",
+                    padding: "20px",
+                    borderRadius: "10px",
+                  }}
+                >
+                  <option data-display="Location">Location</option>
                   <option value="angeles">Los Angeles</option>
                   <option value="francis">San Francisco, CA</option>
                   <option value="weldon">The Weldon</option>
@@ -39,8 +46,15 @@ const Filter = () => {
             </div>
             <div className="col-lg-6 col-xl-3">
               <div className="property__select__wrapper">
-                <select className="property__select">
-                  <option data-display="Property">Property Type</option>
+                <select
+                  className="property__select"
+                  style={{
+                    width: "100%",
+                    padding: "20px",
+                    borderRadius: "10px",
+                  }}
+                >
+                  <option data-display="Property">Property </option>
                   <option value="commercial">Commercial</option>
                   <option value="residential">Residential</option>
                 </select>
