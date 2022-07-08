@@ -14871,3 +14871,13 @@ header {
     border-radius: 10px;
   }
 }
+
+.errorborder{
+  border: #FF0000 solid 4px;
+}
+.texterror{
+  color: #FF0000;
+  font-size: medium;
+  text-align: left;
+  text-transform: capitalize;
+}

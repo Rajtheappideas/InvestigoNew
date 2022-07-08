@@ -24,7 +24,7 @@ const Market = () => {
                   Transparent Real Estate Investing Through Revest.Join us and
                   experience a smarter,better way to invest in real estate
                 </p>
-                <a href="/properties" className="button button--effect">
+                <a href="/project" className="button button--effect">
                   Start Exploring
                 </a>
                 <img

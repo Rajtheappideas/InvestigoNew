@@ -3,7 +3,7 @@ import Lottie from "react-lottie";
 import Loader from "./assets/animations/Loader.json";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "./components/ErrorFallBack";
-import { UserProvider } from "./context/UserContext";
+import { UserProvider, useUserContext } from "./context/UserContext";
 import { lazy, Suspense } from "react";
 import { Helmet } from "react-helmet";
 
@@ -93,7 +93,14 @@ function App() {
               <Route path="/support" element={<Support />} />
               <Route path="/affiliateprogram" element={<AffiliateProgram />} />
               <Route path="/listyourproperty" element={<ListYourProgram />} />
-              <Route path="/checkout" element={<Checkout />} />
+              <Route
+                path="/checkout"
+                element={
+                  <PrivateRoute>
+                    <Checkout />
+                  </PrivateRoute>
+                }
+              />
               <Route path="/keyrisks" element={<KeyRisks />} />
               <Route path="/signin" element={<Signin />} />
               <Route path="/signup" element={<Signup />} />

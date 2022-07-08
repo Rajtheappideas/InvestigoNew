@@ -7,6 +7,10 @@ import {
   faBarsStaggered,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import { toast, Toaster } from "react-hot-toast";
+import { useUserContext } from "../../context/UserContext";
+import useUserdata from "../../hooks/useUserData";
 
 const Account = ({
   setShowDashboard,
@@ -24,6 +28,102 @@ const Account = ({
   const [openGeneral, setOpenGeneral] = useState(true);
   const [openBilling, setOpenBilling] = useState(false);
   const [openSecurity, setOpenSecurity] = useState(false);
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const { userData } = useUserContext();
+  const {handleLogout} = useUserdata()
+
+  const changePassword = () => {
+    if (oldPassword === "" || newPassword === "" || confirmNewPassword === "") {
+      toast.error("All filed should be filled!!", {
+        duration: 2000,
+        style: {
+          width: "500px",
+          background: "black",
+          color: "white",
+          fontSize: "large",
+        },
+        position: "top-center",
+      });
+      return false;
+    } else if (newPassword !== confirmNewPassword) {
+      toast.error("new password and confirm password should be match!!", {
+        duration: 2000,
+        style: {
+          width: "100%",
+          background: "black",
+          color: "white",
+          fontSize: "large",
+          whiteSpace: "nowrap",
+        },
+        position: "top-center",
+      });
+      return false;
+    }
+    setLoading(true);
+    const data = {
+      currentpass: oldPassword,
+      newpass: newPassword,
+      cfnewpass: confirmNewPassword,
+    };
+    axios
+      .post("https://investigo-tai.herokuapp.com/changepass", data, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: userData?.token,
+        },
+      })
+      .then((res) => {
+        if (res?.data?.status === "success") {
+          toast.success(res?.data?.message, {
+            duration: 2000,
+            style: {
+              width: "100%",
+              background: "black",
+              color: "white",
+              fontSize: "large",
+            },
+            position: "top-center",
+          });
+          setLoading(false);
+          setOldPassword("");
+          setNewPassword("");
+          setConfirmNewPassword("");
+        }
+      })
+      .catch((err) => {
+        if (err?.response?.data?.message === "Invalid current password") {
+          toast.error("Invalid old password", {
+            duration: 2000,
+            style: {
+              width: "100%",
+              background: "black",
+              color: "white",
+              fontSize: "large",
+            },
+            position: "top-center",
+          });
+          setLoading(false);
+          return false;
+        } else {
+          toast.error(err?.response?.data?.message, {
+            duration: 2000,
+            style: {
+              width: "100%",
+              background: "black",
+              color: "white",
+              fontSize: "large",
+            },
+            position: "top-center",
+          });
+          setLoading(false);
+        }
+      });
+  };
   return (
     <>
       <Helmet>
@@ -160,7 +260,10 @@ const Account = ({
                       <hr />
                       <ul className="logout">
                         <li>
-                          <a href="/signin">
+                          <a
+                            style={{ cursor: "pointer" }}
+                            onClick={handleLogout}
+                          >
                             <img
                               src={require("../../assets/images/icons/logout.png")}
                               alt="Logout"
@@ -254,7 +357,6 @@ const Account = ({
                           className={`account-info__btn ${
                             openSecurity && "account-info__btn-active"
                           } button button--effect`}
-                          F
                         >
                           Security
                         </button>
@@ -598,11 +700,7 @@ const Account = ({
                                   </div>
                                 </div>
                                 <div className="col-md-6">
-                                  <form
-                                    action="#"
-                                    name="change__pass"
-                                    method="post"
-                                  >
+                                  <form name="change__pass">
                                     <div className="input input--secondary">
                                       <label htmlFor="currentPass">
                                         Current Password
@@ -612,7 +710,10 @@ const Account = ({
                                         name="current_pass"
                                         id="currentPass"
                                         placeholder="Current Password"
-                                        required="required"
+                                        value={oldPassword}
+                                        onChange={(e) =>
+                                          setOldPassword(e.target.value)
+                                        }
                                       />
                                     </div>
                                     <div className="input input--secondary">
@@ -624,7 +725,10 @@ const Account = ({
                                         name="new_pass"
                                         id="newPass"
                                         placeholder="New Password"
-                                        required="required"
+                                        value={newPassword}
+                                        onChange={(e) =>
+                                          setNewPassword(e.target.value)
+                                        }
                                       />
                                     </div>
                                     <div className="input input--secondary">
@@ -636,15 +740,21 @@ const Account = ({
                                         name="con_new_pass"
                                         id="conNewPass"
                                         placeholder="Confirm Password"
-                                        required="required"
+                                        value={confirmNewPassword}
+                                        onChange={(e) =>
+                                          setConfirmNewPassword(e.target.value)
+                                        }
                                       />
                                     </div>
                                     <div>
                                       <button
-                                        type="submit"
+                                        type="button"
+                                        onClick={changePassword}
                                         className="button button--effect"
                                       >
-                                        Update Password
+                                        {loading
+                                          ? "Loading..."
+                                          : "Update Password"}
                                       </button>
                                     </div>
                                   </form>

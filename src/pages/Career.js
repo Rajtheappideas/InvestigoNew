@@ -43,7 +43,7 @@ const Career = () => {
         <img
           src={require("../assets/images/banner/career-banner-illustration.png")}
           alt="Career"
-          class="banner__thumb"
+          className="banner__thumb"
         />
       </section>
       {/* gallery */}

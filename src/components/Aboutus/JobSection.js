@@ -16,7 +16,7 @@ const JobSection = () => {
               />
               <div className="open__job__info">
                 <h5>
-                  <a href="career-details.html">Director of Sales</a>
+                  <a href="/careerdetails">Director of Sales</a>
                 </h5>
                 <ul>
                   <li>Sales</li>
@@ -25,7 +25,7 @@ const JobSection = () => {
                 </ul>
               </div>
             </div>
-            <a href="career-details.html" className="arrw">
+            <a href="/careerdetails" className="arrw">
               <FontAwesomeIcon icon={faAngleRight} size="lg" />
             </a>
           </div>
@@ -37,7 +37,7 @@ const JobSection = () => {
               />
               <div className="open__job__info">
                 <h5>
-                  <a href="career-details.html">Product Marketing Lead</a>
+                  <a href="/careerdetails">Product Marketing Lead</a>
                 </h5>
                 <ul>
                   <li>Marketing</li>
@@ -46,7 +46,7 @@ const JobSection = () => {
                 </ul>
               </div>
             </div>
-            <a href="career-details.html" className="arrw">
+            <a href="/careerdetails" className="arrw">
               <FontAwesomeIcon icon={faAngleRight} size="lg" />
             </a>
           </div>
@@ -58,7 +58,7 @@ const JobSection = () => {
               />
               <div className="open__job__info">
                 <h5>
-                  <a href="career-details.html">
+                  <a href="/careerdetails">
                     Business Development Representative
                   </a>
                 </h5>
@@ -69,7 +69,7 @@ const JobSection = () => {
                 </ul>
               </div>
             </div>
-            <a href="career-details.html" className="arrw">
+            <a href="/careerdetails" className="arrw">
               <FontAwesomeIcon icon={faAngleRight} size="lg" />
             </a>
           </div>
@@ -81,7 +81,7 @@ const JobSection = () => {
               />
               <div className="open__job__info">
                 <h5>
-                  <a href="career-details.html">
+                  <a href="/careerdetails">
                     Business Development Representative
                   </a>
                 </h5>
@@ -92,7 +92,7 @@ const JobSection = () => {
                 </ul>
               </div>
             </div>
-            <a href="career-details.html" className="arrw">
+            <a href="/careerdetails" className="arrw">
               <FontAwesomeIcon icon={faAngleRight} size="lg" />
             </a>
           </div>

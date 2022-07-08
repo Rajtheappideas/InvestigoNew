@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRightLong,
@@ -15,7 +15,6 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import useUserdata from "../../hooks/useUserData";
 
 const Invesment = ({
   setShowDashboard,
@@ -25,7 +24,7 @@ const Invesment = ({
   setShowWithdraw,
 }) => {
   const [showSidebar, setShowSidebar] = useState(false);
-  const { handleLogout } = useUserdata();
+
   const data = [
     {
       name: "Page A",
@@ -63,11 +62,10 @@ const Invesment = ({
       pv: 4300,
     },
   ];
-
   return (
     <>
       <Helmet>
-        <title>Investigo - Invesment</title>
+        <title>Ivnestigo - Invesment</title>
       </Helmet>
       <div className="dashboard section__space__bottom">
         <div className="container">
@@ -90,91 +88,46 @@ const Invesment = ({
                     </a>
                     <div className="sidenav__wrapper">
                       <ul>
-                        <li
-                          onClick={() => {
-                            setShowDashboard(true);
-                            setShowAccount(false);
-                            setShowInvestment(false);
-                            setShowWithdraw(false);
-                            setShowOrders(false);
-                          }}
-                          style={{ cursor: "pointer" }}
-                        >
-                          <a href="javascript:void(0)">
+                        <li>
+                          <a  className="sidenav__active">
                             <img
-                              src={require("../../assets/images/icons/dashboard.png")}
+                              src={require("../assets/images/icons/dashboard.png")}
                               alt="Dashboard"
                             />{" "}
                             Dashboard
                           </a>
                         </li>
-                        <li
-                          onClick={() => {
-                            setShowDashboard(false);
-                            setShowAccount(false);
-                            setShowInvestment(true);
-                            setShowWithdraw(false);
-                            setShowOrders(false);
-                          }}
-                          style={{ cursor: "pointer" }}
-                        >
-                          <a href="javascript:void(0)">
+                        <li>
+                          <a >
                             <img
-                              src={require("../../assets/images/icons/investments.png")}
+                              src={require("../assets/images/icons/investments.png")}
                               alt="Investments"
                             />
                             Investments
                           </a>
                         </li>
-                        <li
-                          onClick={() => {
-                            setShowDashboard(false);
-                            setShowAccount(false);
-                            setShowInvestment(false);
-                            setShowWithdraw(false);
-                            setShowOrders(true);
-                          }}
-                          style={{ cursor: "pointer" }}
-                        >
-                          <a href="javascript:void(0)">
+                        <li>
+                          <a >
                             <img
-                              src={require("../../assets/images/icons/transactions.png")}
+                              src={require("../assets/images/icons/transactions.png")}
                               alt="Transactions"
                             />
                             Orders
                           </a>
                         </li>
-                        <li
-                          onClick={() => {
-                            setShowDashboard(false);
-                            setShowAccount(false);
-                            setShowInvestment(false);
-                            setShowWithdraw(true);
-                            setShowOrders(false);
-                          }}
-                          style={{ cursor: "pointer" }}
-                        >
-                          <a href="javascript:void(0)">
+                        <li>
+                          <a >
                             <img
-                              src={require("../../assets/images/icons/withdraw.png")}
+                              src={require("../assets/images/icons/withdraw.png")}
                               alt="Withdraw"
                             />{" "}
                             Withdraw
                           </a>
                         </li>
-                        <li
-                          onClick={() => {
-                            setShowDashboard(false);
-                            setShowAccount(true);
-                            setShowInvestment(false);
-                            setShowWithdraw(false);
-                            setShowOrders(false);
-                          }}
-                          style={{ cursor: "pointer" }}
-                        >
-                          <a href="javascript:void(0)">
+                        <li>
+                          <a href="/account">
                             <img
-                              src={require("../../assets/images/icons/account.png")}
+                              src={require("../assets/images/icons/account.png")}
                               alt="Account"
                             />{" "}
                             Account
@@ -184,12 +137,9 @@ const Invesment = ({
                       <hr />
                       <ul className="logout">
                         <li>
-                          <a
-                            style={{ cursor: "pointer" }}
-                            onClick={handleLogout}
-                          >
+                          <a href="/signin">
                             <img
-                              src={require("../../assets/images/icons/logout.png")}
+                              src={require("../assets/images/icons/logout.png")}
                               alt="Logout"
                             />{" "}
                             Logout
@@ -203,7 +153,7 @@ const Invesment = ({
                       <div className="sidenav__time">
                         <p className="secondary">
                           <img
-                            src={require("../../assets/images/icons/calendar.png")}
+                            src={require("../assets/images/icons/calendar.png")}
                             alt="Calendar"
                           />
                           02.01.2022
@@ -219,16 +169,10 @@ const Invesment = ({
                   <div className="collapse__sidebar">
                     <h4>Dashboard</h4>
                     <a
-                      // href="javascript:void(0)"
-                      onClick={() => setShowSidebar(true)}
+                      href="javascript:void(0)"
                       className="collapse__sidebar__btn"
-                      style={{ cursor: "pointer" }}
                     >
-                      <FontAwesomeIcon
-                        icon={faBarsStaggered}
-                        color="white "
-                        size="lg"
-                      />
+                      <FontAwesomeIcon icon={faBarsStaggered} />
                     </a>
                   </div>
                   <div className="main__content-dashboard">
@@ -252,7 +196,7 @@ const Invesment = ({
                             <div className="poster">
                               <a href="/properties">
                                 <img
-                                  src={require("../../assets/images/project-about-01.png")}
+                                  src={require("../assets/images/project-about-01.png")}
                                   alt="San Francisco"
                                 />
                               </a>
@@ -297,7 +241,7 @@ const Invesment = ({
                             <div className="poster">
                               <a href="/properties">
                                 <img
-                                  src={require("../../assets/images/project-about-03.png")}
+                                  src={require("../assets/images/project-about-03.png")}
                                   alt="San Francisco"
                                 />
                               </a>
@@ -342,7 +286,7 @@ const Invesment = ({
                             <div className="poster">
                               <a href="/properties">
                                 <img
-                                  src={require("../../assets/images/project-about-04.png")}
+                                  src={require("../assets/images/project-about-04.png")}
                                   alt="San Francisco"
                                 />
                               </a>

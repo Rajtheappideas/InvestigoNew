@@ -25,11 +25,11 @@ const Herosection = () => {
                   100 EUR in real estate opportunities worldwide.
                 </p>
                 <div className="hero__cta__group">
-                  <a href="/properties" className="button button--effect">
+                  <a href="/project" className="button button--effect">
                     Start Exploring
                   </a>
                   <a
-                    href="business-loan.html"
+                    href="/benefits"
                     className="button button--secondary button--effect"
                   >
                     Get Funding

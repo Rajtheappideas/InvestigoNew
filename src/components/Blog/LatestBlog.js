@@ -275,27 +275,27 @@ const LatestBlog = () => {
                 <nav aria-label="Page navigation example">
                   <ul className="pagination justify-content-center">
                     <li className="page-item">
-                      <a className="page-link" href="/singleblog)">
+                      <a className="page-link" href="/singleblog">
                         <FontAwesomeIcon icon={faArrowCircleLeft} />
                       </a>
                     </li>
                     <li className="page-item">
-                      <a className="page-link" href="/singleblog)">
+                      <a className="page-link" href="/singleblog">
                         01
                       </a>
                     </li>
                     <li className="page-item">
-                      <a className="page-link" href="/singleblog)">
+                      <a className="page-link" href="/singleblog">
                         02
                       </a>
                     </li>
                     <li className="page-item">
-                      <a className="page-link" href="/singleblog)">
+                      <a className="page-link" href="/singleblog">
                         03
                       </a>
                     </li>
                     <li className="page-item">
-                      <a className="page-link" href="/singleblog)">
+                      <a className="page-link" href="/singleblog">
                         <FontAwesomeIcon icon={faArrowCircleRight} />
                       </a>
                     </li>

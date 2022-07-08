@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import signin from "../assets/images/logo.png";
+import logo from "../assets/images/logo.png";
+import bgImg from "../assets/images/registration-bg.png";
 import { Link } from "react-router-dom";
 import Helmet from "react-helmet";
 import { MailIcon } from "@heroicons/react/solid";
 import OtpVerify from "../components/OtpVerify";
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast";
+import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 
 const Forgotpassword = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -60,67 +64,123 @@ const Forgotpassword = () => {
         }
       });
   };
+
+  // styled component
   return (
     <>
       <Helmet>
-        <title>Forgot Password</title>
+        <title>Investigo - Forgot password</title>
       </Helmet>
       <Toaster />
-      {/* ---------------logo--------------- */}
-      <div className="p-10 h-10 cursor-pointer">
-        <Link to="/">Logo</Link>
-      </div>
-      <div className="grid lg:grid-cols-2 place-items-center items-center py-5 sm:px-10 px-3 gap-10">
-        {/* ---------------image div--------------- */}
-        <div>
-          <img
-            src={signin}
-            className="w-full lg:block hidden h-screen object-cover object-center"
-          />
-        </div>
-
-        {/* ---------------form div--------------- */}
-        <div className="h-auto bg-white w-full rounded-xl sm:p-10 p-3 shadow-lg space-y-10">
-          {/* ---------------heading--------------- */}
-          <h1 className="text-xl font-bold text-center bg-gradient-to-tr to-Purple from-VividBlue bg-clip-text text-transparent">
-            Forgot Password
-          </h1>
-          <form className="space-y-5">
-            {/* ---------------email--------------- */}
-            <div className="flex items-center relative ">
-              <label className="absolute top-0 left-12 my-2 text-sm">
-                Email
-              </label>
-              <input
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                onChange={(e) => setEmail(e.target.value)}
-                className="pl-12 pt-2 rounded-xl w-full h-16 bg-gray-300 outline-none focus:border-2 focus:border-green-400"
-              />
-              <MailIcon className="h-7 absolute top-5 left-3" />
-            </div>
-
-            {/* ---------------submit button--------------- */}
-            <div className="w-full text-center">
-              <button
-                type="button"
-                onClick={() => forgotPassword()}
-                className="w-full tracking-wide active:scale-95 duration-100 ease-in transition-all text-center bg-VividBlue text-white font-semibold text-xl h-14 rounded-lg"
-              >
-                {loading ? "Loading..." : "Submit"}
-              </button>
-              {openModal && (
-                <OtpVerify
-                  openModal={openModal}
-                  CloseModal={CloseModal}
-                  email={email}
-                  otp={otp}
+      <div
+        className="wrapper bg__img"
+        style={{ backgroundImage: `url(${bgImg})` }}
+      >
+        {/* ==== header start ==== */}
+        <header className="header header--secondary">
+          <nav className="navbar navbar-expand-xl">
+            <div className="container">
+              <a className="navbar-brand" href="/">
+                <img
+                  src={require("../assets/images/logo.png")}
+                  alt="Logo"
+                  className="logo"
                 />
-              )}
+              </a>
+              <div className="navbar__out order-2 order-xl-3">
+                <div className="nav__group__btn">
+                  <a
+                    href="/signin"
+                    style={{ textDecoration: "none" }}
+                    className="log d-none d-sm-block"
+                  >
+                    {" "}
+                    Log In{" "}
+                  </a>
+                  <a
+                    href="/signup"
+                    className="button button--effect d-none d-sm-block"
+                    style={{ color: "white", textDecoration: "none" }}
+                  >
+                    {" "}
+                    Join Now <FontAwesomeIcon icon={faArrowRightLong} />{" "}
+                  </a>
+                </div>
+                <button
+                  className="navbar-toggler d-block d-sm-none"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#primaryNav"
+                  aria-controls="primaryNav"
+                  aria-expanded="false"
+                  aria-label="Toggle Primary Nav"
+                >
+                  <span className="icon-bar top-bar" />
+                  <span className="icon-bar middle-bar" />
+                  <span className="icon-bar bottom-bar" />
+                </button>
+              </div>
+              <div
+                className="collapse navbar-collapse order-3 order-xl-2"
+                id="primaryNav"
+              >
+                <ul className="navbar-nav">
+                  <li className="nav-item d-block d-sm-none">
+                    <a href="/signin" className="nav-link">
+                      Log In
+                    </a>
+                  </li>
+                  <li className="nav-item d-block d-sm-none">
+                    <a
+                      href="/signup"
+                      className="button button--effect button--last"
+                    >
+                      Join Now <i className="fa-solid fa-arrow-right-long" />
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
-          </form>
-        </div>
+          </nav>
+        </header>
+        {/* ==== #header end ==== */}
+        {/* ==== registration section start ==== */}
+        <section className="registration clear__top">
+          <div className="container">
+            <div className="registration__area">
+              <h4 className="neutral-top">Forgot Password</h4>
+
+              <div className="input input--secondary">
+                <label htmlFor="loginMail">Email*</label>
+                <input
+                  type="email"
+                  name="email"
+                  id="loginMail"
+                  placeholder="Enter your email"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="input__button">
+                <button
+                  onClick={() => forgotPassword()}
+                  type="button"
+                  className="button button--effect"
+                >
+                  {loading ? "Loading..." : "Submit"}{" "}
+                </button>
+                {openModal && (
+                  <OtpVerify
+                    openModal={openModal}
+                    CloseModal={CloseModal}
+                    email={email}
+                    otp={otp}
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+        {/* ==== #registration section end ==== */}
       </div>
     </>
   );

@@ -12,7 +12,9 @@ import {
   faDollarSign,
   faClock,
 } from "@fortawesome/free-solid-svg-icons";
+import { useUserContext } from "../context/UserContext";
 const Packages = () => {
+  const { userData } = useUserContext();
   const data = [
     {
       img: img1,
@@ -235,9 +237,24 @@ const Packages = () => {
                           </div>
                         </div>
                         <div className="item__cta__group">
-                          <a href="/signup" className="button button--effect">
+                          <a
+                            href="/projectdetails"
+                            className="button button--effect"
+                          >
                             Invest Now
                           </a>
+                          {/* {userData ? (
+                            <a
+                              href="/projectdetails"
+                              className="button button--effect"
+                            >
+                              Invest Now
+                            </a>
+                          ) : (
+                            <a href="/signin" className="button button--effect">
+                              Invest Now
+                            </a>
+                          )} */}
                         </div>
                       </div>
                     </div>

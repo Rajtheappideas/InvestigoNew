@@ -1,6 +1,9 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch,faArrowCircleRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSearch,
+  faArrowCircleRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 const BlogOverview = () => {
   return (
@@ -18,7 +21,7 @@ const BlogOverview = () => {
                   placeholder="Search for articles"
                   required="required"
                 />
-                            <i class="fa-solid fa-magnifying-glass"></i>
+                <i class="fa-solid fa-magnifying-glass"></i>
               </div>
               <button type="submit" className="button">
                 Search

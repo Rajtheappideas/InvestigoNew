@@ -3,30 +3,47 @@ import logo from "../assets/images/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightLong } from "@fortawesome/free-solid-svg-icons";
 import "../assets/scss/layout/_header.scss";
-
+import { useUserContext } from "../context/UserContext";
+import useUserdata from "../hooks/useUserData";
+import { Toaster } from "react-hot-toast";
 
 const Navbar = () => {
+  const { userData } = useUserContext();
+  const { handleLogout } = useUserdata();
   return (
     <header className="header">
+      <Toaster />
       <nav className="navbar navbar-expand-xl">
         <div className="container">
           <a className="navbar-brand" href="/">
             <img src={logo} alt="Logo" className="logo" />
           </a>
           <div className="navbar__out order-2 order-xl-3">
-            <div className="nav__group__btn">
-              <a href="/signin" className="log d-none d-sm-block">
-                {" "}
-                Log In{" "}
-              </a>
-              <a
-                href="/signup"
-                className="button button--effect d-none d-sm-block"
-              >
-                {" "}
-                Join Now <FontAwesomeIcon icon={faRightLong} size="lg" />
-              </a>
-            </div>
+            {userData !== null ? (
+              <div className="nav__group__btn">
+                <a
+                  href=""
+                  className="button button--effect d-none d-sm-block"
+                  onClick={() => handleLogout()}
+                >
+                  Log out
+                </a>
+              </div>
+            ) : (
+              <div className="nav__group__btn">
+                <a href="/signin" className="log d-none d-sm-block">
+                  {" "}
+                  Log In{" "}
+                </a>
+                <a
+                  href="/signup"
+                  className="button button--effect d-none d-sm-block"
+                >
+                  {" "}
+                  Join Now <FontAwesomeIcon icon={faRightLong} size="lg" />
+                </a>
+              </div>
+            )}
             <button
               className="navbar-toggler"
               type="button"
@@ -68,7 +85,7 @@ const Navbar = () => {
               <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
-                  href="javascript:void(0)"
+                  href=""
                   id="navbarPropertyDropdown"
                   role="button"
                   data-bs-toggle="dropdown"
@@ -121,7 +138,7 @@ const Navbar = () => {
               <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
-                  href="javascript:void(0)"
+                  href=""
                   id="navbarDropdown"
                   role="button"
                   data-bs-toggle="dropdown"
@@ -188,21 +205,40 @@ const Navbar = () => {
                   Contact
                 </a>
               </li>
-              {/* login */}
-              <li className="nav-item d-block d-sm-none">
-                <a href="/signin" className="nav-link">
-                  Log In
-                </a>
-              </li>
-              {/* signup */}
-              <li className="nav-item d-block d-sm-none">
-                <a
-                  href="/signup"
-                  className="button button--effect button--last"
-                >
-                  Join Now <i className="fa-solid fa-arrow-right-long" />
-                </a>
-              </li>
+              {userData !== null ? (
+                <li className="nav-item d-block d-sm-none">
+                  <a
+                    onClick={() => handleLogout()}
+                    style={{ cursor: "pointer" }}
+                    className="nav-link"
+                  >
+                    Log out
+                  </a>
+                </li>
+              ) : (
+                <>
+                  {/* login */}
+                  <li className="nav-item d-block d-sm-none">
+                    <a href="/signin" className="nav-link">
+                      Log In
+                    </a>
+                  </li>
+                  <li className="nav-item d-block d-sm-none">
+                    <a href="/signin" className="nav-link">
+                      Log In
+                    </a>
+                  </li>
+                  {/* signup */}
+                  <li className="nav-item d-block d-sm-none">
+                    <a
+                      href="/signup"
+                      className="button button--effect button--last"
+                    >
+                      Join Now <i className="fa-solid fa-arrow-right-long" />
+                    </a>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>

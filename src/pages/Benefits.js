@@ -329,7 +329,7 @@ const Benefits = () => {
                       erat pellentesque lobortis vel vitae diam. Donec gravida
                       eleifend pellentesque. Curabitur dictum blandit accumsan.
                     </p>
-                    <a href="blog.html">Read More</a>
+                    <a href="/blog">Read More</a>
                   </div>
                   <div className="group birinit">
                     <h6>Share via Social </h6>
@@ -421,7 +421,7 @@ const Benefits = () => {
           </div>
         </div>
       </div>
-      <Gallery />
+      <Gallery  gallery="gallery"/>
       {/* <Gallery /> */}
       {/* properties */}
       <section className="properties__grid section__space wow fadeInUp">

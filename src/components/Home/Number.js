@@ -17,7 +17,7 @@ const Number = () => {
                   our low minimums give you the flexibility to invest the right
                   amount, at the right time, to meet your goals.
                 </p>
-                <a href="/properties" className="button button--effect">
+                <a href="/project" className="button button--effect">
                   Start Exploring
                 </a>
               </div>

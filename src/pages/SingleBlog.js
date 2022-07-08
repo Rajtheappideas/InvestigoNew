@@ -51,16 +51,16 @@ const SingleBlog = () => {
               <div className="blog__social">
                 <div className="social text-start text-lg-end">
                   <a href="javascript:void(0)">
-                    <FontAwesomeIcon icon={faFacebookF} color="blue" />
+                    <i className="fa-brands fa-facebook-f"></i>
                   </a>
                   <a href="javascript:void(0)">
-                    <FontAwesomeIcon icon={faTwitter} color="blue" />
+                    <i className="fa-brands fa-twitter"></i>
                   </a>
                   <a href="javascript:void(0)">
-                    <FontAwesomeIcon icon={faInstagram} color="blue" />
+                    <i className="fa-brands fa-instagram"></i>
                   </a>
                   <a href="javascript:void(0)">
-                    <FontAwesomeIcon icon={faLinkedinIn} color="blue" />
+                    <i className="fa-brands fa-linkedin-in"></i>
                   </a>
                 </div>
               </div>
@@ -178,19 +178,21 @@ const SingleBlog = () => {
               <div>
                 <h4>Fannie Simon</h4>
                 <p className="cta__space">Joined Spoment on Dec 17, 2021</p>
-                <div className="social text-start">
-                  <a href="javascript:void(0)">
-                    <FontAwesomeIcon icon={faFacebookF} color="blue" />
-                  </a>
-                  <a href="javascript:void(0)">
-                    <FontAwesomeIcon icon={faTwitter} color="blue" />
-                  </a>
-                  <a href="javascript:void(0)">
-                    <FontAwesomeIcon icon={faInstagram} color="blue" />
-                  </a>
-                  <a href="javascript:void(0)">
-                    <FontAwesomeIcon icon={faLinkedinIn} color="blue" />
-                  </a>
+                <div className="blog__social">
+                  <div className="social text-start text-lg-end">
+                    <a href="javascript:void(0)">
+                      <i className="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="javascript:void(0)">
+                      <i className="fa-brands fa-twitter"></i>
+                    </a>
+                    <a href="javascript:void(0)">
+                      <i className="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="javascript:void(0)">
+                      <i className="fa-brands fa-linkedin-in"></i>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -221,7 +223,7 @@ const SingleBlog = () => {
             <div className="row altr">
               <div className="col-md-6 col-xl-4">
                 <div className="featured__large__post">
-                  <a href="blog-single.html" className="thumbnail">
+                  <a href="/singleblog" className="thumbnail">
                     <img
                       src={require("../assets/images/blog/latest-one.png")}
                       alt="Poster"
@@ -229,7 +231,7 @@ const SingleBlog = () => {
                   </a>
                   <div className="blog__content">
                     <h5>
-                      <a href="blog-single.html">
+                      <a href="/singleblog">
                         Learn the Benefits of Rental Property Investing
                       </a>
                     </h5>
@@ -237,7 +239,7 @@ const SingleBlog = () => {
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                       sed do
                     </p>
-                    <a href="blog-single.html">
+                    <a href="/singleblog">
                       Read More <FontAwesomeIcon icon={faArrowRightLong} />
                     </a>
                   </div>
@@ -245,7 +247,7 @@ const SingleBlog = () => {
               </div>
               <div className="col-md-6 col-xl-4">
                 <div className="featured__large__post">
-                  <a href="blog-single.html" className="thumbnail">
+                  <a href="/singleblog" className="thumbnail">
                     <img
                       src={require("../assets/images/blog/latest__two.png")}
                       alt="Poster"
@@ -253,7 +255,7 @@ const SingleBlog = () => {
                   </a>
                   <div className="blog__content">
                     <h5>
-                      <a href="blog-single.html">
+                      <a href="/singleblog">
                         A Short Guide on Rental Property Investment
                       </a>
                     </h5>
@@ -261,7 +263,7 @@ const SingleBlog = () => {
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                       sed do
                     </p>
-                    <a href="blog-single.html">
+                    <a href="/singleblog">
                       Read More <FontAwesomeIcon icon={faArrowRightLong} />
                     </a>
                   </div>
@@ -269,7 +271,7 @@ const SingleBlog = () => {
               </div>
               <div className="col-md-6 col-xl-4">
                 <div className="featured__large__post">
-                  <a href="blog-single.html" className="thumbnail">
+                  <a href="/singleblog" className="thumbnail">
                     <img
                       src={require("../assets/images/blog/latest-three.png")}
                       alt="Poster"
@@ -277,7 +279,7 @@ const SingleBlog = () => {
                   </a>
                   <div className="blog__content">
                     <h5>
-                      <a href="blog-single.html">
+                      <a href="/singleblog">
                         Learn the Benefits of Rental Property Investing
                       </a>
                     </h5>
@@ -285,7 +287,7 @@ const SingleBlog = () => {
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                       sed do
                     </p>
-                    <a href="blog-single.html">
+                    <a href="/singleblog">
                       Read More <FontAwesomeIcon icon={faArrowRightLong} />
                     </a>
                   </div>

@@ -560,7 +560,7 @@ const ProjectDetails = () => {
                         </form>
                       </div>
                       <p className="text-center neutral-bottom">
-                        <a href="contact-us.html">Request a free callback</a>
+                        <a href="/contactus">Request a free callback</a>
                       </p>
                     </div>
                     <div className="group brini">
@@ -584,19 +584,19 @@ const ProjectDetails = () => {
                     <div className="group birinit">
                       <h6>Share via Social </h6>
                       <div class="social text-start">
-                                    <a href="javascript:void(0)">
-                                        <i class="fab fa-facebook-f"></i>
-                                    </a>
-                                    <a href="javascript:void(0)">
-                                        <i class="fab fa-twitter"></i>
-                                    </a>
-                                    <a href="javascript:void(0)">
-                                        <i class="fab fa-instagram"></i>
-                                    </a>
-                                    <a href="javascript:void(0)">
-                                        <i class="fab fa-linkedin-in"></i>
-                                    </a>
-                                </div>
+                        <a href="javascript:void(0)">
+                          <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="javascript:void(0)">
+                          <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="javascript:void(0)">
+                          <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="javascript:void(0)">
+                          <i class="fab fa-linkedin-in"></i>
+                        </a>
+                      </div>
                     </div>
                     <div className="group alt__brin">
                       <h5>

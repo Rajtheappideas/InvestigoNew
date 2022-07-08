@@ -41,7 +41,7 @@ const DashboardNav = ({
             </a>
             <div className="notification-area">
               <a
-                href="javascript:void(0)"
+                href=""
                 className="icon__wrapper notification__icon"
               >
                 <FontAwesomeIcon icon={faBell} color="blue" />
@@ -54,7 +54,7 @@ const DashboardNav = ({
                 </div>
                 <div className="notification__single-wrapper">
                   <div className="notification__single">
-                    <a href="javascript:void(0)">
+                    <a href="">
                       <h6>Welcome to spoment</h6>
                       <p>
                         We are happy to welcome you to our community spoment.
@@ -63,7 +63,7 @@ const DashboardNav = ({
                     <p className="time">2 hours ago</p>
                   </div>
                   <div className="notification__single">
-                    <a href="javascript:void(0)">
+                    <a href="">
                       <h6>Welcome to spoment</h6>
                       <p>
                         We are happy to welcome you to our community spoment.

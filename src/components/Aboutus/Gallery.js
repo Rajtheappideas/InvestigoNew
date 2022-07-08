@@ -1,7 +1,7 @@
 import React from "react";
 import Slider from "react-slick";
 
-const Gallery = () => {
+const Gallery = ({gallery}) => {
   function SampleNextArrow(props) {
     const { className, style, onClick } = props;
     return (
@@ -61,7 +61,7 @@ const Gallery = () => {
     ],
   };
   return (
-    <div className="image__gallery section__space" style={{ height: "400px" }}>
+    <div className="image__gallery section__space" id={gallery} style={{ height: "400px" }}>
       <div className="image__gallery__area">
         <Slider {...settings}>
           <div className="gallery__single">

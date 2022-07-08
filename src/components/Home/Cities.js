@@ -164,7 +164,7 @@ const Cities = () => {
                     </h5>
                     <p>{city?.properties}+ Properties</p>
                     <a
-                      href="/properties"
+                      href="/project"
                       className="button button--secondary button--effect"
                     >
                       Explore <i className="fa-solid fa-angle-right" />

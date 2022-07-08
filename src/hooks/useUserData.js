@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/UserContext";
+import { toast } from "react-hot-toast";
 
 const useUserdata = () => {
   const { setUserData } = useUserContext();
@@ -54,7 +55,16 @@ const useUserdata = () => {
     localStorage.clear();
     setUserData(null);
     navigate("/");
-    window.location.reload();
+    toast.success("user logged out!!", {
+      duration: 2000,
+      style: {
+        width: "500px",
+        background: "black",
+        color: "white",
+        fontSize: "large",
+      },
+      position: "top-center",
+    });
   };
   return { handleLogout, handleFailure, handleSuccess, loadingGoogle };
 };

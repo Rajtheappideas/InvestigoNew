@@ -34,7 +34,7 @@ const Support = () => {
                   href="#start"
                   onClick={() => setActiveButton("start")}
                   className={`faq__tab__btn ${
-                    activeButton == "start" && "faq__tab__btn__active"
+                    activeButton === "start" && "faq__tab__btn__active"
                   }`}
                 >
                   Getting Started
@@ -43,7 +43,7 @@ const Support = () => {
                   href="#funds"
                   onClick={() => setActiveButton("funds")}
                   className={`faq__tab__btn ${
-                    activeButton == "funds" && "faq__tab__btn__active"
+                    activeButton === "funds" && "faq__tab__btn__active"
                   }`}
                 >
                   Adding Funds
@@ -52,7 +52,7 @@ const Support = () => {
                   href="#investing"
                   onClick={() => setActiveButton("investing")}
                   className={`faq__tab__btn ${
-                    activeButton == "investing" && "faq__tab__btn__active"
+                    activeButton === "investing" && "faq__tab__btn__active"
                   }`}
                 >
                   Investing
@@ -61,7 +61,7 @@ const Support = () => {
                   href="#security"
                   onClick={() => setActiveButton("security")}
                   className={`faq__tab__btn ${
-                    activeButton == "security" && "faq__tab__btn__active"
+                    activeButton === "security" && "faq__tab__btn__active"
                   }`}
                 >
                   Security
@@ -70,7 +70,7 @@ const Support = () => {
                   href="#taxes"
                   onClick={() => setActiveButton("taxes")}
                   className={`faq__tab__btn ${
-                    activeButton == "taxes" && "faq__tab__btn__active"
+                    activeButton === "taxes" && "faq__tab__btn__active"
                   }`}
                 >
                   Taxes

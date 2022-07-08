@@ -7,6 +7,7 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { Helmet } from "react-helmet";
+import useUserdata from "../../hooks/useUserData";
 
 const Withdraw = ({
   setShowDashboard,
@@ -17,6 +18,7 @@ const Withdraw = ({
 }) => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [selectValue, setSelectValue] = useState(null);
+  const {handleLogout} = useUserdata()
   return (
     <>
       <Helmet>
@@ -137,7 +139,10 @@ const Withdraw = ({
                       <hr />
                       <ul className="logout">
                         <li>
-                          <a href="/signin">
+                          <a
+                            style={{ cursor: "pointer" }}
+                            onClick={handleLogout}
+                          >
                             <img
                               src={require("../../assets/images/icons/logout.png")}
                               alt="Logout"

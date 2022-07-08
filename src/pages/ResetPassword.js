@@ -1,4 +1,6 @@
-import { EyeIcon, EyeOffIcon } from "@heroicons/react/solid";
+import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import bgImg from "../assets/images/registration-bg.png";
 import axios from "axios";
 import React, { useState } from "react";
 import Helmet from "react-helmet";
@@ -6,8 +8,6 @@ import { toast, Toaster } from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Resetpassword = () => {
-  const [showpassword, setShowpassword] = useState(false);
-  const [showConfirmpassword, setConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
@@ -87,98 +87,139 @@ const Resetpassword = () => {
   return (
     <>
       <Helmet>
-        <title>Reset Password</title>
+        <title>Investigo - Reset Password</title>
       </Helmet>
       <Toaster />
-
-      {/* -----------react toasatify toast container--------------- */}
-
-      <div className="md:h-[500px] h-full md:w-[500px] w-full p-5 space-y-5 absolute top-[10%] left-1/2 -translate-x-1/2 flex flex-col items-center justify-center  rounded-tl-[130px] rounded-br-[130px] rounded-tr-none rounded-bl-none sm:shadow-2xl bg-white">
-        <h1 className="font-bold text-4xl text-center tracking-wide">
-          {/* {t("Reset Password")} */}
-          Reset Password
-        </h1>
-
-        {/* -------------input fieilds--------------- */}
-        <form action="post" className="w-full">
-          <div className="space-y-2 w-full">
-            <div>
-              <input
-                type="email"
-                name="email"
-                value={email}
-                disabled={true}
-                className={`border px-6 w-full h-[56px] rounded-tl-[30px] rounded-br-[30px] rounded-tr-none rounded-bl-none outline-none`}
-              />
-            </div>
-            {/* new password */}
-            <div className="flex items-center relative ">
-              <input
-                type={showpassword ? "text" : "password"}
-                name="password"
-                placeholder="Enter your new password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                className={`border px-6 w-full h-[56px] rounded-tl-[30px] rounded-br-[30px] rounded-tr-none rounded-bl-none outline-none`}
-              />
-              <button
-                type="button"
-                onClick={() => setShowpassword(!showpassword)}
-                className="absolute right-4 top-3"
+      <div
+        className="wrapper bg__img"
+        style={{ backgroundImage: `url(${bgImg})` }}
+      >
+        {/* ==== header start ==== */}
+        <header className="header header--secondary">
+          <nav className="navbar navbar-expand-xl">
+            <div className="container">
+              <a className="navbar-brand" href="/">
+                <img
+                  src={require("../assets/images/logo.png")}
+                  alt="Logo"
+                  className="logo"
+                />
+              </a>
+              <div className="navbar__out order-2 order-xl-3">
+                <div className="nav__group__btn">
+                  <a
+                    href="/signin"
+                    style={{ textDecoration: "none" }}
+                    className="log d-none d-sm-block"
+                  >
+                    {" "}
+                    Log In{" "}
+                  </a>
+                  <a
+                    href="/signup"
+                    className="button button--effect d-none d-sm-block"
+                    style={{ color: "white", textDecoration: "none" }}
+                  >
+                    {" "}
+                    Join Now <FontAwesomeIcon icon={faArrowRightLong} />{" "}
+                  </a>
+                </div>
+                <button
+                  className="navbar-toggler d-block d-sm-none"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#primaryNav"
+                  aria-controls="primaryNav"
+                  aria-expanded="false"
+                  aria-label="Toggle Primary Nav"
+                >
+                  <span className="icon-bar top-bar" />
+                  <span className="icon-bar middle-bar" />
+                  <span className="icon-bar bottom-bar" />
+                </button>
+              </div>
+              <div
+                className="collapse navbar-collapse order-3 order-xl-2"
+                id="primaryNav"
               >
-                {showpassword ? (
-                  <EyeIcon className="h-6" />
-                ) : (
-                  <EyeOffIcon className="h-6" />
-                )}
-              </button>
+                <ul className="navbar-nav">
+                  <li className="nav-item d-block d-sm-none">
+                    <a href="/signin" className="nav-link">
+                      Log In
+                    </a>
+                  </li>
+                  <li className="nav-item d-block d-sm-none">
+                    <a
+                      href="/signup"
+                      className="button button--effect button--last"
+                    >
+                      Join Now <i className="fa-solid fa-arrow-right-long" />
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
+          </nav>
+        </header>
+        {/* ==== #header end ==== */}
+        {/* ==== reset password section start ==== */}
+        <section className="registration clear__top">
+          <div className="container">
+            <div className="registration__area">
+              <h4 className="neutral-top">Reset Password</h4>
 
-            {/* confirm new password */}
-            {/* new password */}
-            <div className="flex items-center relative ">
-              <input
-                type={showConfirmpassword ? "text" : "password"}
-                name="password"
-                placeholder="Enter your new password"
-                value={confirmNewPassword}
-                onChange={(e) => setConfirmNewPassword(e.target.value)}
-                className={`border px-6 w-full h-[56px] rounded-tl-[30px] rounded-br-[30px] rounded-tr-none rounded-bl-none outline-none`}
-              />
-              <button
-                type="button"
-                onClick={() => setConfirmPassword(!showConfirmpassword)}
-                className="absolute right-4 top-3"
-              >
-                {showConfirmpassword ? (
-                  <EyeIcon className="h-6" />
-                ) : (
-                  <EyeOffIcon className="h-6" />
-                )}
-              </button>
-            </div>
-            <div>
-              <button
-                type="button"
-                className={`border active:scale-95 transition transform duration-100 ease-in-out text-lg font-semibold text-white text-center px-6 w-full h-[56px] bg-gradient-to-l from-Purple to-VividBlue rounded-tl-[30px] rounded-br-[30px] rounded-tr-none rounded-bl-none outline-none`}
-                onClick={() => forgotPassword()}
-              >
-                {loading ? "Loading..." : "Submit"}
-              </button>
-            </div>
-            <div>
-              <Link to="/signin">
+              <div className="input input--secondary">
+                <label htmlFor="loginMail">Email*</label>
+                <input
+                  type="email"
+                  name="email"
+                  id="loginMail"
+                  placeholder="Enter your email"
+                  value={email}
+                  disabled={true}
+                />
+              </div>
+              <div className="input input--secondary">
+                <label htmlFor="loginPass">New Password*</label>
+                <input
+                  type="password"
+                  name="password"
+                  id="loginPass"
+                  placeholder="Enter New Password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                />
+              </div>
+              <div className="input input--secondary">
+                <label htmlFor="loginPass">Confrim New Password*</label>
+                <input
+                  type="password"
+                  name="confirmpassword"
+                  id="loginPass"
+                  placeholder="Enter Confrim New Password"
+                  value={confirmNewPassword}
+                  onChange={(e) => setConfirmNewPassword(e.target.value)}
+                />
+              </div>
+
+              <div className="input__button">
                 <button
                   type="button"
-                  className={`border active:scale-95 transition transform duration-100 ease-in-out text-lg font-semibold text-white text-center px-6 w-full h-[56px] bg-gradient-to-l from-Purple to-VividBlue rounded-tl-[30px] rounded-br-[30px] rounded-tr-none rounded-bl-none outline-none`}
+                  onClick={forgotPassword}
+                  className="button button--effect"
                 >
-                  {/* {t("Back to Login")} */}
-                  Back to Login
+                  {loading ? "loading..." : "Submit"}
                 </button>
-              </Link>
+              </div>
+              <div className="input__button">
+                <button type="button" className="button button--effect">
+                  <a href="/" style={{color:"white" ,textDecorationLine:"none",fontSize:"15px"}}>Back to login</a>
+                </button>
+              </div>
             </div>
           </div>
-        </form>
+        </section>
+        {/* ==== #registration section end ==== */}
       </div>
     </>
   );

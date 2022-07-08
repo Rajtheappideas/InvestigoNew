@@ -1,12 +1,11 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import { Footer, Navbar } from "../components";
+import { Footer, Market, Navbar } from "../components";
 import bgImg from "../assets/images/banner/program-bg.png";
 import bgImg1 from "../assets/images/step-two-bg.png";
 import bgImg2 from "../assets/images/testimonial/quote.png";
 import bgImg3 from "../assets/images/testimonial/dot-map.png";
 import Slider from "react-slick";
-
 
 const AffiliateProgram = () => {
   function SampleNextArrow(props) {
@@ -183,166 +182,77 @@ const AffiliateProgram = () => {
         </div>
         {/* ==== #video popup section end ==== */}
       </section>
-      {/* testomonial */}
-      <section
-        className="testimonial testimonial--two section__space pos__rel over__hi bg__img"
-        style={{ backgroundImage: `url(${bgImg3})` }}
-      >
+      {/* number */}
+      <section className="program section__space">
         <div className="container">
-          <div className="testimonial__area">
+          <div className="program__area wow fadeInUp">
             <div className="section__header">
-              <h5 className="neutral-top">Investors Trust Us</h5>
-              <h2>Trusted by Over 40,000 Worldwide Customer since 2022</h2>
+              <h2 className="neutral-top">Affiliate Program</h2>
               <p className="neutral-bottom">
-                We divide each property into shares so anyone can get started.
-                Kindly check out our Investors say about revest.
+                Investigo Affiliate Program aims to reward our most active and
+                larger investors, whilst at the same time encouraging investors
+                to minimize risk by spreading their investments into multiple
+                investment opportunities.
               </p>
             </div>
-            <Slider {...settings}>
-              <div className="testimonial__item__wrapper">
-                <div className="testimonial__support">
-                  <div
-                    className="testimonial__item bg__img"
-                    style={{ backgroundImage: `url(${bgImg2})` }}
-                  >
-                    <div className="testimonial__author__ratings">
-                      <i className="fa-solid fa-star" />
-                      <i className="fa-solid fa-star" />
-                      <i className="fa-solid fa-star" />
-                      <i className="fa-solid fa-star" />
-                      <i className="fa-solid fa-star" />
-                    </div>
-                    <p className="tertiary">
-                      Very trustworthy and clearly platform to invest in real
-                      state. Safe investment with monthly payouts. Really
-                      recommended!
-                    </p>
-                    <div className="testimonial__author">
-                      <div className="testimonial__author__info">
-                        <div className="avatar__wrapper">
-                          <img
-                            src={require("../assets/images/testimonial/avatar.png")}
-                            alt="Allan Murphy"
-                          />
-                        </div>
-                        <div>
-                          <h5>Allan Murphy</h5>
-                          <p className="neutral-bottom">United States</p>
-                        </div>
-                      </div>
-                    </div>
+            <div className="row">
+              <div className="col-sm-6 col-xl-3">
+                <div className="program__single shadow__effect">
+                  <div className="box">
+                    <h3>
+                      <span className="counterFive">2.0</span>%
+                    </h3>
                   </div>
+                  <h5>Classic</h5>
+                  <p className="neutral-bottom">
+                    Earn 2.5% commission on any first purchase you refer.
+                  </p>
                 </div>
               </div>
-              <div className="testimonial__item__wrapper">
-                <div className="testimonial__support">
-                  <div
-                    className="testimonial__item bg__img"
-                    style={{ backgroundImage: `url(${bgImg2})` }}
-                  >
-                    <div className="testimonial__author__ratings">
-                      <i className="fa-solid fa-star" />
-                      <i className="fa-solid fa-star" />
-                      <i className="fa-solid fa-star" />
-                      <i className="fa-solid fa-star" />
-                      <i className="fa-solid fa-star" />
-                    </div>
-                    <p className="tertiary">
-                      Very trustworthy and clearly platform to invest in real
-                      state. Safe investment with monthly payouts. Really
-                      recommended!
-                    </p>
-                    <div className="testimonial__author">
-                      <div className="testimonial__author__info">
-                        <div className="avatar__wrapper">
-                          <img
-                            src={require("../assets/images/testimonial/avatar.png")}
-                            alt="Allan Murphy"
-                          />
-                        </div>
-                        <div>
-                          <h5>Allan Murphy</h5>
-                          <p className="neutral-bottom">United States</p>
-                        </div>
-                      </div>
-                    </div>
+              <div className="col-sm-6 col-xl-3">
+                <div className="program__single shadow__effect">
+                  <div className="box">
+                    <h3>
+                      <span className="counterFive">4</span>%
+                    </h3>
                   </div>
+                  <h5>Elite</h5>
+                  <p className="neutral-bottom">
+                    Earn 5% commission on any first purchase you refer.
+                  </p>
                 </div>
               </div>
-              <div className="testimonial__item__wrapper">
-                <div className="testimonial__support">
-                  <div
-                    className="testimonial__item bg__img"
-                    style={{ backgroundImage: `url(${bgImg2})` }}
-                  >
-                    <div className="testimonial__author__ratings">
-                      <i className="fa-solid fa-star" />
-                      <i className="fa-solid fa-star" />
-                      <i className="fa-solid fa-star" />
-                      <i className="fa-solid fa-star" />
-                      <i className="fa-solid fa-star" />
-                    </div>
-                    <p className="tertiary">
-                      Very trustworthy and clearly platform to invest in real
-                      state. Safe investment with monthly payouts. Really
-                      recommended!
-                    </p>
-                    <div className="testimonial__author">
-                      <div className="testimonial__author__info">
-                        <div className="avatar__wrapper">
-                          <img
-                            src={require("../assets/images/testimonial/avatar.png")}
-                            alt="Allan Murphy"
-                          />
-                        </div>
-                        <div>
-                          <h5>Allan Murphy</h5>
-                          <p className="neutral-bottom">United States</p>
-                        </div>
-                      </div>
-                    </div>
+              <div className="col-sm-6 col-xl-3">
+                <div className="program__single shadow__effect">
+                  <div className="box">
+                    <h3>
+                      <span className="counterFive">5</span>%
+                    </h3>
                   </div>
+                  <h5>Premium</h5>
+                  <p className="neutral-bottom">
+                    Earn 7% commission on any first purchase you refer.
+                  </p>
                 </div>
               </div>
-              <div className="testimonial__item__wrapper">
-                <div className="testimonial__support">
-                  <div
-                    className="testimonial__item bg__img"
-                    style={{ backgroundImage: `url(${bgImg2})` }}
-                  >
-                    <div className="testimonial__author__ratings">
-                      <i className="fa-solid fa-star" />
-                      <i className="fa-solid fa-star" />
-                      <i className="fa-solid fa-star" />
-                      <i className="fa-solid fa-star" />
-                      <i className="fa-solid fa-star" />
-                    </div>
-                    <p className="tertiary">
-                      Very trustworthy and clearly platform to invest in real
-                      state. Safe investment with monthly payouts. Really
-                      recommended!
-                    </p>
-                    <div className="testimonial__author">
-                      <div className="testimonial__author__info">
-                        <div className="avatar__wrapper">
-                          <img
-                            src={require("../assets/images/testimonial/avatar.png")}
-                            alt="Allan Murphy"
-                          />
-                        </div>
-                        <div>
-                          <h5>Allan Murphy</h5>
-                          <p className="neutral-bottom">United States</p>
-                        </div>
-                      </div>
-                    </div>
+              <div className="col-sm-6 col-xl-3">
+                <div className="program__single shadow__effect">
+                  <div className="box">
+                    <h3>
+                      <span className="counterFive">7</span>%
+                    </h3>
                   </div>
+                  <h5>Ulimate</h5>
+                  <p className="neutral-bottom">
+                    Earn 10% commission on any first purchase you refer.
+                  </p>
                 </div>
               </div>
-            </Slider>
+            </div>
           </div>
         </div>
       </section>
+      <Market />
 
       <Footer />
     </>
