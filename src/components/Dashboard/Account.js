@@ -34,7 +34,7 @@ const Account = ({
   const [loading, setLoading] = useState(false);
 
   const { userData } = useUserContext();
-  const {handleLogout} = useUserdata()
+  const { handleLogout } = useUserdata();
 
   const changePassword = () => {
     if (oldPassword === "" || newPassword === "" || confirmNewPassword === "") {
@@ -884,7 +884,7 @@ const Account = ({
         </div>
       </div>
 
-      <DashboardFooter />
+      {/* <DashboardFooter /> */}
     </>
   );
 };

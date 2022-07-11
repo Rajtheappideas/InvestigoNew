@@ -218,11 +218,7 @@ const Navbar = () => {
               ) : (
                 <>
                   {/* login */}
-                  <li className="nav-item d-block d-sm-none">
-                    <a href="/signin" className="nav-link">
-                      Log In
-                    </a>
-                  </li>
+
                   <li className="nav-item d-block d-sm-none">
                     <a href="/signin" className="nav-link">
                       Log In

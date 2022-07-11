@@ -108,21 +108,13 @@ const Filter = ({
       setFilterDataByProperty(filterbyproperty);
     }
   };
-  useEffect(() => {
-    if (searchByLocation === "") {
-      return false;
-    } else {
-      FilterByLocation();
-    }
-  }, [searchByLocation]);
+  // useEffect(() => {
+  //   FilterByLocation();
+  // }, [searchByLocation]);
 
-  useEffect(() => {
-    if (seachByProperty === "") {
-      return false;
-    } else {
-      FilterByProperty();
-    }
-  }, [seachByProperty]);
+  // useEffect(() => {
+  //   FilterByProperty();
+  // }, [seachByProperty]);
   return (
     <>
       <Toaster />
@@ -169,6 +161,7 @@ const Filter = ({
                     onChange={(e) => {
                       setSearchByLocation(e.target.value.toLowerCase());
                     }}
+                    onClick={() => FilterByLocation()}
                   >
                     <option label="Location"></option>
                     <option value="los angeles">Los Angeles</option>
@@ -192,6 +185,7 @@ const Filter = ({
                       setSeachByProperty(e.target.value.toLowerCase())
                     }
                     value={seachByProperty}
+                    onClick={() => FilterByProperty()}
                   >
                     <option label="Property" />
                     <option value="commercial">Commercial</option>
