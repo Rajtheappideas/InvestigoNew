@@ -1,24 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Footer, Gallery, Market, Navbar } from "../components";
 import bgImg from "../assets/images/construction.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faImages,
-  faEuroSign,
-  faClock,
   faDollarSign,
   faBell,
   faDownload,
 } from "@fortawesome/free-solid-svg-icons";
 import {
-  faFacebookF,
-  faInstagram,
-  faTwitter,
-  faLinkedinIn,
-} from "@fortawesome/free-brands-svg-icons";
+  FacebookShareButton,
+  TwitterShareButton,
+  LinkedinShareButton,
+} from "react-share";
 
 const Benefits = () => {
+  const [investmentAmount, setInvestmentAmount] = useState("");
+  const [monthlyReturn, setMonthlyReturn] = useState(null);
+  const [annualReturn, setAnnualReturn] = useState(null);
+  const [biannualReturn, setBiannualReturn] = useState(null);
+
+  const handleInterestChange = () => {
+    if (investmentAmount == 250) {
+      setMonthlyReturn(252.5);
+      setAnnualReturn(280);
+      setBiannualReturn(313.6);
+    } else if (investmentAmount == 500) {
+      setMonthlyReturn(507.5);
+      setAnnualReturn(590);
+      setBiannualReturn(696.62);
+    } else if (investmentAmount == 1000) {
+      setMonthlyReturn(1020);
+      setAnnualReturn(1240);
+      setBiannualReturn(1537.6);
+    } else if (investmentAmount == 5000) {
+      setMonthlyReturn(5150);
+      setAnnualReturn(6800);
+      setBiannualReturn(9248);
+    }
+  };
+  useEffect(() => {
+    handleInterestChange();
+  }, [investmentAmount]);
   return (
     <>
       <Helmet>
@@ -55,8 +79,13 @@ const Benefits = () => {
                           <select
                             className="form-select form-select-lg mb-3"
                             aria-label=".form-select-lg example"
+                            onChange={(e) => {
+                              setInvestmentAmount(e.target.value);
+                            }}
                           >
-                            <option selected="">Choose your investment</option>
+                            <option defaultValue="">
+                              Choose your investment
+                            </option>
                             <option value={250}>250</option>
                             <option value={500}>500</option>
                             <option value={1000}>1000</option>
@@ -68,9 +97,10 @@ const Benefits = () => {
                             <input
                               type="radio"
                               id="pone"
-                              defaultChecked=""
                               className="radio-input"
                               name="radio-group"
+                              disabled={true}
+                              checked={investmentAmount == 5000 && true}
                             />
                             <label htmlFor="pone" className="radio-label">
                               {" "}
@@ -81,9 +111,10 @@ const Benefits = () => {
                             <input
                               type="radio"
                               id="ptwo"
-                              defaultChecked=""
                               className="radio-input"
                               name="radio-group"
+                              disabled={true}
+                              checked={investmentAmount == 1000 && true}
                             />
                             <label htmlFor="ptwo" className="radio-label">
                               {" "}
@@ -94,9 +125,14 @@ const Benefits = () => {
                             <input
                               type="radio"
                               id="pthree"
-                              defaultChecked=""
                               className="radio-input"
                               name="radio-group"
+                              disabled={true}
+                              checked={
+                                (investmentAmount == 500 ||
+                                  investmentAmount == 250) &&
+                                true
+                              }
                             />
                             <label htmlFor="pthree" className="radio-label">
                               {" "}
@@ -109,24 +145,28 @@ const Benefits = () => {
                         <div>
                           <p className="secondary">I will earn ( 01 Month )</p>
                           <h4 className="neutral-bottom">
-                            O.72 <i className="fa-solid fa-euro-sign"></i>
+                            {monthlyReturn === null ? "00" : monthlyReturn}{" "}
+                            <i className="fa-solid fa-euro-sign"></i>
                           </h4>
                         </div>
                         <div>
                           <p className="secondary">I will earn ( 12 Month )</p>
                           <h4 className="neutral-bottom">
-                            11.72 <i className="fa-solid fa-euro-sign"></i>
+                            {annualReturn === null ? "00" : annualReturn}{" "}
+                            <i className="fa-solid fa-euro-sign"></i>
                           </h4>
                         </div>
                         <div>
                           <p className="secondary">I will earn ( 24 Month )</p>
                           <h4 className="neutral-bottom">
-                            17.72 <i className="fa-solid fa-euro-sign"></i>
+                            {biannualReturn === null ? "00" : biannualReturn}{" "}
+                            <i className="fa-solid fa-euro-sign"></i>
                           </h4>
                         </div>
                       </div>
                     </div>
                   </div>
+                  {/* about loan */}
                   <div className="group__one">
                     <h4>About the loan</h4>
                     <p>
@@ -177,6 +217,7 @@ const Benefits = () => {
                       requested to adjust financial flows.{" "}
                     </p>
                   </div>
+                  {/* fixed interrest */}
                   <div className="group__one">
                     <h4>Interest</h4>
                     <p>Annual interest rate</p>
@@ -259,29 +300,7 @@ const Benefits = () => {
               <div className="col-lg-5">
                 <div className="p__details__sidebar">
                   <div className="intro">
-                    <div className="countdown__wrapper">
-                      <p className="secondary">
-                        <FontAwesomeIcon icon={faClock} /> Left to invest
-                      </p>
-                      <div className="countdown">
-                        <h5>
-                          <span className="days">100</span>
-                          <span className="ref">d</span>
-                          <span className="seperator">:</span>
-                        </h5>
-                        <h5>
-                          <span className="hours">20</span>
-                          <span className="ref">h</span>
-                          <span className="seperator">:</span>
-                        </h5>
-                        <h5>
-                          <span className="minutes">10</span>
-                          <span className="ref">m</span>
-                          <span className="seperator" />
-                        </h5>
-                      </div>
-                    </div>
-                    <h5>
+                    <h5 style={{ marginTop: "2.5rem" }}>
                       Available for funding: <span>€134 514</span>
                     </h5>
                     <div className="progress__type progress__type--two">
@@ -333,18 +352,42 @@ const Benefits = () => {
                   </div>
                   <div className="group birinit">
                     <h6>Share via Social </h6>
-                    <div class="social text-start">
-                      <a href="javascript:void(0)">
-                        <i className="fab fa-facebook-f"></i>
+                    <div className="social text-start">
+                      <a style={{ cursor: "pointer" }}>
+                        <FacebookShareButton
+                          url={`https://investigo-tai.herokuapp.com/benefits`}
+                          subject="investigoproject"
+                          body="learn from lux gap courses"
+                        >
+                          <i className="fab fa-facebook-f"></i>
+                        </FacebookShareButton>
                       </a>
-                      <a href="javascript:void(0)">
-                        <i className="fab fa-twitter"></i>
+                      <a style={{ cursor: "pointer" }}>
+                        <TwitterShareButton
+                          url={`https://investigo-tai.herokuapp.com/benefits`}
+                          title="investigoproject"
+                          hashtag="#investigoproject"
+                        >
+                          <i className="fab fa-twitter"></i>
+                        </TwitterShareButton>
                       </a>
-                      <a href="javascript:void(0)">
-                        <i className="fab fa-instagram"></i>
+                      <a style={{ cursor: "pointer" }}>
+                        <TwitterShareButton
+                          url={`https://investigo-tai.herokuapp.com/benefits`}
+                          title="investigoproject"
+                          hashtag="#investigoproject"
+                        >
+                          <i className="fab fa-instagram"></i>
+                        </TwitterShareButton>
                       </a>
-                      <a href="javascript:void(0)">
-                        <i className="fab fa-linkedin-in"></i>
+                      <a style={{ cursor: "pointer" }}>
+                        <LinkedinShareButton
+                          url={`https://investigo-tai.herokuapp.com/benefits`}
+                          title="investigoproject"
+                          hashtag="#investigoproject"
+                        >
+                          <i className="fab fa-linkedin-in"></i>
+                        </LinkedinShareButton>
                       </a>
                     </div>
                   </div>
@@ -381,7 +424,7 @@ const Benefits = () => {
                     <hr />
                     <h6>Investment Note</h6>
                     <p>Property Share's Detailed Investment Note</p>
-                    <a href="javascript:void(0)" className="button">
+                    <a style={{ cursor: "pointer" }} className="button">
                       DOWNLOAD INVESTMENT NOTE{" "}
                       <FontAwesomeIcon icon={faDownload} />
                     </a>
@@ -390,7 +433,7 @@ const Benefits = () => {
                       Detailed Report on the Title diligence of the property by
                       Amarchand Mangaldas
                     </p>
-                    <a href="javascript:void(0)" className="button">
+                    <a style={{ cursor: "pointer" }} className="button">
                       DOWNLOAD TITLE REPORT{" "}
                       <FontAwesomeIcon icon={faDownload} />
                     </a>
@@ -421,7 +464,7 @@ const Benefits = () => {
           </div>
         </div>
       </div>
-      <Gallery  gallery="gallery"/>
+      <Gallery gallery="gallery" />
       {/* <Gallery /> */}
       {/* properties */}
       <section className="properties__grid section__space wow fadeInUp">
@@ -508,41 +551,6 @@ const Benefits = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="alt__loan__foot">
-                      <div className="invest__cta__wrapper">
-                        <div className="countdown__wrapper">
-                          <p className="secondary">
-                            <FontAwesomeIcon icon={faClock} /> Left to invest
-                          </p>
-                          <div className="countdown">
-                            <h5>
-                              <span className="days">200</span>
-                              <span className="ref">d</span>
-                              <span className="seperator">:</span>
-                            </h5>
-                            <h5>
-                              <span className="hours">10</span>
-                              <span className="ref">h</span>
-                              <span className="seperator">:</span>
-                            </h5>
-                            <h5>
-                              <span className="minutes">40</span>
-                              <span className="ref">m</span>
-                              <span className="seperator" />
-                            </h5>
-                          </div>
-                        </div>
-                        <div className="invest__cta">
-                          <a
-                            href="/businessloandetails"
-                            className="button button--effect"
-                          >
-                            Invest Now
-                          </a>
-                          <p className="secondary">Business loan #00134</p>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
                 <div className="col-md-6 col-xl-4 alt__loan__grid">
@@ -605,41 +613,6 @@ const Benefits = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="alt__loan__foot">
-                      <div className="invest__cta__wrapper">
-                        <div className="countdown__wrapper">
-                          <p className="secondary">
-                            <FontAwesomeIcon icon={faClock} /> Left to invest
-                          </p>
-                          <div className="countdown">
-                            <h5>
-                              <span className="days">200</span>
-                              <span className="ref">d</span>
-                              <span className="seperator">:</span>
-                            </h5>
-                            <h5>
-                              <span className="hours">10</span>
-                              <span className="ref">h</span>
-                              <span className="seperator">:</span>
-                            </h5>
-                            <h5>
-                              <span className="minutes">30</span>
-                              <span className="ref">m</span>
-                              <span className="seperator" />
-                            </h5>
-                          </div>
-                        </div>
-                        <div className="invest__cta">
-                          <a
-                            href="/businessloandetails"
-                            className="button button--effect"
-                          >
-                            Invest Now
-                          </a>
-                          <p className="secondary">Business loan #00294</p>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
                 <div className="col-md-6 col-xl-4 alt__loan__grid">
@@ -699,41 +672,6 @@ const Benefits = () => {
                             <p>Maximum Term</p>
                             <h6>36 Months</h6>
                           </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="alt__loan__foot">
-                      <div className="invest__cta__wrapper">
-                        <div className="countdown__wrapper">
-                          <p className="secondary">
-                            <FontAwesomeIcon icon={faClock} /> Left to invest
-                          </p>
-                          <div className="countdown">
-                            <h5>
-                              <span className="days">200</span>
-                              <span className="ref">d</span>
-                              <span className="seperator">:</span>
-                            </h5>
-                            <h5>
-                              <span className="hours">24</span>
-                              <span className="ref">h</span>
-                              <span className="seperator">:</span>
-                            </h5>
-                            <h5>
-                              <span className="minutes">20</span>
-                              <span className="ref">m</span>
-                              <span className="seperator" />
-                            </h5>
-                          </div>
-                        </div>
-                        <div className="invest__cta">
-                          <a
-                            href="/businessloandetails"
-                            className="button button--effect"
-                          >
-                            Invest Now
-                          </a>
-                          <p className="secondary">Business loan #00994</p>
                         </div>
                       </div>
                     </div>

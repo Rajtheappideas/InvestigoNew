@@ -8,6 +8,7 @@ import {
   Invesment,
   Account
 } from "../components";
+import { useUserContext } from "../context/UserContext";
 
 const Dashboard = () => {
   const [showDashboard, setShowDashboard] = useState(true);
@@ -15,6 +16,8 @@ const Dashboard = () => {
   const [showOrders, setShowOrders] = useState(false);
   const [showInvestment, setShowInvestment] = useState(false);
   const [showWithdraw, setShowWithdraw] = useState(false);
+
+  const {userProfile} = useUserContext()
  
   return (
     <>

@@ -17,7 +17,8 @@ import {
   FacebookAuthProvider,
   GoogleAuthProvider,
 } from "firebase/auth";
-// import { authentication } from "../firebaseConfig";
+import { authentication } from "../Firebaseconfig";
+import google from "../assets/images/google.png";
 
 const Signup = () => {
   const [loadingGoogle, setLoadingGoogle] = useState(false);
@@ -83,7 +84,7 @@ const Signup = () => {
             console.log(res?.data);
             window.localStorage.setItem("user", JSON.stringify(res?.data));
             setUserData(res?.data);
-            navigate("/");
+            window.history.back();
             window.scrollTo({
               top: 0,
               behavior: "smooth",
@@ -153,44 +154,42 @@ const Signup = () => {
   // };
 
   // sign in with google
-  // const SignInwithGoogle = () => {
-  //   const provider = new GoogleAuthProvider();
-  //   signInWithPopup(authentication, provider)
-  //     .then(({ user }) => {
-  //       const userdata = {
-  //         email: user.email,
-  //         name: user.displayName,
-  //         googleId: user?.uid,
-  //       };
-  //       setLoadingGoogle(true);
-  //       axios
-  //         .post("https://investigo-tai.herokuapp.com/login", userdata, {
-  //           headers: {
-  //             Accept: "application/json",
-  //             "Content-Type": "application/json",
-  //           },
-  //         })
-  //         .then((res) => {
-  //           if (res.data.status === "success") {
-  //             localStorage.setItem(
-  //               "user",
-  //               JSON.stringify(user?.reloadUserInfo)
-  //             );
-  //             setUserData(user?.reloadUserInfo);
-  //             navigate("/");
-  //             window.scrollTo({
-  //               top: 0,
-  //               behavior: "smooth",
-  //             });
-  //             setLoadingGoogle(false);
-  //           }
-  //         });
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       setLoadingGoogle(false);
-  //     });
-  // };
+  const SignInwithGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(authentication, provider)
+      .then(({ user }) => {
+        const userdata = {
+          email: user.email,
+          fname: user.displayName.split(" ", 2)[0],
+          lname: user.displayName.split(" ", 2)[1],
+          googleId: user?.uid,
+        };
+        setLoadingGoogle(true);
+        axios
+          .post("https://investigo-tai.herokuapp.com/login", userdata, {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          })
+          .then((res) => {
+            if (res.data.status === "success") {
+              localStorage.setItem("user", JSON.stringify(res?.data));
+              setUserData(res?.data);
+              window.history.back();
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+              });
+              setLoadingGoogle(false);
+            }
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoadingGoogle(false);
+      });
+  };
   const TextError = styled.p`
     color: #ff0000;
     font-size: medium;
@@ -389,14 +388,26 @@ const Signup = () => {
                         Privacy Policy
                       </a>
                     </label>
-                    <ErrorMessage
-                      name="checkBox"
-                      component={TextError}
-                    />
+                    <ErrorMessage name="checkBox" component={TextError} />
                   </div>
                   <div className="input__button">
                     <button type="submit" className="button button--effect">
                       {isSubmitting ? "Loading..." : "Create My Account"}
+                    </button>
+                  </div>
+                  {/* google login */}
+                  <div className="input__button">
+                    <button
+                      type="button"
+                      onClick={SignInwithGoogle}
+                      className=" button button--effect button--secondary"
+                      style={{ color: "", width: "100%" }}
+                    >
+                      <img
+                        src={google}
+                        style={{ height: "2rem", width: "2rem" }}
+                      />
+                      Login with google
                     </button>
                   </div>
                 </Form>

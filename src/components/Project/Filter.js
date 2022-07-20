@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { toast, Toaster } from "react-hot-toast";
 
 const Filter = ({
@@ -59,9 +59,12 @@ const Filter = ({
 
   // filter by location
   const FilterByLocation = () => {
-    const filterbylocation = data.filter(
+    const dt = data.filter(
       (item) =>
-        item.address.split(",")[1].toLowerCase().trim() == searchByLocation
+        item.location.split(",").pop().toLowerCase().trim() == searchByLocation
+    );
+    const filterbylocation = dt.filter((item) =>
+      item.location.split(" ").pop()
     );
 
     if (filterbylocation.length === 0) {
@@ -87,7 +90,7 @@ const Filter = ({
   // filter by property
   const FilterByProperty = () => {
     const filterbyproperty = data.filter(
-      (item) => item.propertyType.toLowerCase() == seachByProperty
+      (item) => item.property.toLowerCase() == seachByProperty
     );
     if (filterbyproperty.length === 0) {
       toast.error("Nothing found!!!", {
@@ -105,16 +108,12 @@ const Filter = ({
       setFilterDataByProperty([]);
       return false;
     } else {
+      setSearchByLocation("");
+      setSearchValue("");
+      setFilteredData([]);
       setFilterDataByProperty(filterbyproperty);
     }
   };
-  // useEffect(() => {
-  //   FilterByLocation();
-  // }, [searchByLocation]);
-
-  // useEffect(() => {
-  //   FilterByProperty();
-  // }, [seachByProperty]);
   return (
     <>
       <Toaster />
@@ -166,8 +165,9 @@ const Filter = ({
                     <option label="Location"></option>
                     <option value="los angeles">Los Angeles</option>
                     <option value="san francisco">San Francisco</option>
-                    <option value="the weldon">The Weldon</option>
+                    <option value="co">Colorado</option>
                     <option value="san diego">San Diego</option>
+                    <option value="nc">North Carolina</option>
                   </select>
                 </div>
               </div>

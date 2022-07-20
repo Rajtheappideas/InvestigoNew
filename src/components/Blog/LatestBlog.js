@@ -1,460 +1,513 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowCircleRight,
   faArrowCircleLeft,
 } from "@fortawesome/free-solid-svg-icons";
+import { toast, Toaster } from "react-hot-toast";
+import axios from "axios";
 
-const LatestBlog = () => {
+const LatestBlog = ({ allContentCounts, blogs, loading }) => {
+  const [email, setEmail] = useState("");
+  const [newsletterLoading, setNewsletterLoading] = useState(false);
+  const [showArticles, setshowArticles] = useState(false);
+  const [showResources, setShowResources] = useState(false);
+  const [showNews, setShowNews] = useState(false);
+
+  const handleNewsletter = () => {
+    if (email === "") {
+      toast.error("Oops you forgot to enter email!!", {
+        duration: 2000,
+        style: {
+          width: "500px",
+          background: "black",
+          color: "white",
+          fontSize: "large",
+        },
+        position: "top-center",
+      });
+      return false;
+    }
+    const data = {
+      email,
+    };
+    setNewsletterLoading(true);
+    axios
+      .post("https://investigo-tai.herokuapp.com/newsletter", data)
+      .then((res) => {
+        if (res?.data?.status === "success") {
+          toast.success(res?.data?.message, {
+            duration: 2000,
+            style: {
+              width: "500px",
+              background: "black",
+              color: "white",
+              fontSize: "large",
+            },
+            position: "top-center",
+          });
+          setNewsletterLoading(false);
+          setEmail("");
+        }
+      })
+      .catch((err) => {
+        if (err?.response?.data?.status === "fail") {
+          toast.error(err?.response?.data?.message, {
+            duration: 2000,
+            style: {
+              width: "500px",
+              background: "black",
+              color: "white",
+              fontSize: "large",
+            },
+            position: "top-center",
+          });
+          setNewsletterLoading(false);
+          setEmail("");
+        }
+      });
+  };
   return (
-    <section className="latest__post section__space">
-      <div className="container">
-        <div className="latest__post__area">
-          <div className="row">
-            <div className="col-xl-8">
-              <div className="left__wrap">
-                <div className="filter__bar">
-                  <h3>Latest Posts</h3>
-                  <div className="filter__bar__tabs">
-                    <a
-                      href="javascript:void(0)"
-                      className="filter__bar__tab button button--effect"
-                      data-target="all"
-                    >
-                      All
-                    </a>
-                    <a
-                      href="javascript:void(0)"
-                      className="filter__bar__tab button button--effect button--secondary"
-                      data-target="articles"
-                    >
-                      Articles
-                    </a>
-                    <a
-                      href="javascript:void(0)"
-                      className="filter__bar__tab button button--effect button--secondary"
-                      data-target="news"
-                    >
-                      News
-                    </a>
-                    <a
-                      href="javascript:void(0)"
-                      className="filter__bar__tab button button--effect button--secondary"
-                      data-target="resources"
-                    >
-                      Resources
-                    </a>
+    <>
+      <Toaster />
+      <section className="latest__post section__space">
+        <div className="container">
+          <div className="latest__post__area">
+            <div className="row" id="filter">
+              <div className="col-xl-8">
+                <div className="left__wrap">
+                  <div className="filter__bar">
+                    <h3>Latest Posts</h3>
+                    {/* filter */}
+                    <div className="filter__bar__tabs">
+                      <a
+                        style={{ cursor: "pointer" }}
+                        className={`filter__bar__tab button button--effect ${
+                          (showArticles || showNews || showResources) &&
+                          "button--secondary"
+                        } `}
+                        data-target="all"
+                        onClick={() => {
+                          setShowNews(false);
+                          setShowResources(false);
+                          setshowArticles(false);
+                        }}
+                      >
+                        All
+                      </a>
+                      <a
+                        style={{ cursor: "pointer" }}
+                        className={`filter__bar__tab button button--effect ${
+                          !showArticles && "button--secondary"
+                        } `}
+                        data-target="articles"
+                        onClick={() => {
+                          setShowNews(false);
+                          setShowResources(false);
+                          setshowArticles(true);
+                        }}
+                      >
+                        Articles
+                      </a>
+                      <a
+                        style={{ cursor: "pointer" }}
+                        className={`filter__bar__tab button button--effect ${
+                          !showNews && "button--secondary"
+                        } `}
+                        data-target="news"
+                        onClick={() => {
+                          setShowNews(true);
+                          setShowResources(false);
+                          setshowArticles(false);
+                        }}
+                      >
+                        News
+                      </a>
+                      <a
+                        style={{ cursor: "pointer" }}
+                        className={`filter__bar__tab button button--effect ${
+                          !showResources && "button--secondary"
+                        } `}
+                        data-target="resources"
+                        onClick={() => {
+                          setShowNews(false);
+                          setShowResources(true);
+                          setshowArticles(false);
+                        }}
+                      >
+                        Resources
+                      </a>
+                    </div>
                   </div>
+                  {/* blogs */}
+                  <div className="row latest__blog__shuffle__list">
+                    {loading
+                      ? "loading..."
+                      : (!showArticles &&
+                          !showNews &&
+                          !showResources &&
+                          blogs.slice(0, 6).map((blog) => (
+                            <div
+                              className="col-md-12 latest__blog__item"
+                              key={blog?._id}
+                            >
+                              <div className="featured__large__post">
+                                <a
+                                  href={`/singleblog/${blog?._id}`}
+                                  className="thumbnail"
+                                >
+                                  <img
+                                    src={`https://investigo-tai.herokuapp.com/${blogs[0].image}                          `}
+                                    alt={blog?.title}
+                                  />
+                                </a>
+                                <div className="blog__content">
+                                  <h5>
+                                    <a href={`/singleblog/${blog?._id}`}>
+                                      {blog?.title}
+                                    </a>
+                                  </h5>
+                                  <p
+                                    style={{
+                                      lineHeight: "1.5rem",
+                                      height: "3rem",
+                                      overflow: "hidden",
+                                    }}
+                                  >
+                                    {blog?.description}
+                                  </p>
+                                  <a href={`/singleblog/${blog?._id}`}>
+                                    Read More{" "}
+                                    <FontAwesomeIcon
+                                      icon={faArrowCircleRight}
+                                    />
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          ))) ||
+                        (showArticles &&
+                          blogs
+                            .filter((blog) => blog?.category == "Articals")
+                            .slice(0, 3)
+                            .map((blog) => (
+                              <div
+                                className="col-md-12 latest__blog__item"
+                                key={blog?._id}
+                              >
+                                <div className="featured__large__post">
+                                  <a
+                                    href={`/singleblog/${blog?._id}`}
+                                    className="thumbnail"
+                                  >
+                                    <img
+                                      src={`https://investigo-tai.herokuapp.com/${blogs[0].image}                          `}
+                                      alt={blog?.title}
+                                    />
+                                  </a>
+                                  <div className="blog__content">
+                                    <h5>
+                                      <a href={`/singleblog/${blog?._id}`}>
+                                        {blog?.title}
+                                      </a>
+                                    </h5>
+                                    <p
+                                      style={{
+                                        lineHeight: "1.5rem",
+                                        height: "3rem",
+                                        overflow: "hidden",
+                                      }}
+                                    >
+                                      {blog?.description}
+                                    </p>
+                                    <a href={`/singleblog/${blog?._id}`}>
+                                      Read More{" "}
+                                      <FontAwesomeIcon
+                                        icon={faArrowCircleRight}
+                                      />
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+                            ))) ||
+                        (showNews &&
+                          blogs
+                            .filter((blog) => blog?.category == "News")
+                            .slice(0, 3)
+                            .map((blog) => (
+                              <div
+                                className="col-md-12 latest__blog__item"
+                                key={blog?._id}
+                              >
+                                <div className="featured__large__post">
+                                  <a
+                                    href={`/singleblog/${blog?._id}`}
+                                    className="thumbnail"
+                                  >
+                                    <img
+                                      src={`https://investigo-tai.herokuapp.com/${blogs[0].image}                          `}
+                                      alt={blog?.title}
+                                    />
+                                  </a>
+                                  <div className="blog__content">
+                                    <h5>
+                                      <a href={`/singleblog/${blog?._id}`}>
+                                        {blog?.title}
+                                      </a>
+                                    </h5>
+                                    <p
+                                      style={{
+                                        lineHeight: "1.5rem",
+                                        height: "3rem",
+                                        overflow: "hidden",
+                                      }}
+                                    >
+                                      {blog?.description}
+                                    </p>
+                                    <a href={`/singleblog/${blog?._id}`}>
+                                      Read More{" "}
+                                      <FontAwesomeIcon
+                                        icon={faArrowCircleRight}
+                                      />
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+                            ))) ||
+                        (showResources &&
+                          blogs
+                            .filter((blog) => blog?.category == "Resources")
+                            .slice(0, 3)
+                            .map((blog) => (
+                              <div
+                                className="col-md-12 latest__blog__item"
+                                key={blog?._id}
+                              >
+                                <div className="featured__large__post">
+                                  <a
+                                    href={`/singleblog/${blog?._id}`}
+                                    className="thumbnail"
+                                  >
+                                    <img
+                                      src={`https://investigo-tai.herokuapp.com/${blogs[0].image}                          `}
+                                      alt={blog?.title}
+                                    />
+                                  </a>
+                                  <div className="blog__content">
+                                    <h5>
+                                      <a href={`/singleblog/${blog?._id}`}>
+                                        {blog?.title}
+                                      </a>
+                                    </h5>
+                                    <p
+                                      style={{
+                                        lineHeight: "1.5rem",
+                                        height: "3rem",
+                                        overflow: "hidden",
+                                      }}
+                                    >
+                                      {blog?.description}
+                                    </p>
+                                    <a href={`/singleblog/${blog?._id}`}>
+                                      Read More{" "}
+                                      <FontAwesomeIcon
+                                        icon={faArrowCircleRight}
+                                      />
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+                            )))}
+                  </div>
+                  {/* pagination */}
+                  <nav aria-label="Page navigation example">
+                    <ul className="pagination justify-content-center">
+                      <li className="page-item">
+                        <a className="page-link" href={`#`}>
+                          <FontAwesomeIcon icon={faArrowCircleLeft} />
+                        </a>
+                      </li>
+                      <li className="page-item">
+                        <a className="page-link" href={`#`}>
+                          01
+                        </a>
+                      </li>
+                      <li className="page-item">
+                        <a className="page-link" href={`#`}>
+                          02
+                        </a>
+                      </li>
+                      <li className="page-item">
+                        <a className="page-link" href={`#`}>
+                          03
+                        </a>
+                      </li>
+                      <li className="page-item">
+                        <a className="page-link" href={`#`}>
+                          <FontAwesomeIcon icon={faArrowCircleRight} />
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
                 </div>
-                <div className="row latest__blog__shuffle__list">
-                  <div
-                    className="col-md-12 latest__blog__item"
-                    data-groups='["all","resources"]'
-                  >
-                    <div className="featured__large__post">
-                      <a href="/singleblog" className="thumbnail">
-                        <img
-                          src={require("../../assets/images/blog/latest-one.png")}
-                          alt="Poster"
-                        />
-                      </a>
-                      <div className="blog__content">
-                        <h5>
-                          <a href="/singleblog">
-                            Learn the Benefits of Rental Property Investing
-                          </a>
-                        </h5>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do
-                        </p>
-                        <a href="/singleblog">
-                          Read More{" "}
-                          <FontAwesomeIcon icon={faArrowCircleRight} />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className="col-md-12 latest__blog__item "
-                    data-groups='["all","news"]'
-                  >
-                    <div className="featured__large__post">
-                      <a href="/singleblog" className="thumbnail">
-                        <img
-                          src={require("../../assets/images/blog/latest__two.png")}
-                          alt="Poster"
-                        />
-                      </a>
-                      <div className="blog__content">
-                        <h5>
-                          <a href="/singleblog">
-                            A Short Guide on Rental Property Investment
-                          </a>
-                        </h5>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do
-                        </p>
-                        <a href="/singleblog">
-                          Read More{" "}
-                          <FontAwesomeIcon icon={faArrowCircleRight} />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className="col-md-12 latest__blog__item"
-                    data-groups='["all","articles"]'
-                  >
-                    <div className="featured__large__post">
-                      <a href="/singleblog" className="thumbnail">
-                        <img
-                          src={require("../../assets/images/blog/latest-three.png")}
-                          alt="Poster"
-                        />
-                      </a>
-                      <div className="blog__content">
-                        <h5>
-                          <a href="/singleblog">
-                            Getting Started in Residential Real Estate Investing
-                          </a>
-                        </h5>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do
-                        </p>
-                        <a href="/singleblog">
-                          Read More{" "}
-                          <FontAwesomeIcon icon={faArrowCircleRight} />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className="col-md-12 latest__blog__item"
-                    data-groups='["all","news"]'
-                  >
-                    <div className="featured__large__post">
-                      <a href="/singleblog" className="thumbnail">
-                        <img
-                          src={require("../../assets/images/blog/latest-four.png")}
-                          alt="Poster"
-                        />
-                      </a>
-                      <div className="blog__content">
-                        <h5>
-                          <a href="/singleblog">
-                            Five Key Principles to Real Estate Investment{" "}
-                          </a>
-                        </h5>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do
-                        </p>
-                        <a href="/singleblog">
-                          Read More{" "}
-                          <FontAwesomeIcon icon={faArrowCircleRight} />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className="col-md-12 latest__blog__item"
-                    data-groups='["all","resources"]'
-                  >
-                    <div className="featured__large__post">
-                      <a href="/singleblog" className="thumbnail">
-                        <img
-                          src={require("../../assets/images/blog/latest__five.png")}
-                          alt="Poster"
-                        />
-                      </a>
-                      <div className="blog__content">
-                        <h5>
-                          <a href="/singleblog">
-                            Tips For Commercial Real Estate Investment{" "}
-                          </a>
-                        </h5>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do
-                        </p>
-                        <a href="/singleblog">
-                          Read More{" "}
-                          <FontAwesomeIcon icon={faArrowCircleRight} />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className="col-md-12 latest__blog__item"
-                    data-groups='["all","articles"]'
-                  >
-                    <div className="featured__large__post">
-                      <a href="/singleblog" className="thumbnail">
-                        <img
-                          src={require("../../assets/images/blog/latest-six.png")}
-                          alt="Poster"
-                        />
-                      </a>
-                      <div className="blog__content">
-                        <h5>
-                          <a href="/singleblog">
-                            How to Choose Real Estate Investment Property
-                          </a>
-                        </h5>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do
-                        </p>
-                        <a href="/singleblog">
-                          Read More{" "}
-                          <FontAwesomeIcon icon={faArrowCircleRight} />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className="col-md-12 latest__blog__item"
-                    data-groups='["all","resources"]'
-                  >
-                    <div className="featured__large__post">
-                      <a href="/singleblog" className="thumbnail">
-                        <img
-                          src={require("../../assets/images/blog/latest-three.png")}
-                          alt="Poster"
-                        />
-                      </a>
-                      <div className="blog__content">
-                        <h5>
-                          <a href="/singleblog">
-                            How to Choose Real Estate Investment Property
-                          </a>
-                        </h5>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do
-                        </p>
-                        <a href="/singleblog">
-                          Read More{" "}
-                          <FontAwesomeIcon icon={faArrowCircleRight} />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className="col-md-12 latest__blog__item"
-                    data-groups='["all","news"]'
-                  >
-                    <div className="featured__large__post">
-                      <a href="/singleblog" className="thumbnail">
-                        <img
-                          src={require("../../assets/images/blog/latest-eight.png")}
-                          alt="Poster"
-                        />
-                      </a>
-                      <div className="blog__content">
-                        <h5>
-                          <a href="/singleblog">
-                            How to Choose Real Estate Investment Property
-                          </a>
-                        </h5>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do
-                        </p>
-                        <a href="/singleblog">
-                          Read More{" "}
-                          <FontAwesomeIcon icon={faArrowCircleRight} />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <nav aria-label="Page navigation example">
-                  <ul className="pagination justify-content-center">
-                    <li className="page-item">
-                      <a className="page-link" href="/singleblog">
-                        <FontAwesomeIcon icon={faArrowCircleLeft} />
-                      </a>
-                    </li>
-                    <li className="page-item">
-                      <a className="page-link" href="/singleblog">
-                        01
-                      </a>
-                    </li>
-                    <li className="page-item">
-                      <a className="page-link" href="/singleblog">
-                        02
-                      </a>
-                    </li>
-                    <li className="page-item">
-                      <a className="page-link" href="/singleblog">
-                        03
-                      </a>
-                    </li>
-                    <li className="page-item">
-                      <a className="page-link" href="/singleblog">
-                        <FontAwesomeIcon icon={faArrowCircleRight} />
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
               </div>
-            </div>
-            <div className="col-xl-4">
-              <div className="right__wrap">
-                <div className="blog__newsletter">
-                  <img
-                    src={require("../../assets/images/blog/newsletter.png")}
-                    alt="Newsletter"
-                  />
-                  <h4>Subscribe to our newsletter</h4>
-                  <p>
-                    Lorem ipsum dolor sit amet dolor consectetur adipiscing elit
-                  </p>
-                  <form action="#" method="post">
-                    <div className="input">
-                      <input
-                        type="email"
-                        name="sub_email"
-                        id="subEmail"
-                        placeholder="Enter Your Email"
-                      />
-                    </div>
-                    <button type="submit" className="button button--effect">
-                      Subscribe
-                    </button>
-                  </form>
-                </div>
-                <div className="blog__popular">
-                  <h5 className="neutral-top">Popular Articles</h5>
-                  <div className="blog__popular__single">
-                    <a href="/singleblog" className="thumbnail">
-                      <img
-                        src={require("../../assets/images/blog/popular-one.png")}
-                        alt="Popular One"
-                      />
-                    </a>
-                    <div className="blog__popular__single-content">
-                      <h6>
-                        <a href="/singleblog">
-                          3-Step Rental Property Investing Strategy{" "}
-                        </a>
-                      </h6>
-                      <a href="/singleblog">
-                        Read More <FontAwesomeIcon icon={faArrowCircleRight} />
-                      </a>
+              {/* right side component */}
+              <div className="col-xl-4">
+                <div className="right__wrap">
+                  <div className="blog__newsletter">
+                    <img
+                      src={require("../../assets/images/blog/newsletter.png")}
+                      alt="Newsletter"
+                    />
+                    <h4>Subscribe to our newsletter</h4>
+                    <p>
+                      Lorem ipsum dolor sit amet dolor consectetur adipiscing
+                      elit
+                    </p>
+                    <div>
+                      <div className="input">
+                        <input
+                          type="email"
+                          name="sub_email"
+                          id="subEmail"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="Enter Your Email"
+                        />
+                      </div>
+                      <button
+                        type="submit"
+                        onClick={() => handleNewsletter()}
+                        className="button button--effect"
+                      >
+                        {newsletterLoading ? "Submitting..." : "Subscribe"}
+                      </button>
                     </div>
                   </div>
-                  <div className="blog__popular__single">
-                    <a href="/singleblog" className="thumbnail">
-                      <img
-                        src={require("../../assets/images/blog/popular-two.png")}
-                        alt="Popular One"
-                      />
-                    </a>
-                    <div className="blog__popular__single-content">
-                      <h6>
-                        <a href="/singleblog">
-                          Learn the Benefits of Rental Property Investing
-                        </a>
-                      </h6>
-                      <a href="/singleblog">
-                        Read More <FontAwesomeIcon icon={faArrowCircleRight} />
-                      </a>
-                    </div>
+                  {/* articals blogs */}
+                  <div className="blog__popular">
+                    <h5 className="neutral-top">Popular Articles</h5>
+                    {blogs
+                      .filter((blog) => blog?.category == "Articals")
+                      .slice(0, 3)
+                      .map((blog) => (
+                        <div className="blog__popular__single" key={blog?._id}>
+                          <a
+                            href={`/singleblog/${blog?._id}`}
+                            className="thumbnail"
+                          >
+                            <img
+                              src={`https://investigo-tai.herokuapp.com/${blog?.image}                          `}
+                              alt={blog?.title}
+                            />
+                          </a>
+                          <div className="blog__popular__single-content">
+                            <h6>
+                              <a href={`/singleblog/${blog?._id}`}>
+                                {blog?.title}
+                              </a>
+                            </h6>
+                            <a href={`/singleblog/${blog?._id}`}>
+                              Read More{" "}
+                              <FontAwesomeIcon icon={faArrowCircleRight} />
+                            </a>
+                          </div>
+                        </div>
+                      ))}
                   </div>
-                  <div className="blog__popular__single">
-                    <a href="/singleblog" className="thumbnail">
-                      <img
-                        src={require("../../assets/images/blog/popular-one.png")}
-                        alt="Popular One"
-                      />
-                    </a>
-                    <div className="blog__popular__single-content">
-                      <h6>
-                        <a href="/singleblog">
-                          A Short Guide on Rental Property Investment{" "}
-                        </a>
-                      </h6>
-                      <a href="/singleblog">
-                        Read More <FontAwesomeIcon icon={faArrowCircleRight} />
-                      </a>
+                  {/* read more totals of blog */}
+                  <div className="blog__popular">
+                    <h5 className="neutral-top">Read More</h5>
+
+                    <div className="blog__popular__single">
+                      <div className="categories">
+                        <h6>
+                          <a
+                            href="#filter"
+                            style={{ cursor: "pointer" }}
+                            onClick={() => {
+                              setShowNews(false);
+                              setShowResources(false);
+                              setshowArticles(true);
+                            }}
+                          >
+                            – Articles
+                          </a>
+                        </h6>
+                        <h6>
+                          <a
+                            href="#filter"
+                            style={{ cursor: "pointer" }}
+                            onClick={() => {
+                              setShowNews(false);
+                              setShowResources(false);
+                              setshowArticles(true);
+                            }}
+                          >
+                            ({allContentCounts?.Articals})
+                          </a>
+                        </h6>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <div className="blog__popular">
-                  <h5 className="neutral-top">Read More</h5>
-                  <div className="blog__popular__single">
-                    <div className="categories">
-                      <h6>
-                        <a href="/singleblog">– Exited projects</a>
-                      </h6>
-                      <h6>
-                        <a href="/singleblog">(07)</a>
-                      </h6>
+                    <div className="blog__popular__single">
+                      <div className="categories">
+                        <h6>
+                          <a
+                            href="#filter"
+                            style={{ cursor: "pointer" }}
+                            onClick={() => {
+                              setShowNews(false);
+                              setShowResources(true);
+                              setshowArticles(false);
+                            }}
+                          >
+                            – Resources
+                          </a>
+                        </h6>
+                        <h6>
+                          <a
+                            href="#filter"
+                            style={{ cursor: "pointer" }}
+                            onClick={() => {
+                              setShowNews(false);
+                              setShowResources(true);
+                              setshowArticles(false);
+                            }}
+                          >
+                            ({allContentCounts?.Resources})
+                          </a>
+                        </h6>
+                      </div>
                     </div>
-                  </div>
-                  <div className="blog__popular__single">
-                    <div className="categories">
-                      <h6>
-                        <a href="/singleblog">– How to</a>
-                      </h6>
-                      <h6>
-                        <a href="/singleblog">(04)</a>
-                      </h6>
-                    </div>
-                  </div>
-                  <div className="blog__popular__single">
-                    <div className="categories">
-                      <h6>
-                        <a href="/singleblog">– Insider updates</a>
-                      </h6>
-                      <h6>
-                        <a href="/singleblog">(09)</a>
-                      </h6>
-                    </div>
-                  </div>
-                  <div className="blog__popular__single">
-                    <div className="categories">
-                      <h6>
-                        <a href="/singleblog">– News</a>
-                      </h6>
-                      <h6>
-                        <a href="/singleblog">(23)</a>
-                      </h6>
-                    </div>
-                  </div>
-                  <div className="blog__popular__single">
-                    <div className="categories">
-                      <h6>
-                        <a href="/singleblog">– Tips and tricks</a>
-                      </h6>
-                      <h6>
-                        <a href="/singleblog">(16)</a>
-                      </h6>
-                    </div>
-                  </div>
-                  <div className="blog__popular__single">
-                    <div className="categories">
-                      <h6>
-                        <a href="/singleblog">– Get inspired</a>
-                      </h6>
-                      <h6>
-                        <a href="/singleblog">(13)</a>
-                      </h6>
-                    </div>
-                  </div>
-                  <div className="blog__popular__single">
-                    <div className="categories">
-                      <h6>
-                        <a href="/singleblog">– Invesments</a>
-                      </h6>
-                      <h6>
-                        <a href="/singleblog">(22)</a>
-                      </h6>
+                    <div className="blog__popular__single">
+                      <div className="categories">
+                        <h6>
+                          <a
+                            href="#filter"
+                            style={{ cursor: "pointer" }}
+                            onClick={() => {
+                              setShowNews(true);
+                              setShowResources(false);
+                              setshowArticles(false);
+                            }}
+                          >
+                            – News
+                          </a>
+                        </h6>
+                        <h6>
+                          <a
+                            href="#filter"
+                            style={{ cursor: "pointer" }}
+                            onClick={() => {
+                              setShowNews(true);
+                              setShowResources(false);
+                              setshowArticles(false);
+                            }}
+                          >
+                            ({allContentCounts?.News})
+                          </a>
+                        </h6>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -462,8 +515,8 @@ const LatestBlog = () => {
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

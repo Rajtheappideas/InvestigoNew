@@ -73,12 +73,7 @@ const DashboardFooter = () => {
                   <li>
                     <a href="/howitsworks">How it works</a>
                   </li>
-                  <li>
-                    <a href="/loanapplication">Loan Application </a>
-                  </li>
-                  <li>
-                    <a href="/propertyalert">Property Alerts</a>
-                  </li>
+
                   <li className="neutral-bottom">
                     <a href="/support">FAQs</a>
                   </li>
@@ -133,16 +128,16 @@ const DashboardFooter = () => {
             </div>
             <div className="col-md-4">
               <div className="social">
-                <a href="javascript:void(0)">
+                <a style={{ cursor: "pointer" }}>
                   <i className="fa-brands fa-facebook-f"></i>
                 </a>
-                <a href="javascript:void(0)">
+                <a style={{ cursor: "pointer" }}>
                   <i className="fa-brands fa-twitter"></i>
                 </a>
-                <a href="javascript:void(0)">
+                <a style={{ cursor: "pointer" }}>
                   <i className="fa-brands fa-instagram"></i>
                 </a>
-                <a href="javascript:void(0)">
+                <a style={{ cursor: "pointer" }}>
                   <i className="fa-brands fa-linkedin-in"></i>
                 </a>
               </div>

@@ -12,6 +12,7 @@ import {
   Number,
   Community,
   Market,
+  Properties,
 } from "../components";
 
 const Home = () => {
@@ -22,7 +23,8 @@ const Home = () => {
       </Helmet>
       <Navbar />
       <Herosection />
-      <Projects />
+      {/* <Properties /> */}
+      <Projects/>
       <Cities />
       <ProfitOverview />
       <StartStep />

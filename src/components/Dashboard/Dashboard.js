@@ -7,6 +7,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Helmet } from "react-helmet";
 import useUserdata from "../../hooks/useUserData";
+import OrdersChart from "./OrderChart";
+import ProjectsChart from "./ProjectsChart";
+import InvestmentChart from "./InvestmentChart";
+import InterestChart from "./InterestChart";
 
 const Dashboard = ({
   setShowDashboard,
@@ -14,18 +18,30 @@ const Dashboard = ({
   setShowOrders,
   setShowInvestment,
   setShowWithdraw,
+  showDashboard,
+  showAccount,
+  showOrders,
+  showInvestment,
+  showWithdraw,
 }) => {
   const [showSidebar, setShowSidebar] = useState(false);
+  const [showTotalInterest, setShowTotalInterest] = useState(false);
+  const [showTotalInvestment, setShowTotalInvestment] = useState(
+    showDashboard && true
+  );
+  const [showOrdersChart, setShowOrdersChart] = useState(false);
+  const [showProjets, setShowProjets] = useState(false);
   const { handleLogout } = useUserdata();
   return (
     <>
       <Helmet>
-        <title>Ivnestigo - Dashboard</title>
+        <title>Investigo - Dashboard</title>
       </Helmet>
       <div className="dashboard section__space__bottom">
         <div className="container">
           <div className="dashboard__area">
             <div className="row">
+              {/* sidebar */}
               {showSidebar && (
                 <div className="col-xxl-3">
                   <div
@@ -34,7 +50,6 @@ const Dashboard = ({
                     } `}
                   >
                     <a
-                      href="javascript:void(0)"
                       onClick={() => setShowSidebar(false)}
                       className="close__sidebar"
                       style={{ cursor: "pointer" }}
@@ -53,7 +68,10 @@ const Dashboard = ({
                           }}
                           style={{ cursor: "pointer" }}
                         >
-                          <a href="javascript:void(0)">
+                          <a
+                            href="/dashboard"
+                            className={`${showDashboard && "sidenav__active"}`}
+                          >
                             <img
                               src={require("../../assets/images/icons/dashboard.png")}
                               alt="Dashboard"
@@ -71,7 +89,9 @@ const Dashboard = ({
                           }}
                           style={{ cursor: "pointer" }}
                         >
-                          <a href="javascript:void(0)">
+                          <a
+                            className={`${showInvestment && "sidenav__active"}`}
+                          >
                             <img
                               src={require("../../assets/images/icons/investments.png")}
                               alt="Investments"
@@ -89,7 +109,7 @@ const Dashboard = ({
                           }}
                           style={{ cursor: "pointer" }}
                         >
-                          <a href="javascript:void(0)">
+                          <a className={`${showOrders && "sidenav__active"}`}>
                             <img
                               src={require("../../assets/images/icons/transactions.png")}
                               alt="Transactions"
@@ -107,7 +127,7 @@ const Dashboard = ({
                           }}
                           style={{ cursor: "pointer" }}
                         >
-                          <a href="javascript:void(0)">
+                          <a className={`${showWithdraw && "sidenav__active"}`}>
                             <img
                               src={require("../../assets/images/icons/withdraw.png")}
                               alt="Withdraw"
@@ -125,7 +145,9 @@ const Dashboard = ({
                           }}
                           style={{ cursor: "pointer" }}
                         >
-                          <a href="javascript:void(0)">
+                          <a
+                            className={`${showAccount && "sidenav__active"}`}
+                          >
                             <img
                               src={require("../../assets/images/icons/account.png")}
                               alt="Account"
@@ -137,7 +159,10 @@ const Dashboard = ({
                       <hr />
                       <ul className="logout">
                         <li>
-                          <a style={{cursor:"pointer"}} onClick={handleLogout}>
+                          <a
+                            style={{ cursor: "pointer" }}
+                            onClick={handleLogout}
+                          >
                             <img
                               src={require("../../assets/images/icons/logout.png")}
                               alt="Logout"
@@ -171,7 +196,7 @@ const Dashboard = ({
                     <div>
                       <a href="/">Home</a>
                       <FontAwesomeIcon icon={faArrowRightLong} />
-                      <a href="javascript:void(0)">Wallet</a>
+                      <a>Wallet</a>
                     </div>
                   </div>
                   <div className="collapse__sidebar">
@@ -196,7 +221,20 @@ const Dashboard = ({
                     }}
                   />
                   <div className="row">
-                    <div className="col-lg-3 col-md-6 col-sm-12">
+                    {/* investment */}
+                    <div
+                      className="col-lg-3 col-md-6 col-sm-12"
+                      onClick={() => {
+                        setShowTotalInvestment(true);
+                        setShowOrdersChart(false);
+                        setShowProjets(false);
+                        setShowTotalInterest(false);
+                      }}
+                      // style={{
+                      //   backgroundImage:
+                      //     "linear-gradient(to bottom, Transparente 0%,Transparente 50%,red 50%,red 100%)",
+                      // }}
+                    >
                       <div className="dashboard-box shadow">
                         <div className="total-dashboard">
                           <p>Total investment</p>
@@ -210,7 +248,16 @@ const Dashboard = ({
                         </div>
                       </div>
                     </div>
-                    <div className="col-lg-3 col-md-6 col-sm-12">
+                    {/* interest */}
+                    <div
+                      className="col-lg-3 col-md-6 col-sm-12"
+                      onClick={() => {
+                        setShowTotalInvestment(false);
+                        setShowOrdersChart(false);
+                        setShowProjets(false);
+                        setShowTotalInterest(true);
+                      }}
+                    >
                       <div className="dashboard-box shadow">
                         <div className="total-dashboard">
                           <p>Total interest</p>
@@ -224,7 +271,16 @@ const Dashboard = ({
                         </div>
                       </div>
                     </div>
-                    <div className="col-lg-3 col-md-6 col-sm-12">
+                    {/* orders */}
+                    <div
+                      className="col-lg-3 col-md-6 col-sm-12"
+                      onClick={() => {
+                        setShowTotalInvestment(false);
+                        setShowOrdersChart(true);
+                        setShowProjets(false);
+                        setShowTotalInterest(false);
+                      }}
+                    >
                       <div className="dashboard-box shadow">
                         <div className="total-dashboard">
                           <p>Total orders</p>
@@ -238,7 +294,16 @@ const Dashboard = ({
                         </div>
                       </div>
                     </div>
-                    <div className="col-lg-3 col-md-6 col-sm-12">
+                    {/* projects */}
+                    <div
+                      className="col-lg-3 col-md-6 col-sm-12"
+                      onClick={() => {
+                        setShowTotalInvestment(false);
+                        setShowOrdersChart(false);
+                        setShowProjets(true);
+                        setShowTotalInterest(false);
+                      }}
+                    >
                       <div className="dashboard-box shadow">
                         <div className="total-dashboard">
                           <p>Total projects</p>
@@ -253,6 +318,10 @@ const Dashboard = ({
                       </div>
                     </div>
                   </div>
+                  {showTotalInvestment && <InvestmentChart />}
+                  {showTotalInterest && <InterestChart />}
+                  {showOrdersChart && <OrdersChart />}
+                  {showProjets && <ProjectsChart />}
                 </div>
               </div>
             </div>

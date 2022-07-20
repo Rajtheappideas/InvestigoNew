@@ -15,10 +15,15 @@ const Withdraw = ({
   setShowOrders,
   setShowInvestment,
   setShowWithdraw,
+  showDashboard,
+  showAccount,
+  showOrders,
+  showInvestment,
+  showWithdraw,
 }) => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [selectValue, setSelectValue] = useState(null);
-  const {handleLogout} = useUserdata()
+  const { handleLogout } = useUserdata();
   return (
     <>
       <Helmet>
@@ -28,6 +33,7 @@ const Withdraw = ({
         <div className="container">
           <div className="dashboard__area">
             <div className="row">
+              {/* sidebar */}
               {showSidebar && (
                 <div className="col-xxl-3">
                   <div
@@ -36,7 +42,6 @@ const Withdraw = ({
                     } `}
                   >
                     <a
-                      href="javascript:void(0)"
                       onClick={() => setShowSidebar(false)}
                       className="close__sidebar"
                       style={{ cursor: "pointer" }}
@@ -55,7 +60,10 @@ const Withdraw = ({
                           }}
                           style={{ cursor: "pointer" }}
                         >
-                          <a href="javascript:void(0)">
+                          <a
+                            href="/dashboard"
+                            className={`${showDashboard && "sidenav__active"}`}
+                          >
                             <img
                               src={require("../../assets/images/icons/dashboard.png")}
                               alt="Dashboard"
@@ -73,7 +81,9 @@ const Withdraw = ({
                           }}
                           style={{ cursor: "pointer" }}
                         >
-                          <a href="javascript:void(0)">
+                          <a
+                            className={`${showInvestment && "sidenav__active"}`}
+                          >
                             <img
                               src={require("../../assets/images/icons/investments.png")}
                               alt="Investments"
@@ -91,7 +101,7 @@ const Withdraw = ({
                           }}
                           style={{ cursor: "pointer" }}
                         >
-                          <a href="javascript:void(0)">
+                          <a className={`${showOrders && "sidenav__active"}`}>
                             <img
                               src={require("../../assets/images/icons/transactions.png")}
                               alt="Transactions"
@@ -109,7 +119,7 @@ const Withdraw = ({
                           }}
                           style={{ cursor: "pointer" }}
                         >
-                          <a href="javascript:void(0)">
+                          <a className={`${showWithdraw && "sidenav__active"}`}>
                             <img
                               src={require("../../assets/images/icons/withdraw.png")}
                               alt="Withdraw"
@@ -127,7 +137,9 @@ const Withdraw = ({
                           }}
                           style={{ cursor: "pointer" }}
                         >
-                          <a href="javascript:void(0)">
+                          <a
+                            className={`${showAccount && "sidenav__active"}`}
+                          >
                             <img
                               src={require("../../assets/images/icons/account.png")}
                               alt="Account"
@@ -190,7 +202,7 @@ const Withdraw = ({
                     <div className="breadcrumb-dashboard">
                       <h5>Withdraw</h5>
                       <div>
-                        <a href="index.html">Home</a>
+                        <a href="/">Home</a>
                         <FontAwesomeIcon icon={faArrowRightLong} />
                         <a href="javascript:void(0)">Withdraw</a>
                       </div>
@@ -213,7 +225,7 @@ const Withdraw = ({
                             />
                           </div>
 
-                          <div className="regi__type">
+                          {/* <div className="regi__type">
                             <label htmlFor="methodSelect">Payment Method</label>
                             <select
                               className="type__select"
@@ -232,7 +244,7 @@ const Withdraw = ({
                               <option value="visa">Visa</option>
                               <option value="express">American Express</option>
                             </select>
-                          </div>
+                          </div> */}
 
                           <button
                             type="submit"

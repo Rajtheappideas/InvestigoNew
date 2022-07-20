@@ -1,16 +1,23 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowLeftLong,
-  faArrowRightLong,
-} from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect, useState } from "react";
 import img1 from "../../assets/images/icons/san.png";
 import img2 from "../../assets/images/icons/francisco.png";
 import img3 from "../../assets/images/icons/weldon.png";
 import "../../assets/scss/layout/_sections.scss";
 import Slider from "react-slick";
+import axios from "axios";
 
 const Cities = () => {
+  const [projects, setProjects] = useState([]);
+
+  const fetchProjects = () => {
+    axios("https://investigo-tai.herokuapp.com/project")
+      .then((res) => setProjects(res?.data?.projects))
+      .catch((err) => console.log(err?.response?.data));
+  };
+  useEffect(() => {
+    fetchProjects();
+  }, []);
+
   function SampleNextArrow(props) {
     const { className, style, onClick } = props;
     return (
@@ -37,6 +44,7 @@ const Cities = () => {
       img: img1,
       title: "San Diego",
       properties: "201",
+      link: "/projectdetails",
     },
     {
       img: img2,
@@ -153,18 +161,22 @@ const Cities = () => {
 
           <div className="cities__item__wrapper" style={{ height: "200px" }}>
             <Slider {...settings}>
-              {data.map((city, i) => (
+              {projects.map((city, i) => (
                 <div className="cities__single__item" key={i}>
                   <div className="img__box">
-                    <img src={city?.img} alt={city?.title} />
+                    <img
+                      src={`https://investigo-tai.herokuapp.com/${city?.image}`}
+                      alt={city?.title}
+                      // style={{ minWidth: "8rem", minHeight: "8rem" }}
+                    />
                   </div>
                   <div>
                     <h5>
-                      <span>{city?.title}</span>
+                      <span>{city?.location.split(",").pop()}</span>
                     </h5>
-                    <p>{city?.properties}+ Properties</p>
+                    <p>201+ Properties</p>
                     <a
-                      href="/project"
+                      href={`/projectdetails/${city?._id}`}
                       className="button button--secondary button--effect"
                     >
                       Explore <i className="fa-solid fa-angle-right" />

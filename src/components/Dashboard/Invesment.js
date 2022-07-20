@@ -23,6 +23,11 @@ const Invesment = ({
   setShowOrders,
   setShowInvestment,
   setShowWithdraw,
+  showDashboard,
+  showAccount,
+  showOrders,
+  showInvestment,
+  showWithdraw,
 }) => {
   const [showSidebar, setShowSidebar] = useState(false);
   const { handleLogout } = useUserdata();
@@ -81,7 +86,6 @@ const Invesment = ({
                     } `}
                   >
                     <a
-                      href="javascript:void(0)"
                       onClick={() => setShowSidebar(false)}
                       className="close__sidebar"
                       style={{ cursor: "pointer" }}
@@ -100,7 +104,10 @@ const Invesment = ({
                           }}
                           style={{ cursor: "pointer" }}
                         >
-                          <a href="javascript:void(0)">
+                          <a
+                            href="/dashboard"
+                            className={`${showDashboard && "sidenav__active"}`}
+                          >
                             <img
                               src={require("../../assets/images/icons/dashboard.png")}
                               alt="Dashboard"
@@ -118,7 +125,9 @@ const Invesment = ({
                           }}
                           style={{ cursor: "pointer" }}
                         >
-                          <a href="javascript:void(0)">
+                          <a
+                            className={`${showInvestment && "sidenav__active"}`}
+                          >
                             <img
                               src={require("../../assets/images/icons/investments.png")}
                               alt="Investments"
@@ -136,7 +145,7 @@ const Invesment = ({
                           }}
                           style={{ cursor: "pointer" }}
                         >
-                          <a href="javascript:void(0)">
+                          <a className={`${showOrders && "sidenav__active"}`}>
                             <img
                               src={require("../../assets/images/icons/transactions.png")}
                               alt="Transactions"
@@ -154,7 +163,7 @@ const Invesment = ({
                           }}
                           style={{ cursor: "pointer" }}
                         >
-                          <a href="javascript:void(0)">
+                          <a className={`${showWithdraw && "sidenav__active"}`}>
                             <img
                               src={require("../../assets/images/icons/withdraw.png")}
                               alt="Withdraw"
@@ -172,7 +181,9 @@ const Invesment = ({
                           }}
                           style={{ cursor: "pointer" }}
                         >
-                          <a href="javascript:void(0)">
+                          <a
+                            className={`${showAccount && "sidenav__active"}`}
+                          >
                             <img
                               src={require("../../assets/images/icons/account.png")}
                               alt="Account"

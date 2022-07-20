@@ -15,7 +15,6 @@ const Contactus = lazy(() => import("./pages/Contactus"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const HowitsWorks = lazy(() => import("./pages/HowitsWorks"));
 const Benefits = lazy(() => import("./pages/Benefits"));
-const Account = lazy(() => import("./pages/Account"));
 const Blog = lazy(() => import("./pages/Blog"));
 const Career = lazy(() => import("./pages/Career"));
 const LoyaltyProgram = lazy(() => import("./pages/LoyaltyProgram"));
@@ -77,8 +76,14 @@ function App() {
               <Route path="/aboutus" element={<Aboutus />} />
               <Route path="/packages" element={<Packages />} />
               <Route path="/contactus" element={<Contactus />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/account" element={<Account />} />
+              <Route
+                path="/dashboard"
+                element={
+                  <PrivateRoute>
+                    <Dashboard />
+                  </PrivateRoute>
+                }
+              />
               <Route path="/howitsworks" element={<HowitsWorks />} />
               <Route path="/benefits" element={<Benefits />} />
               <Route path="/accomplished" element={<Accomplished />} />
@@ -87,9 +92,9 @@ function App() {
               <Route path="/careerdetails" element={<CareerDetails />} />
               <Route path="/loyalityprogram" element={<LoyaltyProgram />} />
               <Route path="/cookiepolicy" element={<CookiePolicy />} />
-              <Route path="/projectdetails" element={<ProjectDetails />} />
+              <Route path="/projectdetails/:id" element={<ProjectDetails />} />
               <Route path="/project" element={<Project />} />
-              <Route path="/singleblog" element={<SingleBlog />} />
+              <Route path="/singleblog/:id" element={<SingleBlog />} />
               <Route path="/support" element={<Support />} />
               <Route path="/affiliateprogram" element={<AffiliateProgram />} />
               <Route path="/listyourproperty" element={<ListYourProgram />} />

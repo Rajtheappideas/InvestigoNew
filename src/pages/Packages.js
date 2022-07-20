@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Footer, Navbar } from "../components";
 import bgImg from "../assets/images/banner/banner-two-bg.png";
@@ -6,15 +6,30 @@ import img1 from "../assets/images/property/pack-01.png";
 import img2 from "../assets/images/property/pack-02.png";
 import img3 from "../assets/images/property/pack-03.png";
 import img4 from "../assets/images/property/pack-04.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faLocationDot,
-  faDollarSign,
-  faClock,
-} from "@fortawesome/free-solid-svg-icons";
 import { useUserContext } from "../context/UserContext";
+import axios from "axios";
+import SkeletonLoadingForPackages from "../components/SkeletonLoadingForPackages";
+
 const Packages = () => {
+  const [packages, setPackages] = useState([]);
+  const [loading, setLoading] = useState(false);
   const { userData } = useUserContext();
+
+  const fetchPackages = () => {
+    setLoading(true);
+    axios("https://investigo-tai.herokuapp.com/package")
+      .then((res) => {
+        setPackages(res?.data?.packages);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err?.response?.data);
+        setLoading(false);
+      });
+  };
+  useEffect(() => {
+    fetchPackages();
+  }, []);
   const data = [
     {
       img: img1,
@@ -77,6 +92,7 @@ const Packages = () => {
       price: "5000",
     },
   ];
+  console.log(packages);
   return (
     <>
       <Helmet>
@@ -118,7 +134,7 @@ const Packages = () => {
                 <div className="col-lg-4">
                   <div className="text-start text-lg-end">
                     <a
-                      href="project.html"
+                      href="/project"
                       className="button button--secondary button--effect"
                     >
                       Browse All Projects
@@ -127,54 +143,43 @@ const Packages = () => {
                 </div>
               </div>
             </div>
-            {data.map((pacakge, i) => (
-              <div className="property__list__wrapper" key={i}>
-                <div className="row d-flex align-items-center">
-                  <div className="col-lg-5">
-                    <div className="property__item__image column__space--secondary">
-                      <div className="img__effect">
-                        <a href="/projectdetails">
-                          <img src={pacakge?.img} alt="Packages" />
-                        </a>
+            {loading ? (
+              <div className="loadingforpackages">
+              <SkeletonLoadingForPackages />
+              <SkeletonLoadingForPackages />
+              <SkeletonLoadingForPackages />
+              <SkeletonLoadingForPackages />
+              </div>
+            ) : (
+              packages.map((pacakge, i) => (
+                <div className="property__list__wrapper" key={i}>
+                  <div className="row d-flex align-items-center">
+                    <div className="col-lg-5">
+                      <div className="property__item__image column__space--secondary">
+                        <div className="img__effect">
+                          <a href={`/projectdetails/${pacakge?._id}`}>
+                            <img
+                              src={`https://investigo-tai.herokuapp.com/${pacakge?.image}`}
+                              alt="Packages"
+                            />
+                          </a>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="col-lg-7">
-                    <div className="property__item__content">
-                      <div className="item__head">
-                        <div className="item__head__left">
-                          <h4>{pacakge?.price} €</h4>
-                          <p>
+                    <div className="col-lg-7">
+                      <div className="property__item__content">
+                        <div className="item__head">
+                          <div className="item__head__left">
+                            {/* <p>{pacakge?.title}</p> */}
+                            <h4>{pacakge?.price} €</h4>
+                            {/* <p>
                             <FontAwesomeIcon icon={faLocationDot} />{" "}
                             {pacakge?.address}
-                          </p>
-                        </div>
-                        <div className="item__head__right">
-                          <div className="countdown__wrapper">
-                            <p className="secondary">
-                              <FontAwesomeIcon icon={faClock} /> Left to invest
-                            </p>
-                            <div className="countdown">
-                              <h5>
-                                <span className="days">10</span>
-                                <span className="ref">d</span>
-                                <span className="seperator">:</span>
-                              </h5>
-                              <h5>
-                                <span className="hours">20</span>
-                                <span className="ref">h</span>
-                                <span className="seperator">:</span>
-                              </h5>
-                              <h5>
-                                <span className="minutes">10</span>
-                                <span className="ref">m</span>
-                                <span className="seperator" />
-                              </h5>
-                            </div>
+                          </p> */}
                           </div>
                         </div>
-                      </div>
-                      <div className="progress__type progress__type--two">
+                        {/* green bar & goals & investors */}
+                        {/* <div className="progress__type progress__type--two">
                         <div className="progress">
                           <div
                             className="progress-bar"
@@ -204,46 +209,48 @@ const Packages = () => {
                             Goal
                           </p>
                         </div>
-                      </div>
-                      <div className="item__info">
-                        <div className="item__info__single">
-                          <p>Annual Return</p>
-                          <h6>{pacakge?.annualReturn}</h6>
-                        </div>
-                        <div className="item__info__single">
-                          <p>Maximum Term</p>
-                          <h6>{pacakge?.maximumTerm}</h6>
-                        </div>
-                        <div className="item__info__single">
-                          <p>Property Type</p>
-                          <h6>{pacakge?.propertyType}</h6>
-                        </div>
-                        <div className="item__info__single">
-                          <p>Distribution</p>
-                          <h6>{pacakge?.distribution}</h6>
-                        </div>
-                      </div>
-                      <div className="item__footer">
-                        <div className="item__security">
-                          <div className="icon__box">
-                            <img
-                              src={require("../assets/images/home.png")}
-                              alt="Security"
-                            />
+                      </div> */}
+                        <div className="item__info">
+                          <div className="item__info__single">
+                            <p>Annual Return</p>
+                            <h6>{pacakge?.annualReturn}%</h6>
                           </div>
-                          <div className="item__security__content">
-                            <p className="secondary">Security</p>
-                            <h6>1st-Rank Mortgage</h6>
+                          <div className="item__info__single">
+                            <p>Maximum Term</p>
+                            <h6>{pacakge?.term} Months</h6>
+                          </div>
+                          <div className="item__info__single">
+                            <p>Monthly Return</p>
+                            <h6>{pacakge?.monthlyReturn}%</h6>
+                          </div>
+                          <div className="item__info__single">
+                            <p>Distribution</p>
+                            <h6>Monthly</h6>
                           </div>
                         </div>
-                        <div className="item__cta__group">
-                          <a
-                            href="/projectdetails"
-                            className="button button--effect"
-                          >
-                            Invest Now
-                          </a>
-                          {/* {userData ? (
+                        <div className="item__footer">
+                          <div className="item__security">
+                            <div className="icon__box">
+                              <img
+                                src={require("../assets/images/home.png")}
+                                alt="Security"
+                              />
+                            </div>
+                            <div className="item__security__content">
+                              <p className="secondary">Security</p>
+                              <h6>1st-Rank Mortgage</h6>
+                            </div>
+                          </div>
+                          <div className="item__cta__group">
+                            <a
+                              href="/projectdetails"
+                              className="button button--effect"
+                            >
+                              {/* Invest Now */}
+                              Read More
+                              <i className="fa-solid fa-arrow-right-long" />{" "}
+                            </a>
+                            {/* {userData ? (
                             <a
                               href="/projectdetails"
                               className="button button--effect"
@@ -255,13 +262,14 @@ const Packages = () => {
                               Invest Now
                             </a>
                           )} */}
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
       </section>

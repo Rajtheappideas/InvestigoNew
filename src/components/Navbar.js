@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../assets/images/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightLong } from "@fortawesome/free-solid-svg-icons";
@@ -6,10 +6,21 @@ import "../assets/scss/layout/_header.scss";
 import { useUserContext } from "../context/UserContext";
 import useUserdata from "../hooks/useUserData";
 import { Toaster } from "react-hot-toast";
+import axios from "axios";
 
 const Navbar = () => {
   const { userData } = useUserContext();
   const { handleLogout } = useUserdata();
+  const [projects, setProjects] = useState([]);
+
+  const fetchProjects = () => {
+    axios("https://investigo-tai.herokuapp.com/project")
+      .then((res) => setProjects(res?.data?.projects))
+      .catch((err) => console.log(err?.response?.data));
+  };
+  useEffect(() => {
+    fetchProjects();
+  }, []);
   return (
     <header className="header">
       <Toaster />
@@ -102,36 +113,16 @@ const Navbar = () => {
                       All
                     </a>
                   </li>
-                  <li>
-                    <a className="dropdown-item" href="/projectdetails">
-                      Transport
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="/projectdetails">
-                      Agriculture
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="/projectdetails">
-                      Real Estate
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="/projectdetails">
-                      Mine Extraction
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="/projectdetails">
-                      Hotel
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="/projectdetails">
-                      Telecommunication
-                    </a>
-                  </li>
+                  {projects.map((title) => (
+                      <li key={title._id}>
+                        <a
+                          className="dropdown-item"
+                          href={`/projectdetails/${title?._id}`}
+                        >
+                          {title.title}
+                        </a>
+                      </li>
+                  ))}
                 </ul>
               </li>
               {/* more */}

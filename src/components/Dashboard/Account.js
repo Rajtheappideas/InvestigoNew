@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
-import { DashboardFooter, Navbar } from "../";
+import { Navbar } from "../";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRightLong,
@@ -11,6 +11,9 @@ import axios from "axios";
 import { toast, Toaster } from "react-hot-toast";
 import { useUserContext } from "../../context/UserContext";
 import useUserdata from "../../hooks/useUserData";
+import { Form, FormikProvider, useFormik, ErrorMessage } from "formik";
+import * as yup from "yup";
+import styled from "styled-components";
 
 const Account = ({
   setShowDashboard,
@@ -31,9 +34,12 @@ const Account = ({
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [prevImage, setPrevImage] = useState(null);
+  const [profileImage, setProfileImage] = useState("");
+
   const [loading, setLoading] = useState(false);
 
-  const { userData } = useUserContext();
+  const { userData, userProfile } = useUserContext();
   const { handleLogout } = useUserdata();
 
   const changePassword = () => {
@@ -124,12 +130,99 @@ const Account = ({
         }
       });
   };
+  // --------------------yup-------------
+  const userProfileSchema = yup.object().shape({
+    email: yup.string().required("email is required").email(),
+    national: yup.string().required(),
+    fname: yup.string().required("firstname is required"),
+    lname: yup.string().required("lastname is required"),
+    // phone: yup.number().required("phone is required"),
+    // website: yup
+    //   .string()
+    //   .matches(
+    //     /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
+    //     "Enter correct url!"
+    //   )
+    //   .required("Please enter website"),
+  });
+  // --------------------------formik-------------
+  const formik = useFormik({
+    initialValues: {
+      userId: userProfile?.userId,
+      email: userProfile?.email || "",
+      fname: userProfile?.fname || "",
+      lname: userProfile?.lname || "",
+      national: userProfile?.national || "",
+      phone: userProfile?.phone || "",
+      website: userProfile?.website || "",
+      linkedin: userProfile?.linkedin || "",
+      instagram: userProfile?.instagram || "",
+      image: userProfile?.image || "",
+    },
+    enableReinitialize: true,
+    validationSchema: userProfileSchema,
+    onSubmit: (values) => {
+      let fd = new FormData();
+      fd.append("email", values.email);
+      fd.append("fname", values.fname);
+      fd.append("lname", values.lname);
+      fd.append("national", values.national);
+      fd.append("instagram", values.instagram);
+      fd.append("image", profileImage);
+      fd.append("linkedin", values.linkedin);
+      fd.append("website", values.website);
+      fd.append("phone", values.phone);
+      axios
+        .post("https://investigo-tai.herokuapp.com/profile", fd, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: userData?.token,
+          },
+        })
+        .then((response) => {
+          if (response?.data?.status == "success") {
+            console.log(response?.data);
+            toast.success("Account updated", {
+              duration: 2000,
+              style: {
+                width: "auto",
+                height: "auto",
+                background: "black",
+                color: "white",
+                fontSize: "large",
+              },
+              position: "top-center",
+            });
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          }
+        })
+        .catch((err) => {
+          if (err?.response?.status == "error") {
+          }
+          console.log(err?.response);
+        });
+    },
+  });
+
+  // image upload
+  const handleImageUpload = (e) => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    setPrevImage(URL.createObjectURL(file));
+    setProfileImage(file);
+  };
+
+  const { handleSubmit, getFieldProps, isSubmitting, touched, errors } = formik;
+
   return (
     <>
       <Helmet>
         <title>Investigo - Account</title>
       </Helmet>
       <Navbar />
+      <Toaster />
       <div className="dashboard section__space__bottom">
         <div className="container">
           <div className="dashboard__area">
@@ -142,7 +235,6 @@ const Account = ({
                     } `}
                   >
                     <a
-                      href="javascript:void(0)"
                       onClick={() => setShowSidebar(false)}
                       className="close__sidebar"
                       style={{ cursor: "pointer" }}
@@ -183,7 +275,6 @@ const Account = ({
                           style={{ cursor: "pointer" }}
                         >
                           <a
-                            href="javascript:void(0)"
                             className={`${showInvestment && "sidenav__active"}`}
                           >
                             <img
@@ -203,10 +294,7 @@ const Account = ({
                           }}
                           style={{ cursor: "pointer" }}
                         >
-                          <a
-                            href="javascript:void(0)"
-                            className={`${showOrders && "sidenav__active"}`}
-                          >
+                          <a className={`${showOrders && "sidenav__active"}`}>
                             <img
                               src={require("../../assets/images/icons/transactions.png")}
                               alt="Transactions"
@@ -224,10 +312,7 @@ const Account = ({
                           }}
                           style={{ cursor: "pointer" }}
                         >
-                          <a
-                            href="javascript:void(0)"
-                            className={`${showWithdraw && "sidenav__active"}`}
-                          >
+                          <a className={`${showWithdraw && "sidenav__active"}`}>
                             <img
                               src={require("../../assets/images/icons/withdraw.png")}
                               alt="Withdraw"
@@ -245,10 +330,7 @@ const Account = ({
                           }}
                           style={{ cursor: "pointer" }}
                         >
-                          <a
-                            href="/account"
-                            className={`${showAccount && "sidenav__active"}`}
-                          >
+                          <a className={`${showAccount && "sidenav__active"}`}>
                             <img
                               src={require("../../assets/images/icons/account.png")}
                               alt="Account"
@@ -295,7 +377,6 @@ const Account = ({
                   <div className="collapse__sidebar">
                     <h4>Dashboard</h4>
                     <a
-                      // href="javascript:void(0)"
                       onClick={() => setShowSidebar(true)}
                       className="collapse__sidebar__btn"
                       style={{ cursor: "pointer" }}
@@ -313,7 +394,7 @@ const Account = ({
                       <div>
                         <a href="/">Home</a>
                         <FontAwesomeIcon icon={faArrowRightLong} />
-                        <a href="javascript:void(0)">Account</a>
+                        <a>Account</a>
                       </div>
                     </div>
                     <div className="account-info">
@@ -364,207 +445,284 @@ const Account = ({
                       <div className="account-content_wrapper">
                         {/* general */}
                         {openGeneral && (
-                          <div className="account-content" id="general">
-                            <div className="avatar-wrapper">
-                              <div className="avatar-content">
-                                <div className="avatar">
-                                  <img
-                                    src={require("../../assets/images/team/ryan.png")}
-                                    alt="Avatar"
-                                  />
-                                </div>
-                                <div className="avatar-content__guideline">
-                                  <h6>Your Avatar</h6>
-                                  <p>Profile picture size: 400px x 400px</p>
-                                </div>
-                              </div>
-                              <form action="#" method="post">
-                                <input
-                                  type="file"
-                                  name="avatar_upload"
-                                  id="avatarUpload"
-                                />
-                                <label htmlFor="avatarUpload">
-                                  Upload new avatar
-                                </label>
-                              </form>
-                            </div>
-                            <form
-                              action="#"
-                              name="save__from"
-                              method="post"
+                          <FormikProvider
+                            value={userProfile || formik.initialValues}
+                          >
+                            <Form
                               className="save__form"
+                              autoComplete="off"
+                              onSubmit={handleSubmit}
                             >
-                              <div className="row">
-                                <div className="col-sm-6">
-                                  <div className="input input--secondary">
-                                    <label htmlFor="saveFirstName">
-                                      First Name
+                              <div className="account-content" id="general">
+                                <div className="avatar-wrapper">
+                                  <div className="avatar-content">
+                                    <div className="avatar">
+                                      <img
+                                        src={`${
+                                          prevImage
+                                            ? prevImage
+                                            : userProfile?.image
+                                            ? `https://investigo-tai.herokuapp.com/${userProfile?.image}`
+                                            : `${require("../../assets/images/team/ryan.png")}`
+                                        }
+                                        `}
+                                        style={{ objectFit: "contain" }}
+                                        alt="Avatar"
+                                      />
+                                    </div>
+                                    <div className="avatar-content__guideline">
+                                      <h6>Your Avatar</h6>
+                                      <p>Profile picture size: 400px x 400px</p>
+                                    </div>
+                                  </div>
+                                  <div className="avatar">
+                                    <input
+                                      type="file"
+                                      accept="image/*"
+                                      name="image"
+                                      id="avatarUpload"
+                                      onChange={handleImageUpload}
+                                    />
+                                    <label htmlFor="avatarUpload">
+                                      Upload new avatar
                                     </label>
-                                    <input
-                                      type="text"
-                                      name="save__first__name"
-                                      id="saveFirstName"
-                                      placeholder="First Name"
-                                      required="required"
-                                    />
                                   </div>
                                 </div>
-                                <div className="col-sm-6">
-                                  <div className="input input--secondary">
-                                    <label htmlFor="saveLastName">
-                                      Last Name
-                                    </label>
-                                    <input
-                                      type="text"
-                                      name="save__last__name"
-                                      id="saveLastName"
-                                      placeholder="Last Name"
-                                      required="required"
-                                    />
+                                {/* national number & userid */}
+                                <div className="row">
+                                  <div className="col-sm-6">
+                                    <div className="input input--secondary">
+                                      <label htmlFor="saveNationalNumber">
+                                        National Number
+                                      </label>
+                                      <input
+                                        type="text"
+                                        name="national"
+                                        placeholder="National Number"
+                                        {...getFieldProps("national")}
+                                        required="required"
+                                        style={
+                                          touched.national &&
+                                          errors.national && {
+                                            border: "solid red 2px",
+                                          }
+                                        }
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-sm-6">
+                                    <div className="input input--secondary">
+                                      <label htmlFor="saveUserid">
+                                        User ID
+                                      </label>
+                                      <input
+                                        type="text"
+                                        name="userId"
+                                        disabled={true}
+                                        {...getFieldProps("userId")}
+                                      />
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div className="row">
-                                <div className="col-sm-6">
-                                  <div className="input input--secondary">
-                                    <label htmlFor="saveEmail">Email</label>
-                                    <input
-                                      type="email"
-                                      name="save_email"
-                                      id="saveEmail"
-                                      placeholder="Enter Your Email"
-                                      required="required"
-                                    />
+                                {/* fnmae & lname */}
+                                <div className="row">
+                                  <div className="col-sm-6">
+                                    <div className="input input--secondary">
+                                      <label htmlFor="saveFirstName">
+                                        First Name
+                                      </label>
+                                      <input
+                                        type="text"
+                                        name="fname"
+                                        placeholder="First Name"
+                                        {...getFieldProps("fname")}
+                                        required="required"
+                                        style={
+                                          touched.fname &&
+                                          errors.fname && {
+                                            border: "solid red 2px",
+                                          }
+                                        }
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-sm-6">
+                                    <div className="input input--secondary">
+                                      <label htmlFor="saveLastName">
+                                        Last Name
+                                      </label>
+                                      <input
+                                        type="text"
+                                        name="lname"
+                                        placeholder="Last Name"
+                                        required="required"
+                                        {...getFieldProps("lname")}
+                                        style={
+                                          touched.lname &&
+                                          errors.lname && {
+                                            border: "solid red 2px",
+                                          }
+                                        }
+                                      />
+                                    </div>
                                   </div>
                                 </div>
-                                <div className="col-sm-6">
-                                  <div className="input input--secondary">
-                                    <label htmlFor="savePhone">Phone</label>
-                                    <input
-                                      type="number"
-                                      name="save_phone"
-                                      id="savePhone"
-                                      placeholder="345-323-1234"
-                                      required="required"
-                                    />
+                                {/* email & phone */}
+                                <div className="row">
+                                  <div className="col-sm-6">
+                                    <div className="input input--secondary">
+                                      <label htmlFor="saveEmail">Email</label>
+                                      <input
+                                        type="email"
+                                        name="email"
+                                        id="saveEmail"
+                                        placeholder="Enter Your Email"
+                                        {...getFieldProps("email")}
+                                        required="required"
+                                        style={
+                                          touched.email &&
+                                          errors.email && {
+                                            border: "solid red 2px",
+                                          }
+                                        }
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-sm-6">
+                                    <div className="input input--secondary">
+                                      <label htmlFor="savePhone">Phone</label>
+                                      <input
+                                        type="tel"
+                                        name="phone"
+                                        maxLength={10}
+                                        minLength={10}
+                                        placeholder="345-323-1234"
+                                        {...getFieldProps("phone")}
+                                      />
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div className="row">
-                                <div className="col-sm-6">
-                                  <div className="input input--secondary">
-                                    <label htmlFor="instagram">Instagram</label>
-                                    <input
-                                      type="text"
-                                      name="instagram"
-                                      id="instagram"
-                                      placeholder="Enter Your Instagram"
-                                      required="required"
-                                    />
+                                {/* insta & linkedin */}
+                                <div className="row">
+                                  <div className="col-sm-6">
+                                    <div className="input input--secondary">
+                                      <label htmlFor="instagram">
+                                        Instagram
+                                      </label>
+                                      <input
+                                        type="text"
+                                        name="instagram"
+                                        id="instagram"
+                                        placeholder="Enter Your Instagram"
+                                        {...getFieldProps("instagram")}
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-sm-6">
+                                    <div className="input input--secondary">
+                                      <label htmlFor="linkedin">Linkedin</label>
+                                      <input
+                                        type="text"
+                                        name="linkedin"
+                                        placeholder="https://name.com"
+                                        {...getFieldProps("linkedin")}
+                                      />
+                                    </div>
                                   </div>
                                 </div>
-                                <div className="col-sm-6">
-                                  <div className="input input--secondary">
-                                    <label htmlFor="linkedin">Linkedin</label>
-                                    <input
-                                      type="text"
-                                      name="linkedin"
-                                      id="linkedin"
-                                      placeholder="https://name.com"
-                                      required="required"
-                                    />
+                                {/* website */}
+                                <div className="row">
+                                  <div className="col-sm-12">
+                                    <div className="input input--secondary">
+                                      <label htmlFor="website">Website</label>
+                                      <input
+                                        type="text"
+                                        name="website"
+                                        placeholder="https://yourwebsite.com"
+                                        {...getFieldProps("website")}
+                                      />
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div className="row">
-                                <div className="col-sm-12">
-                                  <div className="input input--secondary">
-                                    <label htmlFor="website">Website</label>
-                                    <input
-                                      type="text"
-                                      name="save_phone"
-                                      id="savePhone"
-                                      placeholder="https://yourwebsite.com"
-                                      required="required"
-                                    />
+                                {/* button */}
+                                <div>
+                                  <button
+                                    type="submit"
+                                    className="button button--effect"
+                                  >
+                                    {isSubmitting
+                                      ? "Updating..."
+                                      : "Save Changes"}
+                                  </button>
+                                </div>
+
+                                <div className="account-content-single">
+                                  <div className="intro">
+                                    <h5>Notifications </h5>
+                                  </div>
+                                  <div className="account-content-single__inner">
+                                    <div className="content">
+                                      <h6>Announcements</h6>
+                                      <p>
+                                        Occasional announcements of new features
+                                      </p>
+                                    </div>
+                                    <div className="content-right">
+                                      <div className="switch-wrapper">
+                                        <input
+                                          type="checkbox"
+                                          id="announcement"
+                                          defaultChecked="checked"
+                                        />
+                                        <label htmlFor="announcement" />
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="account-content-single__inner">
+                                    <div className="content">
+                                      <h6>Feedback requests</h6>
+                                      <p>Occasional requests for feedback</p>
+                                    </div>
+                                    <div className="content-right">
+                                      <div className="switch-wrapper">
+                                        <input
+                                          type="checkbox"
+                                          id="feedback"
+                                          defaultChecked="checked"
+                                        />
+                                        <label htmlFor="feedback" />
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="account-content-single__inner">
+                                    <div className="content">
+                                      <h6>Billing and account</h6>
+                                      <p>
+                                        Transactional emails and account
+                                        notifications
+                                      </p>
+                                    </div>
+                                    <div className="content-right">
+                                      <p>Legally Obligated</p>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div>
-                                <button
-                                  type="submit"
-                                  className="button button--effect"
-                                >
-                                  Save Changes
-                                </button>
-                              </div>
-                            </form>
-                            <div className="account-content-single">
-                              <div className="intro">
-                                <h5>Notifications </h5>
-                              </div>
-                              <div className="account-content-single__inner">
-                                <div className="content">
-                                  <h6>Announcements</h6>
-                                  <p>
-                                    Occasional announcements of new features
-                                  </p>
-                                </div>
-                                <div className="content-right">
-                                  <div className="switch-wrapper">
-                                    <input
-                                      type="checkbox"
-                                      id="announcement"
-                                      defaultChecked="checked"
-                                    />
-                                    <label htmlFor="announcement" />
+                                <div className="delete-account">
+                                  <div className="delete-content">
+                                    <h6>Delete your account</h6>
+                                    <p className="secondary">
+                                      Before deleting your account, please note
+                                      that if you delete your account, Dash
+                                      cannot recover it.
+                                    </p>
                                   </div>
+                                  <a href="#" className="button button--effect">
+                                    Delete
+                                  </a>
                                 </div>
                               </div>
-                              <div className="account-content-single__inner">
-                                <div className="content">
-                                  <h6>Feedback requests</h6>
-                                  <p>Occasional requests for feedback</p>
-                                </div>
-                                <div className="content-right">
-                                  <div className="switch-wrapper">
-                                    <input
-                                      type="checkbox"
-                                      id="feedback"
-                                      defaultChecked="checked"
-                                    />
-                                    <label htmlFor="feedback" />
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="account-content-single__inner">
-                                <div className="content">
-                                  <h6>Billing and account</h6>
-                                  <p>
-                                    Transactional emails and account
-                                    notifications
-                                  </p>
-                                </div>
-                                <div className="content-right">
-                                  <p>Legally Obligated</p>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="delete-account">
-                              <div className="delete-content">
-                                <h6>Delete your account</h6>
-                                <p className="secondary">
-                                  Before deleting your account, please note that
-                                  if you delete your account, Dash cannot
-                                  recover it.
-                                </p>
-                              </div>
-                              <a href="#" className="button button--effect">
-                                Delete
-                              </a>
-                            </div>
-                          </div>
+                            </Form>
+                          </FormikProvider>
                         )}
                         {/* billing */}
                         {openBilling && (
@@ -576,10 +734,7 @@ const Account = ({
                               </div>
                               <div className="account-content-single__inner">
                                 <div className="content content-alt">
-                                  <img
-                                    src={require("../../assets/images/visa.png")}
-                                    alt="Visa"
-                                  />
+                                  <img alt="Visa" />
                                   <div>
                                     <h6>Visa ending in 1234</h6>
                                     <p>Expires 1/2025</p>

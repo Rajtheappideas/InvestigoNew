@@ -30,7 +30,6 @@ const Footer = () => {
         },
         position: "top-center",
       });
-      console.log("enter email");
       return false;
     }
     const data = {
@@ -129,16 +128,16 @@ const Footer = () => {
                     button
                   </p>
                   <div className="social">
-                    <a href="">
+                    <a href="#">
                       <FontAwesomeIcon icon={faFacebookF} color="white" />
                     </a>
-                    <a href="">
+                    <a href="#">
                       <FontAwesomeIcon icon={faTwitter} color="white" />
                     </a>
-                    <a href="">
+                    <a href="#">
                       <FontAwesomeIcon icon={faInstagram} color="white" />
                     </a>
-                    <a href="">
+                    <a href="#">
                       <FontAwesomeIcon icon={faLinkedinIn} color="white" />
                     </a>
                   </div>
@@ -178,12 +177,7 @@ const Footer = () => {
                     <li>
                       <a href="/howitsworks">How it works</a>
                     </li>
-                    <li>
-                      <a href="/loanapplication">Loan Application </a>
-                    </li>
-                    <li>
-                      <a href="/propertyalert">Property Alerts</a>
-                    </li>
+
                     <li className="neutral-bottom">
                       <a href="/support">FAQs</a>
                     </li>

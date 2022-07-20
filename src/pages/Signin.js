@@ -62,7 +62,8 @@ const Signin = () => {
           if (res.data.status === "success") {
             window.localStorage.setItem("user", JSON.stringify(res?.data));
             setUserData(res?.data);
-            navigate("/");
+            // navigate("/");
+            window.history.back();
             window.scrollTo({
               top: 0,
               behavior: "smooth",
@@ -152,12 +153,9 @@ const Signin = () => {
           })
           .then((res) => {
             if (res.data.status === "success") {
-              localStorage.setItem(
-                "user",
-                JSON.stringify(user?.reloadUserInfo)
-              );
-              setUserData(user?.reloadUserInfo);
-              navigate("/");
+              localStorage.setItem("user", JSON.stringify(res?.data));
+              setUserData(res?.data);
+              window.history.back();
               window.scrollTo({
                 top: 0,
                 behavior: "smooth",
@@ -406,13 +404,11 @@ const Signin = () => {
                       <button
                         type="button"
                         onClick={SignInwithGoogle}
-                        // className="w-full flex items-center justify-center active:scale-95 duration-100 transition-all ease-in-out shadow-lg bg-white rounded-lg p-3 text-center"
                         className=" button button--effect button--secondary"
                         style={{ color: "", width: "100%" }}
                       >
                         <img
                           src={google}
-                          // className="object-contain origin-center h-7 mr-2"
                           style={{ height: "2rem", width: "2rem" }}
                         />
                         Login with google

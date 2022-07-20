@@ -325,6 +325,11 @@ const Checkout = () => {
                   <hr />
                 </div>
               </div>
+              <div  className="text-center">
+                <button type="submit" className="button button--effect">
+                  Checkout
+                </button>
+              </div>
             </div>
           </form>
         </div>

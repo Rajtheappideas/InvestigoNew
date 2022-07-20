@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Footer, Navbar } from "../components";
 import bgImg from "../assets/images/banner/banner-bg.png";
+import axios from "axios";
 
 const PrivacyPolicy = () => {
+  const [content, setContent] = useState(null);
+
+  const fetch = () => {
+    axios("https://investigo-tai.herokuapp.com/privacy_policy")
+      .then((res) => setContent(res?.data?.content))
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    fetch();
+  }, []);
   return (
     <>
       <Helmet>
@@ -17,10 +28,7 @@ const PrivacyPolicy = () => {
       >
         <div className="container">
           <div className="banner__area">
-            <h1 className="neutral-top">
-              Privacy Policy
-              {/* <span>Privacy Policy</span> */}
-            </h1>
+            <h1 className="neutral-top">Privacy Policy</h1>
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb">
                 <li className="breadcrumb-item">

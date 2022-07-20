@@ -1,14 +1,38 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Footer, Navbar, BlogOverview, LatestBlog } from "../components";
 import bgImg from "../assets/images/banner/banner-bg.png";
+import { Toaster } from "react-hot-toast";
+import axios from "axios";
 
 const Blog = () => {
+  const [blogs, setBlogs] = useState([]);
+  const [allContentCounts, setAllContentCounts] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  const fetchBlogs = () => {
+    setLoading(true);
+    axios("https://investigo-tai.herokuapp.com/blog")
+      .then((res) => {
+        setBlogs(res?.data?.blogs);
+        setAllContentCounts(res?.data?.counts);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err?.response?.data);
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
   return (
     <>
       <Helmet>
         <title>Investigo - Blog</title>
       </Helmet>
+      <Toaster />
       <Navbar />
       {/* banner */}
       <section
@@ -39,13 +63,17 @@ const Blog = () => {
         <img
           src={require("../assets/images/banner/blog__thumb.png")}
           alt="Career"
-          class="banner__thumb"
+          className="banner__thumb"
         />
       </section>
       {/* blog overview section */}
-      <BlogOverview />
+      <BlogOverview blogs={blogs} loading={loading} />
       {/* latest blog section */}
-      <LatestBlog />
+      <LatestBlog
+        allContentCounts={allContentCounts}
+        blogs={blogs}
+        loading={loading}
+      />
       <Footer />
     </>
   );

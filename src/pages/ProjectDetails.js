@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Footer, Market, Navbar } from "../components";
-import bgImg from "../assets/images/banner/property-details-banner.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faImages,
@@ -12,52 +11,81 @@ import {
   faBell,
   faDownload,
 } from "@fortawesome/free-solid-svg-icons";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
 import {
-  faFacebookF,
-  faInstagram,
-  faTwitter,
-  faLinkedinIn,
-} from "@fortawesome/free-brands-svg-icons";
-import img1 from "../assets/images/property/project01.png";
-import img2 from "../assets/images/property/project02.png";
-import img3 from "../assets/images/property/project03.png";
+  FacebookShareButton,
+  TwitterShareButton,
+  LinkedinShareButton,
+} from "react-share";
 
 const ProjectDetails = () => {
-  const data = [
-    {
-      img: img1,
-      title: "Hotel",
-      address: "8706 Herrick Ave, Los Angeles",
-      investors: "17",
-      amount: "7,94,196",
-      percentage: "14.56%",
-      annualReturn: "2.5% + 4%",
-      propertyType: "Commercial",
-      remainTime: "",
-    },
-    {
-      img: img2,
-      title: "Mineral Exploitation",
-      address: "3335 21 St, San Francisco",
-      investors: "178",
-      amount: "2,94,196",
-      percentage: "34.56%",
-      annualReturn: "255% + 4%",
-      propertyType: "Commercial",
-      remainTime: "",
-    },
-    {
-      img: img3,
-      title: "Agriculture",
-      address: " 356 La Jolla, San Diego",
-      investors: "167",
-      amount: "10,94,196",
-      percentage: "24.56%",
-      annualReturn: "3.5% + 2%",
-      propertyType: "Commercial",
-      remainTime: "",
-    },
-  ];
+  const [investmentAmount, setInvestmentAmount] = useState("");
+  const [monthlyReturn, setMonthlyReturn] = useState("");
+  const [monthlyInterest, setMonthlyInterest] = useState("");
+  const [projectDetails, setProjectDetails] = useState({});
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const { id } = useParams();
+
+  // changing interest according rate
+  const handleInterestChange = () => {
+    if (investmentAmount == 250) {
+      setMonthlyReturn(252.5);
+      setMonthlyInterest(3);
+    } else if (investmentAmount == 500) {
+      setMonthlyReturn(507.5);
+      setMonthlyInterest(3);
+    } else if (investmentAmount == 1000) {
+      setMonthlyReturn(1020);
+      setMonthlyInterest(4);
+    } else if (investmentAmount == 5000) {
+      setMonthlyReturn(5150);
+      setMonthlyInterest(5);
+    }
+  };
+
+  const fetchProjectById = () => {
+    setLoading(true);
+    axios(`https://investigo-tai.herokuapp.com/project/${id}`)
+      .then((res) => {
+        setProjectDetails(res?.data?.project);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err?.response?.data);
+        setLoading(false);
+      });
+  };
+
+  const fetchProjects = () => {
+    axios("https://investigo-tai.herokuapp.com/project")
+      .then((res) => setProjects(res?.data?.projects.slice(0, 3)))
+      .catch((err) => console.log(err?.response?.data));
+  };
+
+  useEffect(() => {
+    fetchProjectById();
+    fetchProjects();
+  }, []);
+  useEffect(() => {
+    handleInterestChange();
+  }, [investmentAmount]);
+
+  // number with thousand commas
+  function numberWithCommas(x) {
+    if (x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+  }
+
+  // calculate percetange of investors
+  function calcPercentage(totalamount, invested) {
+    const total = (invested / totalamount) * 100;
+    return total.toFixed(2);
+  }
+
   return (
     <>
       <Helmet>
@@ -68,7 +96,9 @@ const ProjectDetails = () => {
       <>
         <div
           className="property__details__banner bg__img clear__top"
-          style={{ backgroundImage: `url(${bgImg})` }}
+          style={{
+            backgroundImage: `url(https://investigo-tai.herokuapp.com/${projectDetails?.image})`,
+          }}
         ></div>
         <section className="p__details faq section__space__bottom">
           <div className="container">
@@ -83,10 +113,10 @@ const ProjectDetails = () => {
                       <FontAwesomeIcon icon={faImages} /> Browse Gallery
                     </a>
                     <div className="intro">
-                      <h3>Los Angeles</h3>
+                      <h3>{projectDetails?.title}</h3>
                       <p>
-                        <FontAwesomeIcon icon={faLocationDot} /> 8706 Herrick
-                        Ave, Los Angeles
+                        <FontAwesomeIcon icon={faLocationDot} />{" "}
+                        {projectDetails?.location}
                       </p>
                     </div>
                     <div className="group__one">
@@ -98,6 +128,7 @@ const ProjectDetails = () => {
                         converted into studio apartments/lofts. In this way, the
                         aim is to increase the rental income of this real estate
                         project.
+                        {/* {projectDetails?.description} */}
                       </p>
                     </div>
                     <div className="group__two">
@@ -418,30 +449,19 @@ const ProjectDetails = () => {
                 <div className="col-lg-5">
                   <div className="p__details__sidebar">
                     <div className="intro">
-                      <div className="countdown__wrapper">
-                        <p className="secondary">
-                          <FontAwesomeIcon icon={faClock} /> Left to invest
-                        </p>
-                        <div className="countdown">
-                          <h5>
-                            <span className="days">200</span>
-                            <span className="ref">d</span>
-                            <span className="seperator">:</span>
-                          </h5>
-                          <h5>
-                            <span className="hours">40</span>
-                            <span className="ref">h</span>
-                            <span className="seperator">:</span>
-                          </h5>
-                          <h5>
-                            <span className="minutes">55</span>
-                            <span className="ref">m</span>
-                            <span className="seperator" />
-                          </h5>
-                        </div>
-                      </div>
                       <h5>
-                        Available for funding: <span>€134 514</span>
+                        Available for funding:{" "}
+                        {loading ? (
+                          <span>Loading...</span>
+                        ) : (
+                          <span>
+                            €
+                            {numberWithCommas(
+                              projectDetails?.totalAmount -
+                                projectDetails?.invested
+                            )}
+                          </span>
+                        )}
                       </h5>
                       <div className="progress__type progress__type--two">
                         <div className="progress">
@@ -456,65 +476,55 @@ const ProjectDetails = () => {
                         <div className="project__info">
                           <p className="project__has">
                             <span className="project__has__investors">
-                              159 Investors
-                            </span>{" "}
+                              {numberWithCommas(projectDetails?.investors)}{" "}
+                              Investors
+                            </span>
                             |{" "}
                             <span className="project__has__investors__amount">
-                              <FontAwesomeIcon icon={faDollarSign} /> 1,94,196
+                              <FontAwesomeIcon icon={faDollarSign} />{" "}
+                              {numberWithCommas(projectDetails?.invested)}
                             </span>
                           </p>
                           <p className="project__goal">
-                            <FontAwesomeIcon icon={faDollarSign} /> 3,00,000
-                            Goal
+                            <FontAwesomeIcon icon={faDollarSign} />{" "}
+                            {numberWithCommas(projectDetails?.totalAmount)} Goal
                           </p>
                         </div>
                       </div>
                     </div>
                     <div className="group brin">
-                      <h5 className="neutral-top">Occupancy</h5>
-                      <div className="acus__btns">
-                        <a
-                          href="javascript:void(0)"
-                          className="acus__btn acus__btn__active"
-                        >
-                          0%
-                        </a>
-                        <a href="javascript:void(0)" className="acus__btn">
-                          20%
-                        </a>
-                        <a href="javascript:void(0)" className="acus__btn">
-                          40%
-                        </a>
-                        <a href="javascript:void(0)" className="acus__btn">
-                          60%
-                        </a>
-                        <a href="javascript:void(0)" className="acus__btn">
-                          80%
-                        </a>
-                        <a href="javascript:void(0)" className="acus__btn">
-                          100%
-                        </a>
-                      </div>
                       <div className="acus__content">
                         <form action="#" method="post">
                           <div className="input input--secondary">
-                            <label htmlFor="anNum">Annual return rate:</label>
+                            <div className="input input--secondary">
+                              <label htmlFor="anNumIn">Invest</label>
+                              <div className="input input--secondary">
+                                <select
+                                  className="form-select form-select-lg mb-3"
+                                  aria-label=".form-select-lg example"
+                                  onChange={(e) => {
+                                    setInvestmentAmount(e.target.value);
+                                  }}
+                                >
+                                  <option defaultValue="">
+                                    Choose your investment
+                                  </option>
+                                  <option value={250}>250</option>
+                                  <option value={500}>500</option>
+                                  <option value={1000}>1000</option>
+                                  <option value={5000}>5000+</option>
+                                </select>
+                              </div>
+                            </div>
+                            <label htmlFor="anNum">Monthly return rate:</label>
                             <input
                               type="number"
                               name="an__num"
                               id="anNum"
                               placeholder="7.00%"
                               required="required"
-                            />
-                          </div>
-                          <div className="input input--secondary">
-                            <label htmlFor="anNumIn">Invest</label>
-                            <input
-                              type="number"
-                              name="an__num_in"
-                              id="anNumIn"
-                              placeholder="€ 500"
-                              required="required"
+                              disabled={true}
+                              value={monthlyInterest}
                             />
                           </div>
                           <div className="input input--secondary">
@@ -525,6 +535,8 @@ const ProjectDetails = () => {
                               id="anNumInTwo"
                               placeholder="€ 35.00"
                               required="required"
+                              disabled={true}
+                              value={monthlyReturn}
                             />
                           </div>
                           <div className="capital">
@@ -549,13 +561,20 @@ const ProjectDetails = () => {
                             </div>
                           </div>
                           <div className="suby">
-                            <h5>500</h5>
-                            <button
-                              type="submit"
-                              className="button button--effect"
+                            <h5>
+                              {monthlyReturn == "" ? "00" : investmentAmount}
+                            </h5>
+
+                            <Link
+                              to={`${monthlyReturn !== "" ? "/checkout" : "#"}`}
                             >
-                              Invest Now
-                            </button>
+                              <button
+                                type="submit"
+                                className="button button--effect"
+                              >
+                                Invest Now
+                              </button>
+                            </Link>
                           </div>
                         </form>
                       </div>
@@ -583,18 +602,42 @@ const ProjectDetails = () => {
                     </div>
                     <div className="group birinit">
                       <h6>Share via Social </h6>
-                      <div class="social text-start">
-                        <a href="javascript:void(0)">
-                          <i class="fab fa-facebook-f"></i>
+                      <div className="social text-start">
+                        <a style={{ cursor: "pointer" }}>
+                          <FacebookShareButton
+                            url={`https://investigo-tai.herokuapp.com/${projectDetails?._id}`}
+                            subject="investigoproject"
+                            body="learn from lux gap courses"
+                          >
+                            <i className="fab fa-facebook-f"></i>
+                          </FacebookShareButton>
                         </a>
-                        <a href="javascript:void(0)">
-                          <i class="fab fa-twitter"></i>
+                        <a style={{ cursor: "pointer" }}>
+                          <TwitterShareButton
+                            url={`https://investigo-tai.herokuapp.com/${projectDetails?._id}`}
+                            title="investigoproject"
+                            hashtag="#investigoproject"
+                          >
+                            <i className="fab fa-twitter"></i>
+                          </TwitterShareButton>
                         </a>
-                        <a href="javascript:void(0)">
-                          <i class="fab fa-instagram"></i>
+                        <a style={{ cursor: "pointer" }}>
+                          <TwitterShareButton
+                            url={`https://investigo-tai.herokuapp.com/${projectDetails?._id}`}
+                            title="investigoproject"
+                            hashtag="#investigoproject"
+                          >
+                            <i className="fab fa-instagram"></i>
+                          </TwitterShareButton>
                         </a>
-                        <a href="javascript:void(0)">
-                          <i class="fab fa-linkedin-in"></i>
+                        <a style={{ cursor: "pointer" }}>
+                          <LinkedinShareButton
+                            url={`https://investigo-tai.herokuapp.com/${projectDetails?._id}`}
+                            title="investigoproject"
+                            hashtag="#investigoproject"
+                          >
+                            <i className="fab fa-linkedin-in"></i>
+                          </LinkedinShareButton>
                         </a>
                       </div>
                     </div>
@@ -631,7 +674,7 @@ const ProjectDetails = () => {
                       <hr />
                       <h6>Investment Note</h6>
                       <p>Property Share's Detailed Investment Note</p>
-                      <a href="javascript:void(0)" className="button">
+                      <a style={{ cursor: "pointer" }} className="button">
                         DOWNLOAD INVESTMENT NOTE{" "}
                         <FontAwesomeIcon icon={faDownload} />
                       </a>
@@ -640,7 +683,7 @@ const ProjectDetails = () => {
                         Detailed Report on the Title diligence of the property
                         by Amarchand Mangaldas
                       </p>
-                      <a href="javascript:void(0)" className="button">
+                      <a style={{ cursor: "pointer" }} className="button">
                         DOWNLOAD TITLE REPORT{" "}
                         <FontAwesomeIcon icon={faDownload} />
                       </a>
@@ -774,19 +817,22 @@ const ProjectDetails = () => {
               </div>
               <div className="property__grid__wrapper">
                 <div className="row">
-                  {data.map((project, i) => (
+                  {projects.map((project, i) => (
                     <div className="col-md-6 col-xl-4" key={i}>
                       <div className="property__grid__single column__space--secondary">
                         <div className="img__effect">
-                          <a href="/projectdetails">
-                            <img src={project?.img} alt={project?.title} />
+                          <a href={`/projectdetails/${project?._id}`}>
+                            <img
+                              src={`https://investigo-tai.herokuapp.com/${project?.image}`}
+                              alt={project?.title}
+                            />{" "}
                           </a>
                         </div>
                         <div className="property__grid__single__inner">
                           <h4>{project?.title}</h4>
                           <p>
                             <FontAwesomeIcon icon={faLocationDot} />{" "}
-                            {project?.address}
+                            {project?.location}
                           </p>
                           <div className="progress__type">
                             <div className="progress">
@@ -805,53 +851,36 @@ const ProjectDetails = () => {
                               |
                               <span className="project__has__investors__amount">
                                 <FontAwesomeIcon icon={faDollarSign} />{" "}
-                                {project?.amount}
+                                {numberWithCommas(project?.invested)}
                               </span>{" "}
                               <span className="project__has__investors__percent">
-                                ({project?.percentage})
+                                (
+                                {calcPercentage(
+                                  project?.totalAmount,
+                                  project?.invested
+                                )}
+                                %)
                               </span>
                             </p>
                           </div>
                           <div className="item__info">
                             <div className="item__info__single">
                               <p>Annual Return</p>
-                              <h6>{project?.annualReturn}</h6>
+                              <h6>12-36 %</h6>
                             </div>
                             <div className="item__info__single">
                               <p>Property Type</p>
-                              <h6>Commercial</h6>
+                              <h6>{project?.property}</h6>
                             </div>
                           </div>
                           <div className="invest__cta__wrapper">
-                            <div className="countdown__wrapper">
-                              <p className="secondary">
-                                <FontAwesomeIcon icon={faClock} /> Left to
-                                invest
-                              </p>
-                              <div className="countdown">
-                                <h5>
-                                  <span className="days">100</span>
-                                  <span className="ref">d</span>
-                                  <span className="seperator">:</span>
-                                </h5>
-                                <h5>
-                                  <span className="hours">20</span>
-                                  <span className="ref">h</span>
-                                  <span className="seperator">:</span>
-                                </h5>
-                                <h5>
-                                  <span className="minutes">13</span>
-                                  <span className="ref">m</span>
-                                  <span className="seperator" />
-                                </h5>
-                              </div>
-                            </div>
                             <div className="invest__cta">
                               <a
-                                href="/checkout"
+                                href={`/projectdetails/${project?._id}`}
                                 className="button button--effect"
                               >
-                                Invest Now
+                                Read more
+                                <i className="fa-solid fa-arrow-right-long" />
                               </a>
                             </div>
                           </div>
